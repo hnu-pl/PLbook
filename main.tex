@@ -399,6 +399,7 @@
 \newcommand{\txtbullet}[0]{\ensuremath{\bullet}}
 \newcommand{\txtcircle}[0]{\ensuremath{\circ}}
 
+\newcommand{\VERT}{\ensuremath{\mathop{\!\!\resizebox{1.65ex}{.7em}{\texttt{|}}\!}}}
 
 \title{프로그래밍언어론}
 \author{안기영 \and 손범준}
@@ -610,7 +611,7 @@ syntax를 처리하기 위해서이다. 즉, 자연언어에서는 grammar라고
 지금까지는 자연언어의 맥락에서 나온 용어들이 프로그래밍언어에서는 어떻게
 그 번역이나 활용이 달라졌는지에 대해서 주로 이야기했다. 그런데 사실
 형식언어에서 syntax와 grammar의 관계는 자연언어에서와는 조금 다른 관점에서
-정리할 필요가 있다. 이에 대해서는 곧 이어지는 다음 절에서 좀더 이야기하기로 하자.
+정리할 필요가 있다. 이에 대해서는 이어지는 절에서 좀더 이야기하기로 하자.
 
 \section{형식언어이론에서 Syntax와 Grammar의 관계}
 \label{sec:FormalLangSG}
@@ -634,9 +635,9 @@ $L = \{\, \txtbullet\txtcircle
 사실 기호의 표기상 그 모양이 바둑의 흑돌과 백돌처럼 보이기도 하기 때문에
 편의상 그냥 `흑돌'과 `백돌'이라 부를 뿐이지 전혀 바둑과 관련된 의미를
 부여하려는 것은 아니다. `꽉찬 동그라미'와 `빈 동그라미' 등으로 다르게
-불러도 $L$의 정의는 젼혀 달라질 것이 없다. (더 나아가서,
-\txtbullet과 \txtcircle 대신에 $a$와 $b$ 등으로 서로 구분되는
-다른 어떤 두 기호를 사용하더라도 탐구하려는 형식언어의 본질이 달라지지는 않는다.)
+불러도 $L$의 정의는 젼혀 달라질 것이 없다. (더 나아가,
+\txtbullet,\txtcircle 대신 $a$,$b$ 등으로 서로 구분되는
+다른 어떤 두 기호라도 탐구하려는 형식언어의 본질이 달라지지는 않는다.)
 이 언어에서 올바른 (즉, $L$의 원소인) 문자열의 특징을 설명하자면,\vspace{-1ex}
 \begin{itemize}\tightlist
     \item[-] 가장 왼쪽 기호는 흑돌이고 가장 오른쪽 기호는 백돌이며
@@ -653,10 +654,10 @@ $L = \{\, \txtbullet\txtcircle
 \begin{enumerate}
     \item
     \fbox{\fbox{\fbox{\fbox{\!\txtbullet\!}\,\txtcircle\!}\,\txtbullet\!}\,\txtcircle\!}
-    왼쪽 끝의 흑돌 하나로부터 오른쪽으로 하나씩 이어붙여 나가기
+    왼쪽 끝의 흑돌 하나로부터 오른쪽으로 하나씩 이어붙여서
     \item
     \fbox{\!\txtbullet\,\fbox{\!\txtcircle\,\fbox{\!\txtbullet\,\fbox{\!\txtcircle\!}}}}
-    오른쪽 끝의 백돌 하나로부터 왼쪽으로 하나씩 이어붙여 나가기
+    오른쪽 끝의 백돌 하나로부터 왼쪽으로 하나씩 이어붙여서
     \item
     \fbox{\fbox{\!\fbox{\!\txtbullet\!}\,\txtcircle\!}\,\fbox{\!\fbox{\!\txtbullet\!}\,\txtcircle\!}}
     흑돌 백돌 하나씩의 길이 2인 문자열이 두 번 반복되는 구조로
@@ -715,6 +716,7 @@ $L$의 고유한 성질인 syntax를 표현하는 방식의 하나인 grammar를
 등을 주제로 하는 교재\cite{Sipser2013,Hopcroft2007}를 참고하라.
 
 \section{형식언어의 문법에 따른 문자열 생성}
+\label{sec:GenGrammar}
 형식언어의 문법(grammar)을 형식언어를 다룬다는 점을 강조하여 형식문법(formal grammar)이라
 부르기도 한다. 형식언어이론에서 형식문법을 작성하는 표준적인 방식은 문자열을
 만들어 나가는 과정을 안내하는 생성 규칙을 작성하며 이러한 방식로 문법을
@@ -852,8 +854,8 @@ for tree={fit=tight, l sep-=.7em, l-=.7em}
 \end{forest}
 \subcaption*{syntax tree}
 \end{subfigure}
-\caption{같은 언어에 대한 서로 다른 문법 $G_1$, $G_2$의 정의에 
-         따른 문자열의 유도(derivation) 및
+\caption{같은 언어에 대한 서로 다른 문법 $G_1$, $G_2$에 따른
+         문자열의 유도(derivation) 및
          그에 대응되는 문법나무(syntax tree)
          \label{fig:OneLangTwoGrammar}
          }
@@ -1594,37 +1596,86 @@ $::=$ 기호 및 수학의 집합 관련 기호 등을 활용한 추상문법 �
 \end{figure}
 \end{comment}
 
+
 \section{정규식}
 \label{sec:regex}
-
+\begin{figure}[b]\centering\vspace*{-2ex}
 \begin{align*}
-\textbf{문법구조(syntax)} & &\quad& &\textbf{의미구조(semantics)} & \\
-a \in \Sigma \qquad & &\quad&
-& \llbracket\;\cdot\;\rrbracket ~:~& \mathcal{R}\to 2^\Sigma\\
+\text{문법구조(syntax)\hspace{-5ex}} & &~&
+&\text{의미구조(semantics)\hspace{-7ex}} & \\
+a \in \Sigma \qquad & &~&
+& \llbracket\;\cdot\;\rrbracket ~:~& \mathcal{R}\to 2^{\Sigma^{*}} \\
 r \in \mathcal{R}
-        ::=\;& \varnothing &\quad&
-& \llbracket\,\varnothing\,\rrbracket =\;& \varnothing \\
-       \mid\;& \varepsilon &\quad&
-& \llbracket\,\varepsilon\,\rrbracket =\;& \{\varepsilon\} \\
-       \mid\;& a &\quad&
-& \llbracket\,a\,\rrbracket =\;& \{a\} \\
-       \mid\;& r_1\texttt{|}\,r_2 &\quad&
-& \llbracket r_1\texttt{|}\,r_2 \rrbracket =\;&
+        ::=\;& \varnothing &\text{\small null}&
+& \llbracket\,\varnothing\,\rrbracket \,=\;& \{\,\} \\
+       \mid\;& \varepsilon &\text{\small epsilon}&
+& \llbracket\,\varepsilon\,\rrbracket \,=\;& \{\varepsilon\} \\
+       \mid\;& a &\text{\small symbol}&
+& \llbracket\,a\,\rrbracket \,=\;& \{a\} \\
+       \mid\;& r_1 \VERT r_2 &\text{\small union}&
+& \llbracket\,r_1 \VERT r_2\,\rrbracket \,=\;&
      \llbracket r_1 \rrbracket \cup \llbracket r_2 \rrbracket \\
-       \mid\;& r_1\,r_2 &\quad&
-& \llbracket\,r_1r_2\,\rrbracket =\;&
-     \left\{ x_1x_2 \mid x_1\in\llbracket r_1\rrbracket,\;
-                         x_2\in\llbracket r_2\rrbracket \right\} \\
-       \mid\;& r^{*} &\quad&
-& \llbracket\,r^{*}\,\rrbracket =\;&
+       \mid\;& r_1\,r_2 &\text{\small concat}&
+& \llbracket\,r_1\,r_2\,\rrbracket \,=\;&
+     \left\{\,x_1x_2 \mid x_1\in\llbracket r_1\rrbracket,\;
+                          x_2\in\llbracket r_2\rrbracket \right\} \\
+       \mid\;& r^{*} &\text{\small Kleene star}&
+& \llbracket\,r^{*}\,\rrbracket \,=\;&
      \bigcup_{i\in\mathbb{N}} \llbracket\,r^i\,\rrbracket
+     \quad\text{\small where}~
+     {}_{ \begin{array}{ll} r^0    &\!\!\!\!=\, \varepsilon \\
+                            r^{1+n}&\!\!\!\!=\, r\,r^n  \end{array} }
 \end{align*}
+\vspace*{-3ex}
+\caption{정규식의 문법구조와 의미구조\label{fig:RegexSynSem}}
+\end{figure}
+앞절에서 이론적인 맥락에서와 실용적인 활용을 염두에 둔 두 가지 형태의
+문맥자유언어에 대한 구체적문법의 표기법(그림\;\ref{fig:BNF})을 살펴보았다.
+마찬가지로 정규언어에 대한 정규(표현)식(regular expression, regex)도
+이론적 형태와 실용적 형태가 조금 다르나. 여기서는 이론적인 형태의
+정규식부터 알아보자. 정규식도 (넓은 의미에서) 일종의 프로그래밍언어이므로
+그림\;\ref{fig:RegexSynSem}와 같이 그 문법구조와 의미구조를 정리해 볼 수 있다.
+참고로, $X$의 멱집합 $2^X = \{A\mid A\subset X\}$는 $X$의 모든 부분집합의
+집합을 나타낸다. 앞서 \S\ref{sec:GenGrammar}에서 형식언어를 다루면서
+$\Sigma^{*}$는 알파벳이 $\Sigma$로 삼는 가능한 모든 (유한한 길이의)
+문자열 전체의 집합을 나타낸다고 소개했다. 그렇다면 그 멱집합
+$2^{\Sigma^{*}}$는 $\Sigma$를 알파벳으로 삼는 문자열로 이루어진
+가능한 모든  집합, 즉 알파벳이 $\Sigma$인 모든 형식언어의 집합을 나타낸다.
+그러므로 그림\;\ref{fig:RegexSynSem}의 지시함수(denotation function) 혹은
+의미값함수(semantic evaluation function) $\llbracket\,\cdot\,\rrbracket$는
+정규식($\mathcal{R}$)을 언어($2^{\Sigma^{*}}$)에 대응시킴으로써 정규식의
+의미구조를 규정한다.
 
+그림\;\ref{fig:RegexSynSem}의 문법구조는 추상문법에 해당하며
+구체적문법에는 연산자 우선순위 등에 대한 정보가 추가로 제공되어야 한다.
+정규식에서 연산자 우선순위는 강하게 묶이는 순서대로
+클레이니 별표(Kleene star), 이어붙이기(concatenation), 합집합(union)이며
+산술식과 마찬가지로 괄호로 순서를 강제할 수 있다. 예컨대,
+$r_1\VERT r_2\;{r_3}^*$는 $r_1\VERT(r_2\;({r_3}^*))$와 같은 의미이다.
+정규식의 의미구조를 잘 살펴보면 합집합과 이어붙이기 연산은 결합법칙이
+성립함을 알 수 있다. 즉, $r_1\VERT(r_2\VERT r_3)$는 $(r_1\VERT r_2)r_3$와
+같으며 $r_1(r_2\,r_3)$는 $(r_1\,r_2)r_3$와 같은 뜻이다. 따라서 합집합과
+이어붙이기 연산자의 결합성이 좌결합이든 우결합이든 같은 의미가 되므로
+굳이 따질 필요가 없다. 앞서 산술식의 구체적문법을 설명하며 연산자의
+우선순위(precidence)와 결합성(associativity)에 대해서는 다루었는데
+연산자가 나타나는 위치(fixity)에 대한 용어는 정리하지 않고 넘어왔다.
+여기서 간단히 정리하자면, 피연산자보다 앞(왼쪽)에 오면 전위(prefix)
+뒤(오른쪽)에 오면 후위(postfix)이며 피연산자 사이에 오면 중위(infix)라 한다.
+클레이니 별표는 추상문법에서는 방금 살펴본 바와 같이 보통 위첨자 표기로
+나타내는데, 구체적문법에 따라 정규식을 문자열로 나타내는 경우에는
+\verb/(a|b)*/와 같이 후위로 정의하는 것이 일반적이다.
 
-
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+정규언어는 생성규칙 형태의 정규문법보다는 정규식으로 표현하는
+것이 일반적이다. 왜냐하면 정규언어 활용하며 구체적문법나무나 요약문법나무를
+얻고자 하는 경우는 드물기 때문이다. 프로그래밍언어의 어휘분석 단계에서
+인식한 어휘 혹은 토큰은 그 다음 구문분석 단계에서 더 이상 쪼개지지 않는
+원자적인 기호로 취급된다. 어휘분석 이후로는 어휘나 토큰을 더 작은 단위로
+나누거나 내부의 구조를 따질 일이 사실상 없다는 것이다. 생성규칙 형태의
+정규문법을 사용한다면 정규언어에서 한다면 반복되는 구조를 왼쪽으로 기울어진
+나무구조로 처리할지 오른쪽으로 기울어진 나무구조로 처리할지
+(그림\;\ref{fig:OneLangTwoGrammar}) 불필요한 선택을 강요받는다.
+정규식의 경우 반복은 그냥 클레이니 별표로 표기하면 되므로 대부분의
+정규언어 활용 사례에 적합한 표현 방식이다.
 
 \chapter[프로그래밍언어의 의미구조(Semantics)]{프로그래밍언어의\\의미구조(Semantics)}
 
