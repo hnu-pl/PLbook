@@ -399,7 +399,7 @@
 \newcommand{\txtbullet}[0]{\ensuremath{\bullet}}
 \newcommand{\txtcircle}[0]{\ensuremath{\circ}}
 
-\newcommand{\VERT}{\ensuremath{\mathop{\!\!\resizebox{1.65ex}{.7em}{\texttt{|}}\!}}}
+\newcommand{\VERT}{\ensuremath{\mathop{\!\resizebox{1.65ex}{.7em}{\texttt{|}}\!}}}
 
 \title{프로그래밍언어론}
 \author{안기영 \and 손범준}
@@ -1599,6 +1599,15 @@ $::=$ 기호 및 수학의 집합 관련 기호 등을 활용한 추상문법 �
 
 \section{정규식}
 \label{sec:regex}
+정규언어는 생성규칙 형태의 정규문법보다는 정규식으로 표현하는 것이
+일반적이다. 왜냐하면 정규언어 활용하며 구체적문법나무나 요약문법나무를
+얻고자 하는 경우는 드물기 때문이다. 프로그래밍언어의 어휘분석 단계에서
+인식한 어휘 혹은 토큰은 그 다음 구문분석 단계에서 더 이상 쪼개지지 않는
+원자적인 기호로 취급된다. 어휘분석 이후로는 어휘나 토큰을 더 작은 단위로
+나누거나 내부의 구조를 따질 일이 사실상 없다. 따라서 어휘를 끊어내거나
+문자열을 검색하는 등 대부분의 정규언어 활용 사례에 적합한 표현 방식이
+정규식이다.
+
 \begin{figure}[b]\centering\vspace*{-2ex}
 \begin{align*}
 \text{문법구조(syntax)\hspace{-5ex}} & &~&
@@ -1629,6 +1638,7 @@ r \in \mathcal{R}
 \vspace*{-3ex}
 \caption{정규식의 문법구조와 의미구조\label{fig:RegexSynSem}}
 \end{figure}
+
 앞절에서 이론적인 맥락에서와 실용적인 활용을 염두에 둔 두 가지 형태의
 문맥자유언어에 대한 구체적문법의 표기법(그림\;\ref{fig:BNF})을 살펴보았다.
 마찬가지로 정규언어에 대한 정규(표현)식(regular expression, regex)도
@@ -1637,45 +1647,126 @@ r \in \mathcal{R}
 그림\;\ref{fig:RegexSynSem}와 같이 그 문법구조와 의미구조를 정리해 볼 수 있다.
 참고로, $X$의 멱집합 $2^X = \{A\mid A\subset X\}$는 $X$의 모든 부분집합의
 집합을 나타낸다. 앞서 \S\ref{sec:GenGrammar}에서 형식언어를 다루면서
-$\Sigma^{*}$는 알파벳이 $\Sigma$로 삼는 가능한 모든 (유한한 길이의)
+$\Sigma^{*}$란 알파벳을 $\Sigma$로 삼는 가능한 모든 (유한한 길이의)
 문자열 전체의 집합을 나타낸다고 소개했다. 그렇다면 그 멱집합
 $2^{\Sigma^{*}}$는 $\Sigma$를 알파벳으로 삼는 문자열로 이루어진
-가능한 모든  집합, 즉 알파벳이 $\Sigma$인 모든 형식언어의 집합을 나타낸다.
+가능한 모든 집합, 즉 알파벳이 $\Sigma$인 모든 형식언어의 집합을 나타낸다.
 그러므로 그림\;\ref{fig:RegexSynSem}의 지시함수(denotation function) 혹은
 의미값함수(semantic evaluation function) $\llbracket\,\cdot\,\rrbracket$는
 정규식($\mathcal{R}$)을 언어($2^{\Sigma^{*}}$)에 대응시킴으로써 정규식의
-의미구조를 규정한다.
+의미구조를 규정한다. 마지막의 클레이니 별표를 제외하면 기본적인 집합 표현
+및 합집합 연산을 사용하는 비교적 간단한 정의이다. 다만 조금 의아하게 느낄
+수도 있는 점은 같은 기호가 두 가지 역할을 하고 있다는 것이다.
+정규식 $\varepsilon,a\in\mathcal{R}$ 역할도
+문자열 $\varepsilon,a\in\Sigma^{*}$ 역할도 한다.
+이렇게 한 기호에 여러가지 의미를 과적(overload)하는 것을
+오버로딩(overloading)이라고도 말한다. 프로그래밍언어를 설명할
+때 오버로딩을 나름 신선한 개념인 것처럼 소개하기도 하는데
+사실 수학에서는 너무나 일상화되어서 그걸 굳이 오버로딩이라는
+용어를 써가며 언급하지도 않는다. 이를테면 수학에서 $+$같은
+기호를 얼마나 다양한 의미로 오버로딩하고 있을지 생각해 보라.
 
 그림\;\ref{fig:RegexSynSem}의 문법구조는 추상문법에 해당하며
 구체적문법에는 연산자 우선순위 등에 대한 정보가 추가로 제공되어야 한다.
 정규식에서 연산자 우선순위는 강하게 묶이는 순서대로
 클레이니 별표(Kleene star), 이어붙이기(concatenation), 합집합(union)이며
 산술식과 마찬가지로 괄호로 순서를 강제할 수 있다. 예컨대,
-$r_1\VERT r_2\;{r_3}^*$는 $r_1\VERT(r_2\;({r_3}^*))$와 같은 의미이다.
-정규식의 의미구조를 잘 살펴보면 합집합과 이어붙이기 연산은 결합법칙이
-성립함을 알 수 있다. 즉, $r_1\VERT(r_2\VERT r_3)$는 $(r_1\VERT r_2)r_3$와
-같으며 $r_1(r_2\,r_3)$는 $(r_1\,r_2)r_3$와 같은 뜻이다. 따라서 합집합과
-이어붙이기 연산자의 결합성이 좌결합이든 우결합이든 같은 의미가 되므로
-굳이 따질 필요가 없다. 앞서 산술식의 구체적문법을 설명하며 연산자의
-우선순위(precidence)와 결합성(associativity)에 대해서는 다루었는데
-연산자가 나타나는 위치(fixity)에 대한 용어는 정리하지 않고 넘어왔다.
-여기서 간단히 정리하자면, 피연산자보다 앞(왼쪽)에 오면 전위(prefix)
-뒤(오른쪽)에 오면 후위(postfix)이며 피연산자 사이에 오면 중위(infix)라 한다.
-클레이니 별표는 추상문법에서는 방금 살펴본 바와 같이 보통 위첨자 표기로
-나타내는데, 구체적문법에 따라 정규식을 문자열로 나타내는 경우에는
-\verb/(a|b)*/와 같이 후위로 정의하는 것이 일반적이다.
+$r_1\VERT r_2\,{r_3}^*$는 $r_1\VERT(r_2({r_3}^*))$와 같은 의미이다.
+정규식의 의미구조를 잘 살펴보면 합집합과 이어붙이기 연산에 대한a
+결합법칙이 성립함을 알 수 있다.
+즉, $r_1\VERT(r_2\VERT r_3)$는 $(r_1\VERT r_2)\VERT r_3$와
+같고 $r_1(r_2\,r_3)$는 $(r_1\,r_2)r_3$와 같은 뜻이다.
+좌결합이든 우결합이든 의미가 같으므로 결합성을 굳이 따질 필요가 없다.
+앞서 산술식의 구체적문법을 설명하며 연산자의 우선순위(precedence)와
+결합성(associativity)은 다루었지만 연산자가 나타나는 위치(fixity)에
+대한 용어는 정리하지 않았다. 여기서 간단히 정리하자면, 피연산자보다
+앞(왼쪽)에 오면 전위(prefix) 뒤(오른쪽)에 오면 후위(postfix)이며
+피연산자 사이에 오면 중위(infix)라 한다. 클레이니 별표는 추상문법에서는
+방금 살펴본 바와 같이 보통 위첨자 표기로 나타내는데, 구체적문법에 따라
+정규식을 문자열로 나타내는 경우에는 \verb/(a|b)*/와 같이 후위로
+표기하는 것이 일반적이다.
 
-정규언어는 생성규칙 형태의 정규문법보다는 정규식으로 표현하는
-것이 일반적이다. 왜냐하면 정규언어 활용하며 구체적문법나무나 요약문법나무를
-얻고자 하는 경우는 드물기 때문이다. 프로그래밍언어의 어휘분석 단계에서
-인식한 어휘 혹은 토큰은 그 다음 구문분석 단계에서 더 이상 쪼개지지 않는
-원자적인 기호로 취급된다. 어휘분석 이후로는 어휘나 토큰을 더 작은 단위로
-나누거나 내부의 구조를 따질 일이 사실상 없다는 것이다. 생성규칙 형태의
-정규문법을 사용한다면 정규언어에서 한다면 반복되는 구조를 왼쪽으로 기울어진
-나무구조로 처리할지 오른쪽으로 기울어진 나무구조로 처리할지
-(그림\;\ref{fig:OneLangTwoGrammar}) 불필요한 선택을 강요받는다.
-정규식의 경우 반복은 그냥 클레이니 별표로 표기하면 되므로 대부분의
-정규언어 활용 사례에 적합한 표현 방식이다.
+합집합 연산의 항등원은 $\varnothing$이며
+(즉, $\varnothing \VERT r = r = r \VERT \varnothing\,$)
+이어붙이기 연산의 항등원은 $\varepsilon$이다
+(즉, $\varepsilon\,r = r = r\,\varepsilon\,$).
+따라서 클레이니 별표 연산의 의미구조에 나타나는 $r^0$를
+이어붙이기 연산의 항등원으로 정의하는 것이 자연스럽다.
+왜냐하면 $r^n$은 정규식 $r$을 $n$번 이어붙인 정규식이므로
+0번 이어붙인다는 것은 다시 말하면 이어붙인 결과가
+그대로여야 하는 항등원을 뜻한다. 또한 분배법칙,
+즉, $r\,(r_1 \VERT r_2) = r\,r_1 \VERT r\,r_2$가 성립하므로
+클레이니 스타와 관련된 공식 $r^* = \varepsilon\VERT r\,r^*$를
+아래와 같이 유도할 수 있다. 당연한 이야기지만 짚고 넘어가자면
+의미가 같은 정규식을 같다고 표시한다. 즉,
+$\llbracket r_1 \rrbracket = \llbracket r_2 \rrbracket$일 때
+$r_1 = r_2$라고 쓴다는 말이다.
+$\llbracket r^* \rrbracket
+ = \bigcup_{i\in\mathbb{N}}\llbracket r^i \rrbracket
+ = \llbracket r^0 \rrbracket \cup
+   \llbracket r^1 \rrbracket \cup
+   \llbracket r^2 \rrbracket \cup \cdots
+ = \llbracket r^0\VERT r^1\VERT r^2\VERT \cdots \rrbracket$이므로,
+\vspace*{-1em}
+\begin{align*}
+r^* =~& r^0 \VERT r^1 \VERT r^2 \VERT r^3 \VERT \cdots
+\\  =~& r^0 \VERT r\,(r^0 \VERT r^1 \VERT r^2 \VERT \cdots)
+\\  =~& \varepsilon \VERT r\,r^*
+\end{align*}
+
+몇 가지 간단한 예시로 정규식에 대한 소개를 마무리하고자 한다.
+1, 10, 11, 100, 101, \ldots 같은 이진수 양의 정수 리터럴을
+대표하는 정규식은 어떻게 작성해야 할까? 첫 글자는 1이고
+그 다음에는 0이나 1 중 아무거나 반복해서 나타날 수 있으므로
+$1(0\VERT{}1)^{*}$라고 작성하면 된다. 그렇다면 0까지 포함한
+이진수 자연수 리터럴에 대한 정규식은 방금 작성했던 정규식에
+0을 합집합하여 $0\VERT{}1(0\VERT{}1)^{*}$라고 작성하면 된다.
+마찬가지으로 십진수 양의 정수 리터럴 및 (0포함)
+십진수 자연수 리터럴에 대한 정규식을 다음과 같이 작성할 수 있다.
+\begin{align*}
+(1\VERT 2\VERT 3\VERT 4\VERT 5\VERT 6\VERT 7\VERT 8\VERT 9)
+ (0\VERT 1\VERT 2\VERT 3\VERT 4\VERT 5\VERT 6\VERT 7\VERT 8\VERT 9)^* &
+\\
+0\VERT
+ (1\VERT 2\VERT 3\VERT 4\VERT 5\VERT 6\VERT 7\VERT 8\VERT 9)
+ (0\VERT 1\VERT 2\VERT 3\VERT 4\VERT 5\VERT 6\VERT 7\VERT 8\VERT 9)^* &
+\end{align*}
+이렇듯 다뤄야 하는 기호(혹은 글자)의 종류가 많아지면 이론적인 형태의
+정규식으로 표현이 불가능한 것은 아니지만 상당히 장황해진다.
+실용적인 형태의 정규식에서는 연속된 글자의 구간 표기를 제공하므로
+십진수 양의 정수 및 (0 포함) 자연수 리터럴에 대한 졍규식을
+다음과 같이 간결하게 작성할 수 있다.
+\begin{verbatim}
+          [1-9][0-9]*
+        0|[1-9][0-9]*
+\end{verbatim}
+실용적인 형태의 정규식도 Perl 언어의 정규식(PCRE),
+JavaScript 언어의 정규식 등이 여러 종류가 있다.
+이러한 정규식을 웹브라우저로 접속해 간단히 체험해 볼 수 있는
+\href{https://regexr.com/}{regexr.com}나
+\href{https://regex101.com/}{regex101.com}와 같은 사이트에 접속해
+위에서 예시로 든 정규식 등 다양한 정규식을 작성하며 직접 실험해 보라.
+
+\section*{요점정리}
+\begin{itemize}
+\item 프로그래밍언어의 렉서(lexer)는 일차원적으로 나열된 문자열로부터
+      어휘를 끊어내고 그 종류를 구분한 토큰열을 만들어낸다.
+\item 프로그래밍언어의 파서(parser)는 일차원적으로 나열된
+      토큰(token)을 구체적문법(concrete syntax)에 따라 분석하여
+      구체적문법나무(concrete syntax tree)를 구성하고 이를 요약한
+      요약문법나무(abstract syntax tree, AST)를 만들어낸다.
+\item 구체적문법(concrete syntax)에는 모호함 없이 구체적문법나무를
+      구성하기 위한 연산자 우선순위(precedence), 결합성(associativity),
+      위치(fixity) 및 결합 순서를 강제하는 괄호 등의 내용이 나타나는
+      점이 요약문법(abstract syntax)과 구별되는 특징이다.
+\item 요약문법(abstract syntax)은 요약문법나무(AST)의 구조를 규졍하는
+      문법이며 형식문법의 생성규칙 형태, 수학적 기호를 활용한 형태,
+      구현에 활용하기 위한 데이터 타입 등으로 표현할 수 있다.
+\end{itemize}
+
+
+\section*{연습문제}
+정규식의 구체적 문법을 생성규칙 형태나 BNF로 작성해 보라.
 
 \chapter[프로그래밍언어의 의미구조(Semantics)]{프로그래밍언어의\\의미구조(Semantics)}
 
