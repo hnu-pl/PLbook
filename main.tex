@@ -1,4 +1,6 @@
 \documentclass[b5paper,chapter,figtabcapt]{oblivoir}
+\usepackage{graphicx}
+\graphicspath{{imgs/}}
 \chapterstyle{bianchi}
 \hypersetup{
     %colorlinks=true,
@@ -41,9 +43,9 @@
 
     % Basic figure setup, for now with no caption control since it's done
     % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
-    \usepackage{graphicx}
-    % Maintain compatibility with old templates. Remove in nbconvert 6.0
-    \let\Oldincludegraphics\includegraphics
+    %% \usepackage{graphicx}
+    %% Maintain compatibility with old templates. Remove in nbconvert 6.0
+    %% \let\Oldincludegraphics\includegraphics
     %% % Ensure that by default, figures have no caption (until we provide a
     %% % proper Figure object with a Caption API and a way to capture that
     %% % in the conversion process - todo).
@@ -437,7 +439,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Syntax와 Grammar}
-
+\label{chap:SyntaxGrammar}
 똑같은 한글 글자로 된 우리말 단어를 접하더라도 각자의 배경에 따라
 그 용어를 해석하는 바가 달라진다. `정의'를 영어로 뭐냐고 물어보았을 때
 justice라고 대답하면 문과, definition이라고 대답하면 이과 출신임을
@@ -549,7 +551,7 @@ syntax를 처리하기 위해서이다. 즉, 자연언어에서는 grammar라고
 작은 돌의 배열을 들 수도 있겠다.
 
 \begin{figure}[b]\center
-\includegraphics[scale=0.5]{imgs/RomanAbacusRecon.jpg}
+\includegraphics[scale=0.5]{RomanAbacusRecon.jpg}
 \caption{로마시대 휴대용 주판 (복제품)\label{fig:RomanAbacus}\\
          \quad{\scriptsize (사진 출처: 위키미디어 공용)} }
 \end{figure}
@@ -1022,7 +1024,7 @@ $b$와 $c$를 쌍쌍이 생성하며 개수를 맞추는 오른쪽의 형태로�
 \section{촘스키 계층}
 \begin{figure}\centering
 \begin{subfigure}{.25\textwidth}
-\includegraphics[]{imgs/Chomsky1977.jpg}
+\includegraphics[]{Chomsky1977.jpg}
 \end{subfigure}
 \begin{subfigure}{.6\textwidth}
 \begin{tabular}{lcrl}
@@ -1087,7 +1089,7 @@ $\alpha A\beta\to\alpha\gamma\beta$에서 $\alpha$와 $\beta$ 모두 길이 0인
 정규식에 대해서는 다음 장에서 프로그래밍언어의 어휘분석을 다루면서 설명하겠다.
 
 \begin{figure}[b]\centering
-\includegraphics[scale=0.5]{imgs/ChomskyHierarchy.png}
+\includegraphics[scale=0.5]{ChomskyHierarchy.png}
 \caption{촘스키 계층의 문법에 대응되는 언어 범주의 포함관계
          \label{fig:ChomskyHierarchyLang}\\
          {\scriptsize(이미지 출처: 위키미디어 공용)} }
@@ -1434,9 +1436,9 @@ BNF는 알아보기 쉬운 단어로 비단말을 표현하거나 여러 글자�
 표현도 가능한, 실용적 편의성을 고려된 문맥자유문법의 표기 방식이다.
 
 \begin{figure}\centering
-\includegraphics[scale=0.25]{imgs/JohnBackus.jpg}
+\includegraphics[scale=0.25]{JohnBackus.jpg}
 \qquad\qquad\qquad
-\includegraphics[scale=0.21]{imgs/PeterNaur.jpg}
+\includegraphics[scale=0.21]{PeterNaur.jpg}
 \caption{Fortran 언어의 창시자인 John Backus(1999년 사진, 좌)와\\
          ALGOL 60 언어 개발을 주도한 Peter Naur(2008년 사진, 우)\\
          {\scriptsize(사진 출처: 위키미디어 공용)}\label{fig:BackusNaur}}
@@ -1787,13 +1789,23 @@ JavaScript 언어의 정규식 등이 여러 종류가 있다.
 \section*{연습문제}
 \begin{enumerate}
  \item 정규식의 구체적문법을 생성규칙 형태나 BNF 표현으로 작성해 보라.
+ \item 정규식의 요약문법을 Haskell 데이터 타입으로 작성해 보라.
 \end{enumerate}
 
 
 \chapter[프로그래밍언어의 의미구조(Semantics)]{프로그래밍언어의\\의미구조(Semantics)}
 
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+
+denotational semantics 지시적 의미론
+
+operational semantics 동작방식 의미론
+
+small-step 작은걸음
+big-step 큰걸음
+
+axiomatic semantics 공리적 의미론
+
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
 \newpage
