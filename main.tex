@@ -429,8 +429,10 @@
 참고할 수 있도록 하기 위함이다.
 
 \newpage
-
 \tableofcontents
+
+\newpage
+\listoffigures
 
 \mainmatter
 
@@ -442,8 +444,8 @@
 \label{chap:SyntaxGrammar}
 똑같은 한글 글자로 된 우리말 단어를 접하더라도 각자의 배경에 따라
 그 용어를 해석하는 바가 달라진다. `정의'를 영어로 뭐냐고 물어보았을 때
-justice라고 대답하면 문과, definition이라고 대답하면 이과 출신임을
-알 수 있다는 고전 유머를 한번쯤 들어 보았을 것이다. 참고로, 
+justice라고 대답하면 문과, definition이라고 대답하면 이과 출신이라는
+고전 유머를 한번쯤 들어 보았을 것이다. 참고로,
 justice를 뜻하는 정의(正義)와 definition을 뜻하는 정의(定義)는
 첫글자의 다른 한자인 동음이의어이므로 같은 어원에서 비롯된
 분야에 따라 다른 다양한 의미로 전용되는 다의어는 아니다.
@@ -1576,29 +1578,6 @@ $::=$ 기호 및 수학의 집합 관련 기호 등을 활용한 추상문법 �
 정의하는데, 요약문법은 애초부터 요약문법나무(AST)만을 대상으로
 할 뿐 일차원적 구조를 직접 처리할 수 없는 문법구조이기 때문이다.
 
-\begin{comment}
-\begin{figure}
-\begin{lstlisting}
-    <expr>   ::= [ <expr> ("+"|"-") ] <term>
-    <term>   ::= [ <term> ("*"|"/") ] <factor>
-    <factor> ::= <atom> [ "^" <factor> ]
-    <atom>   ::= <integer> | "(" <expr> ")"
-\end{lstlisting}
-
-\begin{lstlisting}
-    <expr>   ::= { <term>   ("+"|"-") } <term>
-    <term>   ::= { <factor> ("*"|"/") } <factor>
-    <factor> ::= <atom> { "^" <atom> }
-    <atom>   ::= <integer> | "(" <expr> ")"
-\end{lstlisting}
-\caption{옵션($\texttt{[}\ldots\texttt{]}$)과
-         반복($\texttt{\{}\ldots\texttt{\}}$)을
-         활용한 산술식의 EBNF 표현 두 가지
-         \label{fig:EBNF}}
-\end{figure}
-\end{comment}
-
-
 \section{정규식}
 \label{sec:regex}
 정규언어는 생성규칙 형태의 정규문법보다는 정규식으로 표현하는 것이
@@ -1792,6 +1771,48 @@ JavaScript 언어의 정규식 등이 여러 종류가 있다.
  \item 정규식의 요약문법을 Haskell 데이터 타입으로 작성해 보라.
 \end{enumerate}
 
+\section*{탐구과제}
+\begin{enumerate}
+ \item 정규식의 문법을 확장한 EBNF에 대해 알아보라.
+       참고로, 다양한 EBNF에는 표기 방식이 있으며 BNF와 약간 다른
+       표기 방식을 택하는 경우도 있는데, 그림\;\ref{fig:EBNF}는
+       BNF 표기와 최대한 가까운 방식의 EBNF 표기이다.
+ \item 그림\;\ref{fig:EBNF}에는 이 장에서 예시로 다룬 다룬 사칙연산과
+       거듭제곱을 포함한 산술식에 대한 두 가지 ENBF 표현이 나타나 있다.
+       이 두 EBNF 표현이 같다면 어떤 점에서 같고 다르다면 어떤 점에서
+       다른지, 그림\;\ref{fig:BNF}의 BNF와 비교하며 설명해 보라.
+ \item 4단계의 촘스키 계층에 추가로 더 상세한 성질로 구분되는 언어의
+      유형도 있다. 어떤 공통된 기준으로 재귀열거언어언어(recursively
+      enumerable language)의 일부를 재귀언어(recursive language)로,
+      또 문맥자유언어(context-free language, CFL)의 일부를 결정적
+      문맥자유언어(deterministic context-free language, DCFL)로 구분한다.
+      그 공통된 기준이란 어떤 내용인지 알아보라.
+ \item 방금 위에서 언급한 결정적 문맥자유언어(DCFL)와 이 장에서 설명한
+       모호하지 않은 문맥자유언어(unambiguous CFL)의 관계를 알아보라.
+\end{enumerate}
+
+
+\begin{figure}[b]
+\begin{lstlisting}
+    <expr>   ::= [ <expr> ("+"|"-") ] <term>
+    <term>   ::= [ <term> ("*"|"/") ] <factor>
+    <factor> ::= <atom> [ "^" <factor> ]
+    <atom>   ::= <integer> | "(" <expr> ")"
+\end{lstlisting}
+
+\begin{lstlisting}
+    <expr>   ::= { <term>   ("+"|"-") } <term>
+    <term>   ::= { <factor> ("*"|"/") } <factor>
+    <factor> ::= <atom> { "^" <atom> }
+    <atom>   ::= <integer> | "(" <expr> ")"
+\end{lstlisting}
+\caption{옵션($\texttt{[}\ldots\texttt{]}$)과
+         반복($\texttt{\{}\ldots\texttt{\}}$)을
+         활용한 산술식의 EBNF 표현 두 가지
+         \label{fig:EBNF}}
+\end{figure}
+
+
 
 \chapter[프로그래밍언어의 의미구조(Semantics)]{프로그래밍언어의\\의미구조(Semantics)}
 
@@ -1822,10 +1843,83 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 지시적 의미구조는 실용적 응용보다는 가장 원론적인 의미구조를 정의함으로써
 의미구조 자체의 존재가능성을 비롯한 대상 언어의 이론적 성질을 탐구하기 위한
 목적으로 정의하는 경우가 많다. 앞서 살펴본 정규식의 지시적 의미구조도
-문자열의 집합이라는 가장 원론적인 형식언어이론에 TODO
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+문자열의 집합이라는 가장 원론적인 형식언어이론에 바탕을 둔 정의이다.
+이러한 의미구조의 장점은 이미 그 성질이 명확히 규명되어 있는 수학적 대상을
+활용하므로 이론적 성질의 탐구에 적합하다는 것이다. 예를 들면
+정규식에서 \VERT 연산자의 의미가 $ \llbracket r_1\VERT r_2\rrbracket
+= \llbracket r_1\rrbracket\cup\llbracket r_2\rrbracket$로 정의되고,
+집합론에서 합집합은 교환법칙과 결합볍칙이 성립함이 잘 알려져 있으므로
+정규식의 \VERT 연산도 자연히 교환법칙과 결합법칙이 성립할 수 밖에 없다.
+하지만 이런 의미구조는 컴퓨터에 그대로 옮겨 실행하는 등의 실용적 용도에는
+잘 맞지 않는다. 그림\;\ref{fig:RegexSynSem}에 나타난 정규식의
+클레이니 별표 연산의 의미구조 정의에 따르면 $r^*$의 의미가 무한집합에
+대응될 수 있으므로 이를 그대로 컴퓨터로 옮기는 것은 적합하지 않다.
+
+\begin{figure}
+\begin{align*}
+\llbracket\,\cdot\,\rrbracket
+ ~:~& \mathcal{R} \to (\Sigma^* \to \textbf{Bool})
+\\
+\llbracket \varnothing \rrbracket(x)   &~=~ \text{False} \\
+\llbracket\,\varepsilon\,\rrbracket(x) &~=~ x=\varepsilon \\
+\llbracket\,a\,\rrbracket(x)           &~=~ x=a \\
+\llbracket r_1 \VERT r_2 \rrbracket(x) &~=~
+ \llbracket r_1\rrbracket(x) \lor \llbracket r_2\rrbracket(x)\\
+\llbracket\,r_1 \, r_2\,\rrbracket(x) &~=~
+  \exists\,x_1\,x_2 \;\text{such that}\; x=x_1x_2,~
+  \llbracket r_1\rrbracket(x_1) \land \llbracket r_2\rrbracket(x_2)
+  = \text{True} \\
+\llbracket\, r^* \,\rrbracket(x) &~=~
+ \llbracket\,\varepsilon\,\VERT\,r\,r^*\,\rrbracket(x)
+\end{align*}
+\caption{정규식을 문자열 판별함수에 대응시키는
+         지시적 의미구조\label{fig:RegexDenoSem}}
+\end{figure}
+
+한편, 필요에 따라 실용적 활용에 더 적합한 지시적 의미구조를
+정의할 수도 있다. 그림\;\ref{fig:RegexDenoSem}은 정규식에 대한
+또다른 지시적 의미구조로 이번에는 정규식의 의미를 문자열의 집합이
+아닌 문자열을 판별하는 함수에 대응시킴으로써 정의하고 있다. 기본적인
+세 종류의 정규식의 경우, 널($\varnothing$)은 무조건 거짓인 상수함수,
+엡실론($\varepsilon$)은 입력 문자열이 $\varepsilon$일 때만 참인 함수,
+알파뱃 심볼($a$)은 입력 문자열이 지정된 심볼일 때만 참인 함수로 그
+의미가 정의된다. 정규식 연산을 사용한 복합적 정규식의 의미는
+그 부분을 구셩하는 정규식의 의미에 대응되는 함수를 이용해 정의된다.
+$r_1\VERT r_2$의 의미는 입력 문자열이 $r_1$이나 $r_2$ 의미에 대응되는
+판별함수 둘 중 어느 것 하나라도 만족하면 참인 함수로 정의된다.
+$r_1\,r_2$의 의미는 입력을 적절히 두 부분으로 잘라 앞부분을 $r_1$의
+판별함수에 뒷부분을 $r_2$의 판별함수에 적용했을 때 그 둘 모두를
+만족하는 경우에 참인 함수로 정의된다. 클레이니 별표 연산으로
+이루어진 정규식은 앞서 \S\ref{sec:regex}에서 설명한 공식
+$r^* = \varepsilon\VERT rr^*$를 이용해 정의된다.
+
+그림\;\ref{fig:RegexDenoSem}의 의미구조는 컴퓨터 프로그램으로 그리
+어렵지 않게 옮길 수 있다. 다른 부분은 의미구조 정의를 거의 그대로
+옮기면 되고, 이이붙이기 연산으로 이루어진 $r_1\,r_2$의 의미구조에서
+입력 $x$를 ``적절히'' $x_1$과 $x_2$로 자르는 부분만 약간 생각이 필요하다.
+효율을 고려하지 않는다면 단순무식하게 모든 경우를 시도해 보면 된다.
+예컨대, 세 개의 심볼로 이루어진 입력 문자열 $abc$를 두 부분으로 자르는
+모든 경우의 수는 $\varepsilon$과 $abc$, $a$와 $bc$, $ab$와 $c$, $abc$와
+$\varepsilon$ 이렇게 넷이다. 그 중 어느 하나라도
+$\llbracket r_1\rrbracket(x_1) \land \llbracket r_2\rrbracket(x_2)$를
+만족하면 참으로, 즉 문자열 $abc$가 정규식 $r_1\,r_2$를 만족한다고
+판별하도록 프로그래밍하면 된다.
+
+TODO
+유한오토마타(finite automata, FA) 혹은
+유한상태기계(finite state machine, FSM) 이론적인 기계 혹은 가상머신
+
+이 절에서 지금까지 살펴본 바와 같이 하나의 대상 언어에 지시적 의미구조를
+여러가지로 정의하는 것이 가능하며 또 유용하다. 다만 이런 의미구조들끼리
+서로 호환되는지, 기준으로 삼을 만한 가장 원론적인 의미구조와 비교해
+어긋나는 부분은 없는지 물샐틈없이 엄밀하게 논리적으로 증명할 필요성이 있다.
+활용 목적에 따라 편리한 대로만 정의한다면 모양새 혹은
+문법구조만 같을 뿐 의미가 호환되지 않아 실제로는 다른 언어를 표현하면서도
+서로 같은 언어를 다룬다고 착각하게 될지도 모르기 때문이다. 이 책의 내용을
+엄밀한 이론적 기술을 강조하는 방향으로 구성하지 않았으므로 그런 증명까지
+다루지 않겠지만 확실하게 짚고 넘어가야 하는 중요한 사안이라는 점에 대해서는
+재차 강조하고 싶다. % TOOD 프로그래밍 언어 관련 원서 등 소개?
+
 
 \section{동작방식 의미구조}
 동작방식 의미구조(operational semantics)
@@ -1834,7 +1928,43 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
 \section{공리적 의미구조}
-공리적 의미구조(axiomatic semantics)
+공리적 의미구조(axiomatic semantics)에 대해서는 이 책에서는 많이
+다루지 않으므로 간략히 개념만 설명하고 넘어가겠다. 그렇다고 해서
+그다지 중요하지 않은 프로그래밍언어의 의미구조 표현 방식이라는 뜻은
+결코 아니다. 어떤 관점에서는 공리적 의미구조야말로 지금까지 실용적
+활용 사례가 가장 많은\footnote{단적으로, NASA에서도 활용한다. \url{https://ti.arc.nasa.gov/tech/rse/publications/vnv/}}
+의미구조의 표현 방식이라 볼 수도 있다. 역사적으로도
+공리적 의미구조의 기원이 되는 이론인 호어 논리(Hoare logic)\cite{Hoare69}의
+발표와 함께 프로그램 검증(program verification) 분야가 본격적으로
+시작하였다\cite{GSLeeHJKim20Hoare}고 보기 때문이다.
+
+프로그램 검증을 통해 일반적인 검사(testing) 방식의 한계를 극복할 수 있다.
+비유하자면 개미는 모두 검다는 성질을 확인하기 위해 10000마리의 개미를
+확인해 보니 모두 검은 개미였다 할지라도 10001번째 잡은 개미가 붉은
+개미일 수 있듯, 프로그램이 어떤 성질을 만족한다는 사례를 뒷받침하는
+10000개의 테스트를 통과했더라도 또 다른 10001번째 입력으로 실행했을
+때도 만족할 것이라는 보장이 없다는 것이 일반적인 검사 방식의 근본적인
+한계이다. 프로그램을 실제로 실행하여 구체적인 입력 사례와 결과값을
+확인하는 일반적인 검사 방식과 달리, 프로그램을 직접 실행하지 않고
+그 설계도인 소스코드로부터 수학에서의 증명처럼 모든 가능한 경우에
+대해 프로그램이 원하는 성질을 만족함을 보이는 것을 `프로그램 검증'이라
+한다. 여기서 ``원하는 성질''이 어떤 내용인지 분명하고 자세하면서도
+정확하게 표현하기 위해 고안된 형식논리(formal logic) 체계가 바로
+호어 논리(Hoare logic)이다. 참고로, 프로그램이 의도한 바대로
+동작하기 원하는 성질을 분명하고 자세히 표현했다는 뜻에서
+그러한 내용을 프로그램의 `명세'(specification)라고도 부른다.
+정리하면, 프로그램이 항상 그 명세(specification)대로 동작할 것임을
+소스코드로부터 입증하는 것이 프로그램 검증(program verification)이다.
+
+프로그램을 그 전제조건(precondition) 사후조건(postcondition)
+호어 트리플(Hoare triple)
+ {P} C {Q}
+역사적으로 프로그램
+검증(program verification)을
+
+
+% https://formal.hknu.ac.kr/Publi/hoare.pdf
+
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
