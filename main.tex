@@ -972,7 +972,7 @@ $L = \{\, \txtbullet\txtcircle
 하나($G'$)는 모호했다. 그렇다면 이 언어는 태생적으로(inherently) 모호하지는 않다.
 문법을 신경써서 잘 정의하면 모호하지 않은 문법으로 언어 $L$을 표현할 수 있기 때문이다.
 한편, 언어 자체가 태생적으로 모호해서 아무리 노력해도 모호하지 않은 문법을
-작성할 수 없는, 즉, 어떤 언어 $L$에 대해 $L = \mathcal{L}(G)$를 만족하는
+작성할 수 없는, 즉 어떤 언어 $L$에 대해 $L = \mathcal{L}(G)$를 만족하는
 모호하지 않은 문법 $G$가 존재하지 않는 경우도 있다. 그런 언어는
 (태생적으로, inherently) 모호하다고 말한다. 다음은 잘 알려진 모호한
 (문맥자유)언어의 사례이다.
@@ -1152,7 +1152,7 @@ for tree={fit=tight, l sep-=.5em, inner sep=0, l=0}
     확장된 문자열($\beta$)로 치환해 나가는 과정을 단말 기호로만 이루어진
     문자열이 생성되기까지 반복한다.
     \item 문법 $G$가 언어 $L$을 표현한다는 것은 문법에 따라 생성 가능한 모든
-    문자열의 집합이 주어진 언어와 일치, 즉, $\mathcal{L}(G) = L$임을 뜻한다.
+    문자열의 집합이 주어진 언어와 일치, 즉 $\mathcal{L}(G) = L$임을 뜻한다.
     일반적으로 하나의 언어를 표현하는 문법은 여러가지로 작성 가능하다.
     \item 문자열 유도(derivation) 과정의 순차적 나열 대신
     문법나무(syntax tree)의 형태로 표현하면 중복된 표기가 줄어들어
@@ -1696,8 +1696,8 @@ $r_1\VERT r_2\,{r_3}^*$는 $r_1\VERT(r_2({r_3}^*))$와 같은 의미이다.
 이어붙이기 연산의 항등원으로 정의하는 것이 자연스럽다.
 왜냐하면 $r^n$은 정규식 $r$을 $n$번 이어붙인 정규식이므로
 0번 이어붙인다는 것은 다시 말하면 이어붙인 결과가
-그대로여야 하는 항등원을 뜻한다. 또한 분배법칙,
-즉, $r\,(r_1 \VERT r_2) = r\,r_1 \VERT r\,r_2$가 성립하므로
+그대로여야 하는 항등원을 뜻한다. 또한 분배법칙
+$r\,(r_1 \VERT r_2) = r\,r_1 \VERT r\,r_2$가 성립하므로
 클레이니 스타와 관련된 공식 $r^* = \varepsilon\VERT r\,r^*$를
 아래와 같이 유도할 수 있다. 당연한 이야기지만 짚고 넘어가자면
 의미가 같은 정규식을 같다고 표시한다. 즉,
@@ -1797,29 +1797,47 @@ JavaScript 언어의 정규식 등이 여러 종류가 있다.
 
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
-denotational semantics 지시적 의미론
+지시적 의미구조(denotational semantics)
 
-operational semantics 동작방식 의미론
+동작방식 의미구조(operational semantics)
 
-small-step 작은걸음
-big-step 큰걸음
+작은걸음(small-step) 큰걸음(big-step)
 
-axiomatic semantics 공리적 의미론
+axiomatic semantics 공리적 의미구조
 
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
 \newpage
 
-\section{첫째절 제목}
+\section{지시적 의미구조}
+지시적 의미구조(denotational semantics)는 프로그램의 의미를 수학적 구조에
+대응시키는 방식으로 정의한 의미구조를 일컫는다. 앞서 \S\ref{sec:regex}에서
+각각의 정규식을 언어, 즉 문자열의 `집합'에 대응시킴으로써 정의한 
+의미구조(그림\;\ref{fig:RegexSynSem})가 바로 전형적인 지시적 의미구조를
+정의하는 방식이다. 이미 정규식을 다루며 소개한 바와 같이 지시적 의미구조에서
+대상이 되는 언어의 개체를 수학적 구조에 대응시키는 함수를 지시함수(denotation function)
+또는 의미값함수(semantic evaluation function)라 부르며 의미구조 괄호(semantic bracket),
+즉 $\llbracket\cdot\rrbracket$로 표기한다.
+
+지시적 의미구조는 실용적 응용보다는 가장 원론적인 의미구조를 정의함으로써
+의미구조 자체의 존재가능성을 비롯한 대상 언어의 이론적 성질을 탐구하기 위한
+목적으로 정의하는 경우가 많다. 앞서 살펴본 정규식의 지시적 의미구조도
+문자열의 집합이라는 가장 원론적인 형식언어이론에 TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
-\section{둘째절 제목}
+\section{동작방식 의미구조}
+동작방식 의미구조(operational semantics)
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
+\section{공리적 의미구조}
+공리적 의미구조(axiomatic semantics)
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
 \part{파트}
 
