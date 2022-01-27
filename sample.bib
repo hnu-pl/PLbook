@@ -1,3 +1,63 @@
+@inbook{lex1990,
+author = {Lesk, M. E. and Schmidt, E.},
+title = {Lex—a Lexical Analyzer Generator},
+year = {1990},
+isbn = {0030475295},
+publisher = {W. B. Saunders Company},
+address = {USA},
+booktitle = {UNIX Vol. II: Research System (10th Ed.)},
+pages = {375–387},
+numpages = {13}
+}
+
+@book{PFPL2nd,
+author = {Robert Harper},
+title = {Practical Foundations for Programming Languages},
+edition = 2,
+year = 2016,
+month = 4,
+isbn = 9781107150300,
+publisher = {Cambridge University Press},
+}
+
+@book{Saussure1916,
+editor = {Charles Bally and Albert Sechehaye},
+author = {Ferdinand de Saussure},
+title = {Cours de linguistique générale},
+year = 1916,
+}
+
+@inproceedings{OHearnReynoldsYang01,
+author = {O'Hearn, Peter W. and Reynolds, John C. and Yang, Hongseok},
+title = {Local Reasoning about Programs That Alter Data Structures},
+year = {2001},
+isbn = {3540425543},
+publisher = {Springer-Verlag},
+address = {Berlin, Heidelberg},
+abstract = {We describe an extension of Hoare's logic for reasoning about programs that alter data structures. We consider a low-level storage model based on a heap with associated lookup, update, allocation and deallocation operations, and unrestricted address arithmetic. The assertion language is based on a possible worlds model of the logic of bunched implications, and includes spatial conjunction and implication connectives alongside those of classical logic. Heap operations are axiomatized using what we call the "small axioms", each of which mentions only those cells accessed by a particular command. Through these and a number of examples we show that the formalism supports local reasoning: A specification and proof can concentrate on only those cells in memory that a program accesses.This paper builds on earlier work by Burstall, Reynolds, Ishtiaq and O'Hearn on reasoning about data structures.},
+booktitle = {Proceedings of the 15th International Workshop on Computer Science Logic},
+pages = {1–19},
+numpages = {19},
+series = {CSL '01}
+}
+
+@inproceedings{IshtiaqOHearn01,
+author = {Ishtiaq, Samin S. and O'Hearn, Peter W.},
+title = {BI as an Assertion Language for Mutable Data Structures},
+year = {2001},
+isbn = {1581133367},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/360204.375719},
+doi = {10.1145/360204.375719},
+abstract = {Reynolds has developed a logic for reasoning about mutable data structures in which the pre- and postconditions are written in an intuitionistic logic enriched with a spatial form of conjunction. We investigate the approach from the point of view of the logic BI of bunched implications of O'Hearnand Pym. We begin by giving a model in which the law of the excluded middleholds, thus showing that the approach is compatible with classical logic. The relationship between the intuitionistic and classical versions of the system is established by a translation, analogous to a translation from intuitionistic logic into the modal logic S4. We also consider the question of completeness of the axioms. BI's spatial implication is used to express weakest preconditions for object-component assignments, and an axiom for allocating a cons cell is shown to be complete under an interpretation of triplesthat allows a command to be applied to states with dangling pointers. We make this latter a feature, by incorporating an operation, and axiom, for disposing of memory. Finally, we describe a local character enjoyed by specifications in the logic, and show how this enables a class of frame axioms, which say what parts of the heap don't change, to be inferred automatically.},
+booktitle = {Proceedings of the 28th ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages},
+pages = {14–26},
+numpages = {13},
+location = {London, United Kingdom},
+series = {POPL '01}
+}
+
 @article{GSLeeHJKim20Hoare,
 author = {Gyesik Lee and Hwajeong Kim},
 journal = {Journal of Knowledge Information Technology and Systems},
@@ -6,8 +66,9 @@ volume = 15,
 number = 2,
 pages = {195-193},
 year = 2020,
-month = {apr},
+month = apr,
 doi = {10.34163/jkits.2020.15.2.004},
+url = {https://formal.hknu.ac.kr/Publi/hoare.pdf},
 }
 
 @article{Hoare69,
@@ -24,7 +85,7 @@ url = {https://doi.org/10.1145/363235.363259},
 doi = {10.1145/363235.363259},
 abstract = {In this paper an attempt is made to explore the logical foundations of computer programming by use of techniques which were first applied in the study of geometry and have later been extended to other branches of mathematics. This involves the elucidation of sets of axioms and rules of inference which can be used in proofs of the properties of computer programs. Examples are given of such axioms and rules, and a formal proof of a simple theorem is displayed. Finally, it is argued that important advantage, both theoretical and practical, may follow from a pursuance of these topics.},
 journal = {Commun. ACM},
-month = {oct},
+month = oct,
 pages = {576–580},
 numpages = {5},
 keywords = {programming language design, formal language definition, axiomatic method, theory of programming' proofs of programs, program documentation, machine-independent programming}

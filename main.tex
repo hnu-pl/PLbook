@@ -2,6 +2,7 @@
 \usepackage{graphicx}
 \graphicspath{{imgs/}}
 \chapterstyle{bianchi}
+\renewcommand{\chaptitlefont}{\normalfont\huge\bfseries}
 \hypersetup{
     %colorlinks=true,
     %linkcolor=blue,
@@ -17,6 +18,7 @@
 \addbibresource{sample.bib}
 \usepackage{stmaryrd}
 \usepackage{mathtools}
+\usepackage{semantic}
 \usepackage[linguistics]{forest}
 \usepackage[hang]{caption}
 \usepackage{subcaption}
@@ -752,10 +754,10 @@ $G = \langle\, \Sigma, N, S, R \,\rangle$의 네 가지 요소는 다음과 같�
 문자열을 구성하는 바탕이 되는 기호의 집합을 알파벳(alphabet)이라 부른다.
 최종 문자열의 알파벳은 단말 기호 집합($\Sigma$)이며 확장된 문자열의 알파벳은
 단말과 비단말 기호의 합집합($\Sigma\cup N$)이다. 참고로 알파벳이 $X$인
-모든 문자열의 집합을 $X^*$라 표기한다. 이를테면
+모든 문자열의 집합을 $X^{*}$라 표기한다. 이를테면
 $x$가 단말 기호를 알파벳으로 삼는 문자열이고
 $\alpha$가 단말과 비단말 모두를 알파벳으로 삼는 문자열이라는
-설명 대신 $x\in\Sigma^*$이고 $\alpha\in(\Sigma\cup N)^*$라고 쓰면 된다.
+설명 대신 $x\in\Sigma^{*}$이고 $\alpha\in(\Sigma\cup N)^{*}$라고 쓰면 된다.
 
 문법에서 가장 핵심적인 내용은 $\alpha\to\beta$ 형태의 생성 규칙(production rule)이다.
 여기서 $\alpha$와 $\beta$는  $\Sigma\cup N$을 알파벳으로 하는 확장된 문자열인데,
@@ -767,7 +769,7 @@ $\alpha$가 단말과 비단말 모두를 알파벳으로 삼는 문자열이라
 반복한다. 여러 생성 규칙의 화살표 왼쪽이 일치하는 경우에는 어떤 것을 선택해도 된다.
 치환 결과로 나온 문자열 $x$가 비단말 없이 단말 기호로만 이루졌다면
 성공적으로 문자열을 유도(derviation)한 것이며
-$S\xRightarrow[\,G]{} \cdots \xRightarrow[\,G]{} x$ (단, $x\in\Sigma^*$)와 같이 표현한다.
+$S\xRightarrow[\,G]{} \cdots \xRightarrow[\,G]{} x$ (단, $x\in\Sigma^{*}$)와 같이 표현한다.
 만일 화살표의 왼쪽이 일치하는 생성 규칙을 $R$에서 찾을 수 없다면
 최종 문자열 유도에 실패한 상황으로 생성 과정을 더 이상 진행할 수 없게 된다.
 이렇게 문법 $G$의 생성 규칙에 따라 생성 가능한 모든 최종 문자열의 집합을
@@ -1040,7 +1042,7 @@ Type-3\!\!\!\!\!\!&(정규)    &\!\!\!\!\!\!문법:& $A\to a$, $A\to bB$
 \\    \!\!\!\!\!\!&$^{\text{regular}}$&
 \end{tabular}
 \begin{center}
-\quad$a,b\in \Sigma$,\quad$A,B\in N$,\quad$\alpha,\beta,\gamma\in(\Sigma\cup N)^*$
+\quad$a,b\in \Sigma$,\quad$A,B\in N$,\quad$\alpha,\beta,\gamma\in(\Sigma\cup N)^{*}$
 \end{center}
 \end{subfigure}
 \caption{촘스키의 1977년 사진 및 촘스키 계층별 문법의 생성규칙 형태
@@ -1510,7 +1512,7 @@ E  \to ~& E ~\texttt{+}~ E
 \hfill
 \begin{subfigure}[b]{0.3\textwidth}\addtolength{\jot}{-.2em}
 \begin{align*}
-n\in \mathbb{Z} \qquad~~& \\
+n\in \mathbb{Z} \qquad\;& \\
 e\in E ~
    ::= ~& e ~\texttt{+}~ e
 \\ \mid~& e ~\texttt{-}~ e
@@ -1652,7 +1654,7 @@ $2^{\Sigma^{*}}$는 $\Sigma$를 알파벳으로 삼는 문자열로 이루어진
 정규식에서 연산자 우선순위는 강하게 묶이는 순서대로
 클레이니 별표(Kleene star), 이어붙이기(concatenation), 합집합(union)이며
 산술식과 마찬가지로 괄호로 순서를 강제할 수 있다. 예컨대,
-$r_1\VERT r_2\,{r_3}^*$는 $r_1\VERT(r_2({r_3}^*))$와 같은 의미이다.
+$r_1\VERT r_2\,{r_3}^{*}$는 $r_1\VERT(r_2({r_3}^{*}))$와 같은 의미이다.
 정규식의 의미구조를 잘 살펴보면 합집합과 이어붙이기 연산에 대한a
 결합법칙이 성립함을 알 수 있다.
 즉, $r_1\VERT(r_2\VERT r_3)$는 $(r_1\VERT r_2)\VERT r_3$와
@@ -1677,12 +1679,12 @@ $r_1\VERT r_2\,{r_3}^*$는 $r_1\VERT(r_2({r_3}^*))$와 같은 의미이다.
 0번 이어붙인다는 것은 다시 말하면 이어붙인 결과가
 그대로여야 하는 항등원을 뜻한다. 또한 분배법칙
 $r\,(r_1 \VERT r_2) = r\,r_1 \VERT r\,r_2$가 성립하므로
-클레이니 스타와 관련된 공식 $r^* = \varepsilon\VERT r\,r^*$를
+클레이니 스타와 관련된 공식 $r^{*} = \varepsilon\VERT r\,r^{*}$를
 아래와 같이 유도할 수 있다. 당연한 이야기지만 짚고 넘어가자면
 의미가 같은 정규식을 같다고 표시한다. 즉,
 $\llbracket r_1 \rrbracket = \llbracket r_2 \rrbracket$일 때
 $r_1 = r_2$라고 쓴다는 말이다.
-$\llbracket r^* \rrbracket
+$\llbracket r^{*} \rrbracket
  = \bigcup_{i\in\mathbb{N}}\llbracket r^i \rrbracket
  = \llbracket r^0 \rrbracket \cup
    \llbracket r^1 \rrbracket \cup
@@ -1690,9 +1692,9 @@ $\llbracket r^* \rrbracket
  = \llbracket r^0\VERT r^1\VERT r^2\VERT \cdots \rrbracket$이므로,
 \vspace*{-1em}
 \begin{align*}
-r^* =~& r^0 \VERT r^1 \VERT r^2 \VERT r^3 \VERT \cdots
+r^{*} =~& r^0 \VERT r^1 \VERT r^2 \VERT r^3 \VERT \cdots
 \\  =~& r^0 \VERT r\,(r^0 \VERT r^1 \VERT r^2 \VERT \cdots)
-\\  =~& \varepsilon \VERT r\,r^*
+\\  =~& \varepsilon \VERT r\,r^{*}
 \end{align*}
 
 몇 가지 간단한 예시로 정규식에 대한 소개를 마무리하고자 한다.
@@ -1706,11 +1708,11 @@ $1(0\VERT{}1)^{*}$라고 작성하면 된다. 그렇다면 0까지 포함한
 십진수 자연수 리터럴에 대한 정규식을 다음과 같이 작성할 수 있다.
 \begin{align*}
 (1\VERT 2\VERT 3\VERT 4\VERT 5\VERT 6\VERT 7\VERT 8\VERT 9)
- (0\VERT 1\VERT 2\VERT 3\VERT 4\VERT 5\VERT 6\VERT 7\VERT 8\VERT 9)^* &
+ (0\VERT 1\VERT 2\VERT 3\VERT 4\VERT 5\VERT 6\VERT 7\VERT 8\VERT 9)^{*} &
 \\
 0\VERT
  (1\VERT 2\VERT 3\VERT 4\VERT 5\VERT 6\VERT 7\VERT 8\VERT 9)
- (0\VERT 1\VERT 2\VERT 3\VERT 4\VERT 5\VERT 6\VERT 7\VERT 8\VERT 9)^* &
+ (0\VERT 1\VERT 2\VERT 3\VERT 4\VERT 5\VERT 6\VERT 7\VERT 8\VERT 9)^{*} &
 \end{align*}
 이렇듯 다뤄야 하는 기호(혹은 글자)의 종류가 많아지면 이론적인 형태의
 정규식으로 표현이 불가능한 것은 아니지만 상당히 장황해진다.
@@ -1722,7 +1724,7 @@ $1(0\VERT{}1)^{*}$라고 작성하면 된다. 그렇다면 0까지 포함한
         0|[1-9][0-9]*
 \end{verbatim}
 실용적인 형태의 정규식도 Perl 언어의 정규식(PCRE),
-JavaScript 언어의 정규식 등이 여러 종류가 있다.
+JavaScript 언어의 정규식 등 여러 종류가 있다.
 이러한 정규식을 웹브라우저로 접속해 간단히 체험해 볼 수 있는
 \href{https://regexr.com/}{regexr.com}나
 \href{https://regex101.com/}{regex101.com}와 같은 사이트에 접속해
@@ -1753,7 +1755,7 @@ JavaScript 언어의 정규식 등이 여러 종류가 있다.
       빈 문자열만으로 이루어진 집합을 나타내는 엡실론($\varepsilon$),
       지정된 기호 하나만으로 이루어진 집합을 나타내는 알파벳 심볼($a$),
       이렇게 세 종류의 기본적인 정규식을 바탕으로, 합집합($\,r_1 \VERT r_2$),
-      이어붙이기($\,r_1\,r_2$), 그리고 반복을 의미하는 클레이니 별표($\,r^*$) 연산을
+      이어붙이기($\,r_1\,r_2$), 그리고 반복을 의미하는 클레이니 별표($\,r^{*}$) 연산을
       통해 복합적인 정규식을 구성한다.
 \item 정규식의 $\varnothing$, $\varepsilon$, 합집합, 이어붙이기는 마치 자연수에서
       0, 1, 덧셈, 곱셈과 비슷한 면이 있다. $\varnothing$과 $\varepsilon$은
@@ -1816,17 +1818,16 @@ JavaScript 언어의 정규식 등이 여러 종류가 있다.
 
 \chapter[프로그래밍언어의 의미구조(Semantics)]{프로그래밍언어의\\의미구조(Semantics)}
 
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-
-지시적 의미구조(denotational semantics)
-
-동작방식 의미구조(operational semantics)
-
-작은걸음(small-step) 큰걸음(big-step)
-
-axiomatic semantics 공리적 의미구조
-
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+프로그래밍 언어의 의미구조를 다루는 여러가지 방식 중에 대표적인
+세 가지는 지시적 의미구조(denotational semantics),
+동작방식 의미구조(operational semantics),
+공리적 의미구조(axiomatic semantics)이다.
+지시적 의미구조와 동작방식 의미구조에 대해서는 정규식을 대상 언어로 하는
+서로 다른 방식으로 정의된 여러가지 의미구조를 비교하며 설명하고,
+공리적 의미구조에 대해서는 개념과 그 활용 분야에 대해서만 간단히 소개한다.
+또한, 요약된 의미구조로 볼 수 있는 타입 시스템에 대해 알아보고,
+프로그래밍언어에서 의미구조로 취급할지 문법구조로 취급할지의 경계에
+있다고도 볼 수 있는 이름 혹은 식별자와 관련된 개념에 대해서도 알아본다.
 
 \newpage
 
@@ -1852,13 +1853,13 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 정규식의 \VERT 연산도 자연히 교환법칙과 결합법칙이 성립할 수 밖에 없다.
 하지만 이런 의미구조는 컴퓨터에 그대로 옮겨 실행하는 등의 실용적 용도에는
 잘 맞지 않는다. 그림\;\ref{fig:RegexSynSem}에 나타난 정규식의
-클레이니 별표 연산의 의미구조 정의에 따르면 $r^*$의 의미가 무한집합에
+클레이니 별표 연산의 의미구조 정의에 따르면 $r^{*}$의 의미가 무한집합에
 대응될 수 있으므로 이를 그대로 컴퓨터로 옮기는 것은 적합하지 않다.
 
 \begin{figure}
 \begin{align*}
 \llbracket\,\cdot\,\rrbracket
- ~:~& \mathcal{R} \to (\Sigma^* \to \textbf{Bool})
+ ~:~& \mathcal{R} \to (\Sigma^{*} \to \textbf{Bool})
 \\
 \llbracket \varnothing \rrbracket(x)   &~=~ \text{False} \\
 \llbracket\,\varepsilon\,\rrbracket(x) &~=~ x=\varepsilon \\
@@ -1869,8 +1870,8 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
   \exists\,x_1\,x_2 \;\text{such that}\; x=x_1x_2,~
   \llbracket r_1\rrbracket(x_1) \land \llbracket r_2\rrbracket(x_2)
   = \text{True} \\
-\llbracket\, r^* \,\rrbracket(x) &~=~
- \llbracket\,\varepsilon\,\VERT\,r\,r^*\,\rrbracket(x)
+\llbracket\, r^{*} \,\rrbracket(x) &~=~
+ \llbracket\,\varepsilon\,\VERT\,r\,r^{*}\,\rrbracket(x)
 \end{align*}
 \caption{정규식을 문자열 판별함수에 대응시키는
          지시적 의미구조\label{fig:RegexDenoSem}}
@@ -1891,7 +1892,7 @@ $r_1\,r_2$의 의미는 입력을 적절히 두 부분으로 잘라 앞부분을
 판별함수에 뒷부분을 $r_2$의 판별함수에 적용했을 때 그 둘 모두를
 만족하는 경우에 참인 함수로 정의된다. 클레이니 별표 연산으로
 이루어진 정규식은 앞서 \S\ref{sec:regex}에서 설명한 공식
-$r^* = \varepsilon\VERT rr^*$를 이용해 정의된다.
+$r^{*} = \varepsilon\VERT rr^{*}$를 이용해 정의된다.
 
 그림\;\ref{fig:RegexDenoSem}의 의미구조는 컴퓨터 프로그램으로 그리
 어렵지 않게 옮길 수 있다. 다른 부분은 의미구조 정의를 거의 그대로
@@ -1905,9 +1906,41 @@ $\llbracket r_1\rrbracket(x_1) \land \llbracket r_2\rrbracket(x_2)$를
 만족하면 참으로, 즉 문자열 $abc$가 정규식 $r_1\,r_2$를 만족한다고
 판별하도록 프로그래밍하면 된다.
 
-TODO
-유한오토마타(finite automata, FA) 혹은
-유한상태기계(finite state machine, FSM) 이론적인 기계 혹은 가상머신
+필요하다면, 더 효율적인 컴퓨터 프로그램으로 옮길 수 있는 정규식의
+지시적 의미구조를 정의하는 것도 얼마든지 가능하다. 아이디어는
+지시함수가 문자열을 한꺼번에 처리하는 다소 추상적인 함수에 정규식을
+대응시키는 대신에, 기호를 최대 하나씩만 읽어 처리하는 가상적인 기계에
+대응시키자는 것이다. 이렇게 하면 $r_1\,r_2$의 의미구조에서 문자열을
+두 부분으로 적절히 나누는 지점을 찾고자 비효율적으로 모든 가능성을
+다 시도해 보지 않아도 된다. 계산이론 또는 오토마타이론에 익숙한 독자라면
+방금 언급한 기계란 다름아닌 유한오토마타(finite automata, FA) 혹은
+유한상태기계(finite state machine, FSM)임을 알 것이다. 이 내용은
+표준적인 계산이론 혹은 오토마타이론 교재\cite{Sipser2013,Hopcroft2007}에서
+상세히 잘 정리하고 있는 내용이므로 여기서 직접 다루지는 않겠다.
+다만, 여기서 짚고 넘어가고 싶은 것은, 집합이나 함수 같은 비교적
+추상적인 수학적 대상이 아닌, 이정도로 구체적인 가상적 기계 혹은
+기계의 설계도에 대응시키는 지시함수(denotation function) 또는
+의미값함수(semnatic evaluation funciton)는 ``컴파일러''로
+볼 수 있다는 점을 환기하고자 한다. 컴파일러는 비교적 추상적인
+고급언어를 기계의 동작에 가까운 저급언어로 옮기는 번역기다.
+이를 다른 관점으로 보면 기계가 어떻게 동작해야 하는지 구체적인
+지침으로 이루어진 특화된 가상의 기계를 생성하는 것으로 볼 수도 있다.
+이를테면 공장에서 사칙연산 등에 특화된 탁상용 계산기라는 물리적 기계를
+만들어내는 대신, 고급언어로 작성된 탁상용 계산기 소스코드를 컴파일하면
+범용 컴퓨터가 실행시켜줄 수 있는 가상의 탁상용 계산기에 해당하는
+소프트웨어가 만들어지는 것이다. 마찬가지로 정규식으로부터 해당 정규식을
+만족하는 문자열 처리에 특화된 유한오토마타를 생성한다면
+이는 명실상부한 정규식의 컴파일러이며, 실제로 이러한 정규식 컴파일러를
+내장한 도구가 바로 lex\cite{lex1990}와 같은
+어휘분석기 생성기(lexical analyzer generator)다.
+
+\begin{figure}[hb]\centering
+\includegraphics[scale=.63]{DeskCalculator.jpg}\qquad
+\includegraphics[scale=.5]{Gcalc.png}\qquad\qquad
+\caption{물리적 탁상용 계산기와 소프트웨어 탁상용 계산기\\
+         {\scriptsize(이미지 출처: 위키미디어 공용)}}
+\end{figure}
+
 
 이 절에서 지금까지 살펴본 바와 같이 하나의 대상 언어에 지시적 의미구조를
 여러가지로 정의하는 것이 가능하며 또 유용하다. 다만 이런 의미구조들끼리
@@ -1918,56 +1951,192 @@ TODO
 서로 같은 언어를 다룬다고 착각하게 될지도 모르기 때문이다. 이 책의 내용을
 엄밀한 이론적 기술을 강조하는 방향으로 구성하지 않았으므로 그런 증명까지
 다루지 않겠지만 확실하게 짚고 넘어가야 하는 중요한 사안이라는 점에 대해서는
-재차 강조하고 싶다. % TOOD 프로그래밍 언어 관련 원서 등 소개?
+재차 강조하고 싶다. 이 장에서 다루는 정규식과 관련한 더 자세한 이론적
+성질의 증명에 관해서는 계산이론이나 오토마타이론을 다루는
+교재\cite{Sipser2013,Hopcroft2007}를, 그 외의 프로그래밍언어 일반에
+활용되는 논리적 방법론을 소개하는 내용으로는 \citet{PFPL2nd}의 교재를
+참고하라.
 
 
 \section{동작방식 의미구조}
-동작방식 의미구조(operational semantics)
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+동작방식 의미구조(operational semantics)는
+프로그램의 의미를 수학적 구조 등 외부의 대상에 지시함으로써 찾는 것이
+아니라 프로그램이 계산되는 과정 자체를 프로그램의 의미로 삼는 방식의
+의미구조를 말한다. 철학적으로는 의미가 대상에 내재된 것이 아니라 대상들의
+관계 속에서 찾아야 한다는 구조주의적 관점과 일맥상통하는 측면이 있다.
+참고로 구조주의는 (자연)언어를 기호(sign)의 체계(system), 즉 기호들의
+상호관계에 기반한 구조로 이해해야 한다는 소쉬르\cite{Saussure1916}의
+언어철학적 관점에서 그 기원을 찾을 수 있다.
+
+\begin{figure}\centering
+\begin{subfigure}{.2\textwidth}
+\includegraphics[trim={0 50pt 0 0},clip]{JanuszBrzozowski.jpg}
+\end{subfigure}
+\begin{subfigure}{.6\textwidth}
+언어 $L\subset\Sigma^{*}$의 문자열 $x\in\Sigma$에 대한\\[1.1ex]
+브쇼조브스키 미분(Brzozowski derivative):
+\[ x^{-1} L ~=~ \{\,y \mid xy\in L\,\} \]
+
+\end{subfigure}
+\caption{야누스 브쇼조브스키(Janusz Brzozowski)가 연구한 \\
+         언어의 문자열에 대한 미분
+         {\scriptsize(사진 출처: 위키미디어 공용)}
+         \label{fig:Brzozowski}}
+\end{figure}
+
+
+
+\lipsum[]
 
 \section{공리적 의미구조}
 공리적 의미구조(axiomatic semantics)에 대해서는 이 책에서는 많이
 다루지 않으므로 간략히 개념만 설명하고 넘어가겠다. 그렇다고 해서
 그다지 중요하지 않은 프로그래밍언어의 의미구조 표현 방식이라는 뜻은
 결코 아니다. 어떤 관점에서는 공리적 의미구조야말로 지금까지 실용적
-활용 사례가 가장 많은\footnote{단적으로, NASA에서도 활용한다. \url{https://ti.arc.nasa.gov/tech/rse/publications/vnv/}}
-의미구조의 표현 방식이라 볼 수도 있다. 역사적으로도
-공리적 의미구조의 기원이 되는 이론인 호어 논리(Hoare logic)\cite{Hoare69}의
-발표와 함께 프로그램 검증(program verification) 분야가 본격적으로
-시작하였다\cite{GSLeeHJKim20Hoare}고 보기 때문이다.
+활용 사례\footnote{단적으로, NASA에서도 활용한다.
+  \url{https://ti.arc.nasa.gov/tech/rse/publications/vnv/}}가 가장 많은
+의미구조의 표현 방식이라 볼 수도 있다. 역사적으로도 공리적 의미구조의
+기원이 되는 이론인 호어 논리(Hoare logic)\cite{Hoare69}의 발표와 함께
+프로그램 검증(program verification) 분야가 본격적으로
+시작하였다\cite{GSLeeHJKim20Hoare}고 본다. 오늘날에는 호어 논리를
+확장한 분리 논리(separation logic)\cite{IshtiaqOHearn01,
+OHearnReynoldsYang01}를 프로그램 검증에 활용하는 추세다.
 
-프로그램 검증을 통해 일반적인 검사(testing) 방식의 한계를 극복할 수 있다.
+% \begin{figure}
+% \includegraphics[]{Hoare}
+% \caption{Sir Charles Antony Richard Hoare \label{fig:Hoare}}
+% \end{figure}
+
+
+프로그램 검증은 일반적인 검사(testing) 방식의 한계를 극복할 수 있게 한다.
 비유하자면 개미는 모두 검다는 성질을 확인하기 위해 10000마리의 개미를
 확인해 보니 모두 검은 개미였다 할지라도 10001번째 잡은 개미가 붉은
-개미일 수 있듯, 프로그램이 어떤 성질을 만족한다는 사례를 뒷받침하는
-10000개의 테스트를 통과했더라도 또 다른 10001번째 입력으로 실행했을
-때도 만족할 것이라는 보장이 없다는 것이 일반적인 검사 방식의 근본적인
-한계이다. 프로그램을 실제로 실행하여 구체적인 입력 사례와 결과값을
-확인하는 일반적인 검사 방식과 달리, 프로그램을 직접 실행하지 않고
-그 설계도인 소스코드로부터 수학에서의 증명처럼 모든 가능한 경우에
-대해 프로그램이 원하는 성질을 만족함을 보이는 것을 `프로그램 검증'이라
-한다. 여기서 ``원하는 성질''이 어떤 내용인지 분명하고 자세하면서도
-정확하게 표현하기 위해 고안된 형식논리(formal logic) 체계가 바로
-호어 논리(Hoare logic)이다. 참고로, 프로그램이 의도한 바대로
-동작하기 원하는 성질을 분명하고 자세히 표현했다는 뜻에서
-그러한 내용을 프로그램의 `명세'(specification)라고도 부른다.
-정리하면, 프로그램이 항상 그 명세(specification)대로 동작할 것임을
-소스코드로부터 입증하는 것이 프로그램 검증(program verification)이다.
+개미일 수 있듯이, 프로그램이 어떤 성질을 만족한다는 10000개의 테스트를
+통과했더라도 또 다른 10001번째 입력으로 실행했을 때 만족하리라는 보장이
+없다는 것이 일반적인 검사 방식의 근본적인 한계이다. 프로그램을 실제로
+실행하여 구체적인 입력 사례와 그 결과값을 개별적으로 확인하는 일반적인
+검사 방식과 달리, 프로그램을 직접 실행하지 않고 그 설계도인 소스코드로부터
+수학에서의 증명처럼 모든 가능한 경우에 대해 프로그램이 원하는 성질을
+만족함을 보이는 것을 `프로그램 검증'이라 한다. 여기서 ``원하는 성질''이
+어떤 내용인지 분명하고 자세하면서도 정확하게 표현하기 위해 고안된
+형식논리(formal logic) 체계가 바로 호어 논리이다. 참고로, 프로그램이
+의도한 바대로 동작하기 원하는 성질을 분명하고 자세히 표현했다는 뜻에서
+그러한 내용을 `명세'(specification)라 일컫는다. 정리하면, 프로그램이
+항상 그 명세(specification)대로 동작할 것임을 소스코드로부터 입증하는
+것을 `프로그램 검증'이라 하며 이러한 검증에 활용되는 대표적인 형식논리
+체계가 `호어 논리'이다.
 
-프로그램을 그 전제조건(precondition) 사후조건(postcondition)
-호어 트리플(Hoare triple)
- {P} C {Q}
-역사적으로 프로그램
-검증(program verification)을
+호어 논리의 문장(statement)은 $\{P\}\,C\,\{Q\}$ 형태로 작성되는데,
+$P$, $C$, $Q$의 세 요소로 구성되므로 호어 트리플(Hoare triple)이라고도
+부른다. $C$는 명세의 대상이 되는 프로그래밍 언어의 문장(statement) 혹은
+명령(command)이며, 명세의 내용에 해당하는 ${P}$와 ${Q}$를 각각
+전제조건(precondition)과 사후조건(postcondition)이라 한다.
+참고로, $C$의 실행에 앞서 만족되어 있어야 할 조건인 $P$와
+실행 이후에 만족되어야 할 할 조건인 $Q$를 그런 의미에서
+선행조건(precondition)과 후행조건(postcondition)으로 옮기기도 한다.
+실제 프로그램 소스코드보다 일상생활에서 친숙한 내용을 다음과 같은
+호어 트리플로 작성해 볼 수 있다.
+\begin{quote}\small
+\{밥 $n+1$공기 이상 있음\}\;``밥\;1공기\;먹어''\;\{밥 $n$공기 이상 있음\}
+~~(단, $n\ge 0$)
+\end{quote}
+이렇게 선행조건과 후행조건으로 기본적인 명령의 의미구조를 나타내는데,
+위의 호어 트리플은 증명해야 할 대상이 아닌 형식논리 체계에서
+받아들여야 하는 공리(axiom)로서의 역할을 하기 때문에 이러한 방식으로
+프로그래밍언어의 의미구조를 정의하는 것을 `공리적 의미구조'라
+일컫는다. 위에서 $n$은 하나의 값으로 정해진 것이 아니라 해당 명령을
+사용하는 사례마다 적절히 다른 값으로 구체화할 수 있다. 그러니까 하나로
+정해진 공리(axiom)가 아닌 여러 공리를 대표하는 일반적인 공리의 형태를
+나타낸다는 뜻에서 공리꼴(axiom schema) 혹은 공리 도식이라고 일컫는다.
 
+(명령형) 프로그래밍 언어에서는 여러 문장을 연달아 작성하여 차례대로
+실행할 수 있다. 달리 말하자면 명령 $C_1$과 $C_2$를 순차적으로 실행하라는
+복합적 명령 $C_1;C_2$를 작성할 수 있다는 이야기다. 따라서 밥 한 공기
+먹고 나서 밥을 또 한 공기 먹는 복합적 명령은 다음과 같이 작성하면 된다.
+\begin{quote}\small
+``밥 1공기 먹어'';``디저트 1그릇 먹어''
+\end{quote}
+호어 논리에는 이런 복합적 명령에 대한 명세를 다루는 데 유용한
+다음의 추론 규칙이 제공된다.
+\begin{quote}
+\( \inference[composition]{ \{P\}C_1\{R\} & \{R\}C_2\{Q\} }{
+                            \{P\}\,C_1;C_2\,\{Q\} } \)
+\end{quote}
+먼저 실행되는 $C_1$의 후행조건과 다음에 실행되는 $C_2$의 선행조건이
+$R$로 일치할 경우 두 명령을 조합(composition)한 $C_1;C_2$에 대한
+호어 트리플을 구성할 수 있음을 말한다.
 
-% https://formal.hknu.ac.kr/Publi/hoare.pdf
+방금 위에서 소개한 규칙에 따라 밥 한 공기 먹고 또 한 공기 더
+먹는 복합명령에 대한 호어 트리플을 구성해 보자. 우선 우리가
+앞서 살펴본 호어 트리플을, 내용이 길어지므로 이제부터
+좀 더 간략한 표기로, 나란히 써놓고 살펴보자.
+\begin{quote}\small
+$\{\text{밥}\ge n'+1\}\,\text{``밥\,1\,먹어''}\,\{\underline{\text{밥}\ge n'}\}$
+\qquad
+$\{\underline{\text{밥}\ge n+1}\}\,\text{``밥\,1\,먹어''}\,\{\text{밥}\ge n\}$
+\end{quote}
+왼쪽과 오른쪽 호어 트리플에서 $n$값이 서로 다를 수 있으므로 한쪽을 $n'$로
+구분하였다. 조합(composition) 규칙을 적용하려면 밑줄 친 왼쪽 명령의
+후행조건과 오른쪽 명령의 선행조건이 일치해야 하므로, 왼쪽의 $n'$를
+$n+1$로 구체화하여 일치시킨 후 아래와 같이 추론 가능하다.
+{\small
+\[
+\inference[]{
+  \{\text{밥}\ge (n+1)+1\}\,\text{``밥\,1\,먹어''}\,\{\text{밥}\ge n+1\}
+  &
+  \{\text{밥}\ge n+1\}\,\text{``밥\,1\,먹어''}\,\{\text{밥}\ge n\}
+}{
+  \{\text{밥}\ge (n+1)+1\}
+  \,\text{``밥\,1\,먹어''};\text{``밥\,1\,먹어''}\,
+  \{\text{밥}\ge n\}
+}
+\]
+}
+이렇게 복합명령에 대한 호어 트리플 {\small
+$\{\text{밥}\ge n+2\}
+ \,\text{``밥\,1\,먹어''};\text{``밥\,1\,먹어''}\,
+ \{\text{밥}\ge n\}$}을 공리꼴로부터 추론 규칙을 활용해
+유도할 수 있음을 살펴보았다. 참고로, 호어 논리에는 연달아 실행하는
+순차적 복합문 외에도 (명령형) 프로그래밍언어에 공통적으로 나타나는
+조건문과 반복문에 대한 추론규칙들도 추가로 제공된다. 그런 추론 규칙들을
+활용하면 공리꼴부터 다양한 프로그램에 대한 공리적 의미구조에 해당하는
+호어 트리플을 도출할 수 있다.
 
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+지금까지 공리적 의미구조의 기본적인 개념을 다소 피상적인 비유를 통해
+최대한 간단히 표면적으로나마 살펴보았다. 이런 공리적 의미구조가
+프로그램 검증에 많이 활용되는 까닭은 프로그램 검증 분야의 초기부터
+역사를 함께했다는 이유도 있지만 호어 로직 방식 명세의 유연함이라는
+장점 또한 하나의 요인이 된다. 호어 트리플의 선행조건과 후행조건을
+명세하는 구체적인 형식논리체계는 검증하고자 하는 성질에 적합한 것으로
+선택할 수 있다. 또한 프로그램의 모든 의미를 포괄할 필요 없이 집중하고자
+하는 성질에 대해서만 명세하고 나머지를 생략하는 것도 얼마든지 가능하다.
+예컨대, 메모리를 얼마나 사용하는지 중점적으로 검증할 때에는 계산되는
+대부분의 결과값을 무시하고 얼마나 많은 변수가 선언되고 메모리 할당이
+일어났는지만을 중심으로 공리적 의미구조를 정의하는 것이 가능하며,
+구현된 알고리즘의 복잡도와 관련된 개념을 검증하고자 할 때는
+이를테면 비교 연산이나 산술 연산 등 핵심 연산이 얼마나 많이
+수행되는지에만 집중하여 표현된 공리적 의미구조를 정의하는 것도 가능하다.
+
+\section*{요점정리}
+\begin{itemize}
+ \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+ \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+ \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+\end{itemize}
+
+\section*{연습문제}
+\begin{enumerate}
+ \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+ \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+ \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+\end{enumerate}
+
+\section*{탐구과제}
+\begin{enumerate}
+ \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+ \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+ \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+\end{enumerate}
 
 \part{파트}
 
@@ -1976,13 +2145,7 @@ TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
-% Items that are cited: \textit{The \LaTeX\ Companion} book \citet{latexcompanion}
-% together with Einstein's journal paper \citet{einstein} and
-% Dirac's book \citet{dirac}---which are physics-related items.
-% Next, citing two of Knuth's books: \textit{Fundamental Algorithms} \cite{knuth-fa}
-% and \textit{The Art of Computer Programming} \citet{knuth-acp}.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\printbibliography
+\printbibliography[title=참고문헌]
 
 \end{document}
