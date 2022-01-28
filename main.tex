@@ -19,6 +19,7 @@
 \usepackage{stmaryrd}
 \usepackage{mathtools}
 \usepackage{semantic}
+% \usepackage{physics}
 \usepackage[linguistics]{forest}
 \usepackage[hang]{caption}
 \usepackage{subcaption}
@@ -1670,42 +1671,44 @@ $r_1\VERT r_2\,{r_3}^{*}$는 $r_1\VERT(r_2({r_3}^{*}))$와 같은 의미이다.
 표기하는 것이 일반적이다.
 
 합집합 연산의 항등원은 $\varnothing$이며
-(즉, $\varnothing \VERT r = r = r \VERT \varnothing\,$)
+(즉, $\varnothing \VERT r \equiv r \equiv r \VERT \varnothing\,$)
 이어붙이기 연산의 항등원은 $\varepsilon$이다
-(즉, $\varepsilon\,r = r = r\,\varepsilon\,$).
+(즉, $\varepsilon\,r \equiv r \equiv r\,\varepsilon\,$).
 따라서 클레이니 별표 연산의 의미구조에 나타나는 $r^0$를
 이어붙이기 연산의 항등원으로 정의하는 것이 자연스럽다.
 왜냐하면 $r^n$은 정규식 $r$을 $n$번 이어붙인 정규식이므로
 0번 이어붙인다는 것은 다시 말하면 이어붙인 결과가
 그대로여야 하는 항등원을 뜻한다. 또한 분배법칙
-$r\,(r_1 \VERT r_2) = r\,r_1 \VERT r\,r_2$가 성립하므로
-클레이니 스타와 관련된 공식 $r^{*} = \varepsilon\VERT r\,r^{*}$를
+$r\,(r_1 \VERT r_2) \equiv r\,r_1 \VERT r\,r_2$가 성립하므로
+클레이니 스타와 관련된 공식 $r^{*} \equiv \varepsilon\VERT r\,r^{*}$를
 아래와 같이 유도할 수 있다. 당연한 이야기지만 짚고 넘어가자면
-의미가 같은 정규식을 같다고 표시한다. 즉,
+의미가 같은 정규식을 동치(equivalence) 관계, 즉,
 $\llbracket r_1 \rrbracket = \llbracket r_2 \rrbracket$일 때
-$r_1 = r_2$라고 쓴다는 말이다.
-$\llbracket r^{*} \rrbracket
- = \bigcup_{i\in\mathbb{N}}\llbracket r^i \rrbracket
- = \llbracket r^0 \rrbracket \cup
-   \llbracket r^1 \rrbracket \cup
-   \llbracket r^2 \rrbracket \cup \cdots
- = \llbracket r^0\VERT r^1\VERT r^2\VERT \cdots \rrbracket$이므로,
-\vspace*{-1em}
+$r_1 \equiv r_2$로 표기한다.
+$\displaystyle
+      \llbracket r^{*} \rrbracket
+\;=\; \bigcup_{i\in\mathbb{N}}\llbracket r^i \rrbracket
+\;=\; \llbracket r^0 \rrbracket \cup
+      \llbracket r^1 \rrbracket \cup
+      \llbracket r^2 \rrbracket \cup \cdots
+\;=\; \llbracket r^0\VERT r^1\VERT r^2\VERT \cdots \rrbracket$이므로,
+\vspace*{-1.5ex}
 \begin{align*}
-r^{*} =~& r^0 \VERT r^1 \VERT r^2 \VERT r^3 \VERT \cdots
-\\  =~& r^0 \VERT r\,(r^0 \VERT r^1 \VERT r^2 \VERT \cdots)
-\\  =~& \varepsilon \VERT r\,r^{*}
+r^{*} \equiv~& r^0 \VERT r^1 \VERT r^2 \VERT r^3 \VERT \cdots
+\\    \equiv~& r^0 \VERT r\,(r^0 \VERT r^1 \VERT r^2 \VERT \cdots)
+\\    \equiv~& \varepsilon \VERT r\,r^{*}
 \end{align*}
 
 몇 가지 간단한 예시로 정규식에 대한 소개를 마무리하고자 한다.
 1, 10, 11, 100, 101, \ldots 같은 이진수 양의 정수 리터럴을
-대표하는 정규식은 어떻게 작성해야 할까? 첫 글자는 1이고
-그 다음에는 0이나 1 중 아무거나 반복해서 나타날 수 있으므로
-$1(0\VERT{}1)^{*}$라고 작성하면 된다. 그렇다면 0까지 포함한
+대표하는 정규식은 어떻게 작성해야 할까? 첫 글자는 1이어야 하고
+그 다음부터는 0이나 1 중 아무거나 (0번 포함) 여러 번 나타날 수
+있으므로 $1(0\VERT{}1)^{*}$라고 작성하면 된다. 그렇다면 0까지 포함한
 이진수 자연수 리터럴에 대한 정규식은 방금 작성했던 정규식에
 0을 합집합하여 $0\VERT{}1(0\VERT{}1)^{*}$라고 작성하면 된다.
 마찬가지으로 십진수 양의 정수 리터럴 및 (0포함)
 십진수 자연수 리터럴에 대한 정규식을 다음과 같이 작성할 수 있다.
+\vspace*{-1ex}
 \begin{align*}
 (1\VERT 2\VERT 3\VERT 4\VERT 5\VERT 6\VERT 7\VERT 8\VERT 9)
  (0\VERT 1\VERT 2\VERT 3\VERT 4\VERT 5\VERT 6\VERT 7\VERT 8\VERT 9)^{*} &
@@ -1892,7 +1895,7 @@ $r_1\,r_2$의 의미는 입력을 적절히 두 부분으로 잘라 앞부분을
 판별함수에 뒷부분을 $r_2$의 판별함수에 적용했을 때 그 둘 모두를
 만족하는 경우에 참인 함수로 정의된다. 클레이니 별표 연산으로
 이루어진 정규식은 앞서 \S\ref{sec:regex}에서 설명한 공식
-$r^{*} = \varepsilon\VERT rr^{*}$를 이용해 정의된다.
+$r^{*} \equiv \varepsilon\VERT rr^{*}$를 이용해 정의된다.
 
 그림\;\ref{fig:RegexDenoSem}의 의미구조는 컴퓨터 프로그램으로 그리
 어렵지 않게 옮길 수 있다. 다른 부분은 의미구조 정의를 거의 그대로
@@ -1934,13 +1937,12 @@ $\llbracket r_1\rrbracket(x_1) \land \llbracket r_2\rrbracket(x_2)$를
 내장한 도구가 바로 lex\cite{lex1990}와 같은
 어휘분석기 생성기(lexical analyzer generator)다.
 
-\begin{figure}[hb]\centering
-\includegraphics[scale=.63]{DeskCalculator.jpg}\qquad
-\includegraphics[scale=.5]{Gcalc.png}\qquad\qquad
+\begin{figure}\centering
+\includegraphics[scale=.4]{DeskCalculator.jpg}\qquad
+\includegraphics[trim={0 20pt 0 0},clip,scale=.3]{Gcalc.png}\qquad\qquad
 \caption{물리적 탁상용 계산기와 소프트웨어 탁상용 계산기\\
          {\scriptsize(이미지 출처: 위키미디어 공용)}}
 \end{figure}
-
 
 이 절에서 지금까지 살펴본 바와 같이 하나의 대상 언어에 지시적 의미구조를
 여러가지로 정의하는 것이 가능하며 또 유용하다. 다만 이런 의미구조들끼리
@@ -1966,17 +1968,44 @@ $\llbracket r_1\rrbracket(x_1) \land \llbracket r_2\rrbracket(x_2)$를
 관계 속에서 찾아야 한다는 구조주의적 관점과 일맥상통하는 측면이 있다.
 참고로 구조주의는 (자연)언어를 기호(sign)의 체계(system), 즉 기호들의
 상호관계에 기반한 구조로 이해해야 한다는 소쉬르\cite{Saussure1916}의
-언어철학적 관점에서 그 기원을 찾을 수 있다.
+언어철학적 관점에서 그 기원을 찾을 수 있다. 이 절에서는 구체적인
+사례로서 정규식에 대한 동작방식 의미구조를 어떻게 정의하는지 알아볼
+것이다. 그에 앞서, 의미구조 정의에 활용할 몇 가지 기본 개념과
+언어의 문자열에 대한 미분에 대해 먼저 소개한다.
+
+문자열을 $z=xy$로 아무렇게나 두 부분으로 나눌 때 나올 수 있는
+$x$를 앞부분(prefix) $y$를 뒷부분(postfix)이라 하는데,
+문자열 전체나 빈 문자열이 될 수도 있다. 예컨대, $ab$의 가능한 모든
+앞부분은 $\varepsilon,a,ab$이며 뒷부분은 $ab,b,\varepsilon$이다.
+이어붙이기와 반대로 문자열의 앞부분(prefix)이나 뒷부분(suffix)을
+떼어내는 연산을 $x^{-1}$로 표기하며 $x^{-1}\,xy = y = yx\,x^{-1}$와
+같이 사용한다. 단, 앞부분이나 뒷부분이 $x$와 일치하지 않는 문자열에
+대해서는 $x^{-1}$를 적용할 수 없다. 앞부분을 떼내는 연산의 대상을
+하나의 문자열이 아닌 문자열 집합, 즉 언어로 확장한 개념이 바로 언어에
+대한 미분(그림\;\ref{fig:Brzozowski})이다.
+즉, 언어 $L$의 문자열 $x$에 대한 미분이란 $L$에서 앞부분이 $x$인
+문자열만 골라 앞부분 $x$을 떼어내고 남은 뒷부분으로 이루어진 언어이다.
+예컨대, $(ab)^{-1} \{aa,aab,aabc,ab,abc,abcd\} = \{\varepsilon, c, cd\}$.
+언어의 미분을 브쇼조브시키가 최초로 생각한 것은 아니지만,
+$x^{-1} \llbracket\,r\,\rrbracket = \llbracket r' \rrbracket$를
+만족하는 정규식에 대한 미분 $\partial_{}r/\partial x = r'$을
+정의하는 등 언어의 미분의 개념을 활용한 그의 연구 업적을 기리며
+브쇼조브스키 미분(Brzozowski derivative)이라 부르기도 한다.
+참고로 언어에 대한 미분은 다음의 성질이 성립한다.
+\begin{enumerate}\tightlist
+ \item $\varepsilon \in x^{-1} L$이면 $x\in L$이다.
+      ($\,\because\, x^{-1}x \,=\, \varepsilon\,$)
+ \item $x^{-1} L = \{\}$이면 $x\notin L$이다.
+ \item $(x_1x_2)^{-1} L = x_2^{-1}(x_1^{-1} L)$
+\end{enumerate}
 
 \begin{figure}\centering
 \begin{subfigure}{.2\textwidth}
 \includegraphics[trim={0 50pt 0 0},clip]{JanuszBrzozowski.jpg}
 \end{subfigure}
 \begin{subfigure}{.6\textwidth}
-언어 $L\subset\Sigma^{*}$의 문자열 $x\in\Sigma$에 대한\\[1.1ex]
-브쇼조브스키 미분(Brzozowski derivative):
+언어 $L\subset\Sigma^{*}$의 문자열 $x\in\Sigma$에 대한 미분
 \[ x^{-1} L ~=~ \{\,y \mid xy\in L\,\} \]
-
 \end{subfigure}
 \caption{야누스 브쇼조브스키(Janusz Brzozowski)가 연구한 \\
          언어의 문자열에 대한 미분
@@ -1984,7 +2013,51 @@ $\llbracket r_1\rrbracket(x_1) \land \llbracket r_2\rrbracket(x_2)$를
          \label{fig:Brzozowski}}
 \end{figure}
 
+$uv\nu$
+% $\partial/\partial x = r'$
+%
+% $\partial_{}r/\partial x = r'$
 
+% 예컨대, $\partial_{}r(ab)^{-1} a(bc\VERT b^{*}) = c \VERT b^{*}\,$이다.
+% 브쇼조브스키 미분의 아래와 같은 성질을 이용해 정규식의
+% 동작방식 의미구조를 정의해 보자.
+
+\begin{figure}
+\[
+\partial_{}r/\partial\varepsilon \Longmapsto r
+\quad~
+\partial\varnothing\!/\partial a \Longmapsto \varnothing
+\quad~
+\partial\varepsilon/\partial a \Longmapsto \varnothing
+\quad~
+\partial a/\partial a \Longmapsto \varepsilon
+\quad~
+\partial b/\partial a \Longmapsto \varnothing
+\]
+\[
+\inference{ \partial_{}r_1/\partial a \Longmapsto r_1'
+          & \partial_{}r_2/\partial a \Longmapsto r_2' }{
+            \partial(r_1 \VERT r_2)\!/\partial a
+            ~\Longmapsto~ r_1'\VERT r_2'}
+\qquad
+\inference{ \partial_{}r_1/\partial a \Longmapsto r_1'
+          & \partial_{}r_2/\partial a \Longmapsto r_2' }{
+            \partial(r_1\,r_2)\!/\partial a
+            ~\Longmapsto~ r_1'\;r_2 \,\VERT\,\nu(r_1)\,r_2'}
+\]
+\[
+\inference{
+   \partial(\varepsilon \VERT rr^{*})\!/\partial a \Longmapsto r' }{
+   \partial_{}r^{*}\!/\partial a ~\Longmapsto~ r' }
+\qquad
+\inference{ \partial_{}r/\partial a \Longmapsto r'
+          & \partial_{}r'/\partial x \Longmapsto r'' }{
+            \partial_{}r/\partial(ax) \Longmapsto r''}
+\]
+\caption{정규식의 미분에 대한 큰걸음(big-step) 의미구조}
+\end{figure}
+
+TODO
 
 \lipsum[]
 
@@ -2002,10 +2075,10 @@ $\llbracket r_1\rrbracket(x_1) \land \llbracket r_2\rrbracket(x_2)$를
 확장한 분리 논리(separation logic)\cite{IshtiaqOHearn01,
 OHearnReynoldsYang01}를 프로그램 검증에 활용하는 추세다.
 
-% \begin{figure}
-% \includegraphics[]{Hoare}
-% \caption{Sir Charles Antony Richard Hoare \label{fig:Hoare}}
-% \end{figure}
+\begin{figure}
+\includegraphics[scale=.5]{SirTonyHoare.jpg}
+\caption{Sir Charles Antony Richard Hoare (2011 사진) \label{fig:Hoare}}
+\end{figure}
 
 
 프로그램 검증은 일반적인 검사(testing) 방식의 한계를 극복할 수 있게 한다.
@@ -2144,6 +2217,12 @@ $\{\text{밥}\ge n+2\}
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+
+\includegraphics[scale=.2]{AlonzoChurch.jpg} 사진 출처 MacTutor
+
+\includegraphics[scale=.2]{Kleene.jpg} 사진 출처 MacTutor
+
+\includegraphics[scale=.2]{HaskellBCurry.jpg} 사진 출처 위키미디어 공용
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography[title=참고문헌]
