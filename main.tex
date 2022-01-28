@@ -2013,14 +2013,11 @@ $x^{-1} \llbracket\,r\,\rrbracket = \llbracket r' \rrbracket$를
          \label{fig:Brzozowski}}
 \end{figure}
 
-$uv\nu$
-% $\partial/\partial x = r'$
-%
-% $\partial_{}r/\partial x = r'$
-
 % 예컨대, $\partial_{}r(ab)^{-1} a(bc\VERT b^{*}) = c \VERT b^{*}\,$이다.
 % 브쇼조브스키 미분의 아래와 같은 성질을 이용해 정규식의
 % 동작방식 의미구조를 정의해 보자.
+
+\lipsum[1]
 
 \begin{figure}
 \[
@@ -2054,12 +2051,43 @@ $uv\nu$
           & \partial_{}r'/\partial x \Longmapsto r'' }{
             \partial_{}r/\partial(ax) \Longmapsto r''}
 \]
-\caption{정규식의 미분에 대한 큰걸음(big-step) 의미구조}
+
+\[
+\langle \varepsilon,ax\rangle \longmapsto \langle \varnothing,x\rangle
+\qquad\qquad
+\langle a,ax\rangle \longmapsto \langle \varepsilon,x\rangle
+\qquad\qquad
+\langle b,ax\rangle \longmapsto \langle \varnothing,x\rangle
+\]
+\[
+\inference{ \langle r_1, ax\rangle \longmapsto \langle r_1',x \rangle
+         \\ \langle r_2, ax\rangle \longmapsto \langle r_2',x \rangle }{
+            \langle r_1 \VERT r_2,\,ax \rangle 
+            ~\longmapsto~ \langle r_1' \VERT r_2',\, x \rangle }
+\qquad
+\inference{ \langle r_1, ax\rangle \longmapsto \langle r_1',x \rangle
+         \\ \langle r_2, ax\rangle \longmapsto \langle r_2',x \rangle }{
+            \langle r_1\,r_2,\, ax\rangle
+            ~\longmapsto~ \langle r_1'\;r_2 \VERT \nu(r_1)\,r_2',\,x\rangle }
+\]
+\[
+\inference{
+   \langle \varepsilon \VERT rr^{*},\, ax \rangle \longmapsto \langle r',x\rangle }{
+   \langle r^{*},\, ax\rangle ~\longmapsto~ \langle r',x\rangle }
+\qquad\qquad\qquad
+\nu(r) = \begin{cases}
+          \varepsilon & \varepsilon \in \llbracket r \rrbracket \\
+          \varnothing & \text{otherwise}
+         \end{cases}
+\]
+\caption{정규식 미분의 큰걸음(big-step) 및 작은걸음(small-step) 의미구조}
 \end{figure}
 
 TODO
 
-\lipsum[]
+\lipsum[1]
+
+TODO
 
 \section{공리적 의미구조}
 공리적 의미구조(axiomatic semantics)에 대해서는 이 책에서는 많이
