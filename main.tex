@@ -1987,25 +1987,50 @@ $x$를 앞부분(prefix) $y$를 뒷부분(postfix)이라 하는데,
 문자열만 골라 앞부분 $x$을 떼어내고 남은 뒷부분으로 이루어진 언어이다.
 예컨대, $(ab)^{-1} \{aa,aab,aabc,ab,abc,abcd\} = \{\varepsilon, c, cd\}$.
 언어의 미분을 브쇼조브시키가 최초로 생각한 것은 아니지만,
-$x^{-1} \llbracket\,r\,\rrbracket = \llbracket r' \rrbracket$를
-만족하는 정규식에 대한 미분 $\partial_{}r/\partial x = r'$을
+$x^{-1} \llbracket\,r\,\rrbracket = \llbracket\,r' \rrbracket$를
+만족하는 정규식에 대한 미분\footnote{정규식 미분은
+    $\partial_x r = r'$가 일반적인 표기지만
+    여기서는 수학에서의 편미분 표기를 차용했다.}
+$\partial_{}r/\partial x = r'$을
 정의하는 등 언어의 미분의 개념을 활용한 그의 연구 업적을 기리며
 브쇼조브스키 미분(Brzozowski derivative)이라 부르기도 한다.
-참고로 언어에 대한 미분은 다음의 성질이 성립한다.
+참고로 언어에 대한 미분은 다음의 성질이 성립하며
+\vspace*{-1ex}
 \begin{enumerate}\tightlist
- \item $\varepsilon \in x^{-1} L$이면 $x\in L$이다.
+ \item $\varepsilon \in\,x^{-1} L$\,이면 $x\in L$
       ($\,\because\, x^{-1}x \,=\, \varepsilon\,$)
- \item $x^{-1} L = \{\}$이면 $x\notin L$이다.
- \item $(x_1x_2)^{-1} L = x_2^{-1}(x_1^{-1} L)$
+ \item $\varepsilon^{-1} L \;=\; L$
+ \item $(x_1x_2)^{-1} L \;=\; x_2^{-1}(x_1^{-1} L)$
 \end{enumerate}
+따라서 정규식의 미분도 그에 대응되는 다음의 성질이 성립한다.
+\vspace*{-1ex}
+\begin{enumerate}\tightlist
+ \item $\varepsilon \in \llbracket\,\partial_{}r/\partial x\,\rrbracket$이면
+       $x\in \llbracket\,r\,\rrbracket$
+ \item $\partial_{}r/\partial\varepsilon \;\equiv\; r$
+ \item $\partial_{}r/\partial(x_1\,x_2) \;\equiv\;
+        \partial(\partial_{}r/\partial x_1)/\,\partial x_2$
+\end{enumerate}
+이 절에서는 정규식의 미분을 동작방식 의미구조로 정의하는 데
+집중할 것이다. 그 외에 브쇼조브스키가 정규식 미분에 대한
+연구한 내용에 대해 조금 더 알아보려면 그의 연구성과를
+알기쉽게 요약하여 정리한 논문\cite{Owens09REderivRE}을 참고하라.
 
 \begin{figure}\centering
 \begin{subfigure}{.2\textwidth}
 \includegraphics[trim={0 50pt 0 0},clip]{JanuszBrzozowski.jpg}
 \end{subfigure}
-\begin{subfigure}{.6\textwidth}
+\begin{subfigure}{.7\textwidth}
 언어 $L\subset\Sigma^{*}$의 문자열 $x\in\Sigma$에 대한 미분
 \[ x^{-1} L ~=~ \{\,y \mid xy\in L\,\} \]
+\begin{align*}
+\partial \varnothing/\partial a = \varnothing &
+\end{align*}
+
+\[
+\quad \partial \varepsilon/\partial a = \varnothing \]
+\[    \partial a/\partial a = \varepsilon
+\quad \partial b/\partial a = \varnothing (\text{단,}~ a\neq b) \]
 \end{subfigure}
 \caption{야누스 브쇼조브스키(Janusz Brzozowski)가 연구한 \\
          언어의 문자열에 대한 미분
@@ -2013,24 +2038,17 @@ $x^{-1} \llbracket\,r\,\rrbracket = \llbracket r' \rrbracket$를
          \label{fig:Brzozowski}}
 \end{figure}
 
-% 예컨대, $\partial_{}r(ab)^{-1} a(bc\VERT b^{*}) = c \VERT b^{*}\,$이다.
-% 브쇼조브스키 미분의 아래와 같은 성질을 이용해 정규식의
-% 동작방식 의미구조를 정의해 보자.
-
-\lipsum[1]
-
-\begin{figure}
+\begin{figure}\centering
 \[
-\partial_{}r/\partial\varepsilon \Longmapsto r
-\quad~
 \partial\varnothing\!/\partial a \Longmapsto \varnothing
-\quad~
+\qquad\quad
 \partial\varepsilon/\partial a \Longmapsto \varnothing
-\quad~
+\qquad\quad
 \partial a/\partial a \Longmapsto \varepsilon
-\quad~
+\quad~~
 \partial b/\partial a \Longmapsto \varnothing
 \]
+~\vspace{-1.75ex}
 \[
 \inference{ \partial_{}r_1/\partial a \Longmapsto r_1'
           & \partial_{}r_2/\partial a \Longmapsto r_2' }{
@@ -2042,16 +2060,26 @@ $x^{-1} \llbracket\,r\,\rrbracket = \llbracket r' \rrbracket$를
             \partial(r_1\,r_2)\!/\partial a
             ~\Longmapsto~ r_1'\;r_2 \,\VERT\,\nu(r_1)\,r_2'}
 \]
+~\vspace*{.75ex}
 \[
 \inference{
-   \partial(\varepsilon \VERT rr^{*})\!/\partial a \Longmapsto r' }{
+   \partial(r\,r^{*})\!/\partial a \Longmapsto r' }{
    \partial_{}r^{*}\!/\partial a ~\Longmapsto~ r' }
 \qquad
+\partial_{}r/\partial\varepsilon \Longmapsto r
+\quad~
 \inference{ \partial_{}r/\partial a \Longmapsto r'
           & \partial_{}r'/\partial x \Longmapsto r'' }{
             \partial_{}r/\partial(ax) \Longmapsto r''}
 \]
-
+\vspace*{-.5ex}
+\[ \nu(\varnothing) = \varnothing \qquad\qquad
+   \nu(\varepsilon) = \varepsilon \qquad\qquad
+   \nu(a) = \varnothing \]
+\[ \nu(r_1\VERT r_2) = \nu(r_1)\VERT\nu(r_2) \qquad
+   \nu(r_1r_2) = \nu(r_1)\nu(r_2) \qquad
+   \nu(r^{*}) = \varepsilon \]
+\vspace*{-1ex}
 \[
 \langle \varepsilon,ax\rangle \longmapsto \langle \varnothing,x\rangle
 \qquad\qquad
@@ -2062,7 +2090,7 @@ $x^{-1} \llbracket\,r\,\rrbracket = \llbracket r' \rrbracket$를
 \[
 \inference{ \langle r_1, ax\rangle \longmapsto \langle r_1',x \rangle
          \\ \langle r_2, ax\rangle \longmapsto \langle r_2',x \rangle }{
-            \langle r_1 \VERT r_2,\,ax \rangle 
+            \langle r_1 \VERT r_2,\,ax \rangle
             ~\longmapsto~ \langle r_1' \VERT r_2',\, x \rangle }
 \qquad
 \inference{ \langle r_1, ax\rangle \longmapsto \langle r_1',x \rangle
@@ -2072,18 +2100,19 @@ $x^{-1} \llbracket\,r\,\rrbracket = \llbracket r' \rrbracket$를
 \]
 \[
 \inference{
-   \langle \varepsilon \VERT rr^{*},\, ax \rangle \longmapsto \langle r',x\rangle }{
+   \langle r\,r^{*},\, ax \rangle \longmapsto \langle r',x\rangle }{
    \langle r^{*},\, ax\rangle ~\longmapsto~ \langle r',x\rangle }
-\qquad\qquad\qquad
-\nu(r) = \begin{cases}
-          \varepsilon & \varepsilon \in \llbracket r \rrbracket \\
-          \varnothing & \text{otherwise}
-         \end{cases}
 \]
+{\small($a$와 $b$가 함께 나타나는 규칙에서는 $a\neq b$임을 가정)}
 \caption{정규식 미분의 큰걸음(big-step) 및 작은걸음(small-step) 의미구조}
 \end{figure}
 
-TODO
+정규식의 미분 공식은 다음과 같다
+큰걸음과 작은걸음 의미구조에 나타나는 도우미 함수
+$\nu:\mathcal{R}\to\mathcal{R}$의 성질은
+$\varepsilon \in \llbracket r \rrbracket$인 경우에만
+$\nu(r)\equiv\varepsilon$이며 그렇지 않은 경우에는
+$\nu(r)\equiv\varnothing$이다.
 
 \lipsum[1]
 
