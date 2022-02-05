@@ -401,10 +401,22 @@
 
 %%%%%%%% END:   Jupyter generated LaTeX header %%%%%%%%
 
+\makeatletter
+\newcommand{\leqnomode}{\tagsleft@true}
+\newcommand{\reqnomode}{\tagsleft@false}
+\makeatother
+
 \newcommand{\txtbullet}[0]{\ensuremath{\bullet}}
 \newcommand{\txtcircle}[0]{\ensuremath{\circ}}
 
-\newcommand{\VERT}{\ensuremath{\mathop{\!\resizebox{1.65ex}{.7em}{\texttt{|}}\!}}}
+\DeclareRobustCommand{\VERT}{%
+\ensuremath{\mathop{\!\resizebox{1.65ex}{.7em}{\texttt{|}}}\!}%
+}
+\DeclareRobustCommand{\LONGmapsto}{\mathrlap{\;-\!\!\!-~}\Longmapsto{}}
+\DeclareRobustCommand{\pdvinfix}{%
+\mathop{\textstyle{}\!\!\phantom{.}^{\curvearrowright}\!\!_{\!\!^{\partial}}\!/_{\!\!^\partial}}%
+%\mathop{\textstyle{}\!\Rsh_{\!\!^{\partial\!\!\!}}\!/_{\!\!^\partial}}%
+}
 
 \title{프로그래밍언어론}
 \author{안기영 \and 손범준}
@@ -1823,9 +1835,9 @@ JavaScript 언어의 정규식 등 여러 종류가 있다.
 
 프로그래밍 언어의 의미구조를 다루는 여러가지 방식 중에 대표적인
 세 가지는 지시적 의미구조(denotational semantics),
-동작방식 의미구조(operational semantics),
+동작과정 의미구조(operational semantics),
 공리적 의미구조(axiomatic semantics)이다.
-지시적 의미구조와 동작방식 의미구조에 대해서는 정규식을 대상 언어로 하는
+지시적 의미구조와 동작과정 의미구조에 대해서는 정규식을 대상 언어로 하는
 서로 다른 방식으로 정의된 여러가지 의미구조를 비교하며 설명하고,
 공리적 의미구조에 대해서는 개념과 그 활용 분야에 대해서만 간단히 소개한다.
 또한, 요약된 의미구조로 볼 수 있는 타입 시스템에 대해 알아보고,
@@ -1960,8 +1972,8 @@ $\llbracket r_1\rrbracket(x_1) \land \llbracket r_2\rrbracket(x_2)$를
 참고하라.
 
 
-\section{동작방식 의미구조}
-동작방식 의미구조(operational semantics)는
+\section{동작과정 의미구조}
+동작과정 의미구조(operational semantics)는
 프로그램의 의미를 수학적 구조 등 외부의 대상에 지시함으로써 찾는 것이
 아니라 프로그램이 계산되는 과정 자체를 프로그램의 의미로 삼는 방식의
 의미구조를 말한다. 철학적으로는 의미가 대상에 내재된 것이 아니라 대상들의
@@ -1969,10 +1981,11 @@ $\llbracket r_1\rrbracket(x_1) \land \llbracket r_2\rrbracket(x_2)$를
 참고로 구조주의는 (자연)언어를 기호(sign)의 체계(system), 즉 기호들의
 상호관계에 기반한 구조로 이해해야 한다는 소쉬르\cite{Saussure1916}의
 언어철학적 관점에서 그 기원을 찾을 수 있다. 이 절에서는 구체적인
-사례로서 정규식에 대한 동작방식 의미구조를 어떻게 정의하는지 알아볼
+사례로서 정규식에 대한 동작과정 의미구조를 어떻게 정의하는지 알아볼
 것이다. 그에 앞서, 의미구조 정의에 활용할 몇 가지 기본 개념과
 언어의 문자열에 대한 미분에 대해 먼저 소개한다.
 
+\subsection{언어와 정규식의 미분}
 문자열을 $z=xy$로 아무렇게나 두 부분으로 나눌 때 나올 수 있는
 $x$를 앞부분(prefix) $y$를 뒷부분(postfix)이라 하는데,
 문자열 전체나 빈 문자열이 될 수도 있다. 예컨대, $ab$의 가능한 모든
@@ -1988,14 +2001,13 @@ $x$를 앞부분(prefix) $y$를 뒷부분(postfix)이라 하는데,
 예컨대, $(ab)^{-1} \{aa,aab,aabc,ab,abc,abcd\} = \{\varepsilon, c, cd\}$.
 언어의 미분을 브쇼조브시키가 최초로 생각한 것은 아니지만,
 $x^{-1} \llbracket\,r\,\rrbracket = \llbracket\,r' \rrbracket$를
-만족하는 정규식에 대한 미분\footnote{정규식 미분은
-    $\partial_x r = r'$가 일반적인 표기지만
+만족하는 정규식의 미분\footnote{정규식 미분은 $D_a r$나
+    $\partial_a r$가 일반적 표기지만
     여기서는 수학에서의 편미분 표기를 차용했다.}
 $\partial_{}r/\partial x = r'$을
-정의하는 등 언어의 미분의 개념을 활용한 그의 연구 업적을 기리며
+정의하는 등의 연구 업적을 남겼다. 그래서 정규식에 대한 미분을
 브쇼조브스키 미분(Brzozowski derivative)이라 부르기도 한다.
 참고로 언어에 대한 미분은 다음의 성질이 성립하며
-\vspace*{-1ex}
 \begin{enumerate}\tightlist
  \item $\varepsilon \in\,x^{-1} L$\,이면 $x\in L$
       ($\,\because\, x^{-1}x \,=\, \varepsilon\,$)
@@ -2003,7 +2015,6 @@ $\partial_{}r/\partial x = r'$을
  \item $(x_1x_2)^{-1} L \;=\; x_2^{-1}(x_1^{-1} L)$
 \end{enumerate}
 따라서 정규식의 미분도 그에 대응되는 다음의 성질이 성립한다.
-\vspace*{-1ex}
 \begin{enumerate}\tightlist
  \item $\varepsilon \in \llbracket\,\partial_{}r/\partial x\,\rrbracket$이면
        $x\in \llbracket\,r\,\rrbracket$
@@ -2011,131 +2022,558 @@ $\partial_{}r/\partial x = r'$을
  \item $\partial_{}r/\partial(x_1\,x_2) \;\equiv\;
         \partial(\partial_{}r/\partial x_1)/\,\partial x_2$
 \end{enumerate}
-이 절에서는 정규식의 미분을 동작방식 의미구조로 정의하는 데
+이 절에서는 정규식의 미분을 동작과정 의미구조로 정의하는 데
 집중할 것이다. 그 외에 브쇼조브스키가 정규식 미분에 대한
-연구한 내용에 대해 조금 더 알아보려면 그의 연구성과를
+연구한 내용에 대해 조금 더 알아보려면 그의 연구성과\cite{Brzozowski64}를
 알기쉽게 요약하여 정리한 논문\cite{Owens09REderivRE}을 참고하라.
 
 \begin{figure}\centering
+언어 $L\subset\Sigma^{*}$의 문자열 $x\in\Sigma$에 대한 미분:~
+$x^{-1} L ~=~ \{\,y \mid xy\in L\,\} \qquad ~~ $\\[1.1ex]
 \begin{subfigure}{.2\textwidth}
-\includegraphics[trim={0 50pt 0 0},clip]{JanuszBrzozowski.jpg}
-\end{subfigure}
-\begin{subfigure}{.7\textwidth}
-언어 $L\subset\Sigma^{*}$의 문자열 $x\in\Sigma$에 대한 미분
-\[ x^{-1} L ~=~ \{\,y \mid xy\in L\,\} \]
-\begin{align*}
-\partial \varnothing/\partial a = \varnothing &
-\end{align*}
-
-\[
-\quad \partial \varepsilon/\partial a = \varnothing \]
-\[    \partial a/\partial a = \varepsilon
-\quad \partial b/\partial a = \varnothing (\text{단,}~ a\neq b) \]
-\end{subfigure}
+\includegraphics[trim={0 50pt 0 0},clip,scale=1.25]{JanuszBrzozowski.jpg}
+\end{subfigure}\qquad\quad
+\begin{subfigure}{.65\textwidth}
+\!\!정규식의 미분 공식:\\[.7ex]
+\( \partial\varnothing\!/\partial a = \varnothing \qquad\quad~\;
+   \partial a/\partial a = \varepsilon \) \\[.6ex]
+\( \partial\varepsilon/\partial a = \varnothing \qquad\qquad
+   \partial b/\partial a = \varnothing \) (단, $a\neq b$)\\[.6ex]
+\( \partial(r_1\VERT r_2)\!/\partial a = \partial r_1/\partial a \VERT
+                                       \partial r_2/\partial a \)\\[.6ex]
+\( \partial(r_1\,r_2)\!/\partial a = (\partial r_1/\partial a)r_2 \VERT
+                                 \nu(r_1)(\partial r_2/\partial a) \)\\[.6ex]
+\( \partial\,r^{*}\!/\partial a = \partial(rr^{*})\!/\partial a \)\\[.8ex]
+\( \partial r/\partial \varepsilon = r \qquad\quad
+   \partial r/\partial (ax) = \partial (\partial r/\partial a)/\partial x\)
+\end{subfigure}\\[1ex]
+\( \nu,\varsigma:\mathcal{R}\to\mathcal{R} \qquad\quad
+   \nu(\varnothing) = \varnothing \qquad\quad
+   \nu(\varepsilon) = \varepsilon \qquad\quad
+   \nu(a) = \varnothing \)\qquad$\phantom{A}$\\[.6ex]
+\( \nu(r_1\VERT r_2) = \varsigma(\nu(r_1)\VERT\nu(r_2)) \qquad
+   \nu(r_1r_2) = \varsigma(\nu(r_1)\nu(r_2)) \qquad
+   \nu(r^{*}) = \varepsilon \)\\[1.2ex]
+\( \varsigma(\varnothing\VERT r) = r = \varsigma(r \VERT\varnothing) \quad
+   \varsigma(\varepsilon\VERT\varepsilon) = \varepsilon \quad
+   \varsigma(\varnothing r) = \varnothing = \varsigma(r \varnothing) \quad
+   \varsigma(\varepsilon\,r) = r = \varsigma(r\,\varepsilon) \)\\[.6ex]
+(위에 해당되지 않는 다른 모든 경우의 정규식 $r$에 대해서는 $\varsigma(r) = r$\,)
 \caption{야누스 브쇼조브스키(Janusz Brzozowski)가 연구한 \\
-         언어의 문자열에 대한 미분
+         언어 및 정규식의 문자열에 대한 미분
          {\scriptsize(사진 출처: 위키미디어 공용)}
          \label{fig:Brzozowski}}
+\vspace*{-1ex}
 \end{figure}
 
+브쇼조브스키가 정리한 정규식의 미분이 그림\;\ref{fig:Brzozowski}에
+나타나 있다.\footnote{브쇼조브스키의 연구 및 관련 후속 연구에는
+이 책에서 다룬 정규식의 세 가지 연산 외에도 교집합이나 여집합 연산 등을
+포함한 소위 확장된 정규식(extended regular expression)을 다루지만 여기서는
+정규언어를 표현하기에 충분한 최소한의 세 가지 연산에 대해서만 다룬다.}
+정규식의 각 요소(널, 엡실론, 알파벳 심볼, 합집합, 이어붙이기,
+클레이니 별표)를 하나의 기호($a$)에 대해 미분하는 공식이 차례로 나열되어
+있으며, 마지막 두 공식은 각각 길이 0인 빈 문자열($\varepsilon$)과 길이
+1이상의 문자열($ax$)에 대한 미분 공식이다.
+
+각 요소의 기호 하나에 대한 미분 공식의 원리를 설명하자면 다음과 같다.
+\begin{itemize}\tightlist
+ \item 널($\varnothing$)과 엡실론($\varepsilon$)은 그 의미상
+       맨 앞에서 하나의 기호를 떼낼 수 있는 (즉, 길이 1이상의)
+       문자열을 포함할 수 없으므로 미분 결과가 널이다.
+ \item 알파벳 심볼의 미분 공식은 둘로 나뉘어 작성되어 있는데,
+   정규식 심볼과 똑같은 기호로 미분하는 경우($\partial a/\partial a$)는
+   엡실론($\varepsilon$)이며
+   다른 기호로 미분하는 경우($\partial b/\partial a$)는
+   널($\varnothing$)이다.
+ \item 합집합한 정규식의 미분은 각각을 미분한 결과를 합집합한 정규식이다.
+ \item 이어붙인 정규식 $r_1\,r_2$의 미분은
+       $\varepsilon\notin\llbracket r_1\rrbracket$이면 그냥
+       $r_1$의 미분 결과에 $r_2$를 이어붙면 된다.
+       그런데 $\varepsilon\in\llbracket r_1\rrbracket$인 경우는
+       정규식에 대응되는 문자열의 첫 글자가 $r_1$이 아닌 $r_2$에
+       해당할 수도 있으므로 $r_2$의 미분 결과도 합집합한다.
+ \item 클레이니 별표로 이루어진 정규식 $r^{*}$의 미분은
+       $r^{*}\equiv \varepsilon\VERT rr^{*}$를 이용한다.
+       그런데 엡실론($\varepsilon$)의 미분은 널($\varnothing$)이므로
+       $rr^{*}$만 미분하면 된다.\vspace*{-1ex}
+\end{itemize}
+참고로 정규식의 미분공식(그림\;\ref{fig:Brzozowski}) 및
+큰걸음과 작은걸음 의미구조(그림\;\ref{fig:ReDerivBigSmallSem})에서
+이어붙이기 연산으로 이루어진 정규식($r_1\,r_2$)을 다룰 때 나타나는
+도우미 함수 $\nu:\mathcal{R}\to\mathcal{R}$의 성질은
+$\varepsilon \in \llbracket r \rrbracket$인 경우에만
+$\nu(r)=\varepsilon$이며 그렇지 않은 경우에는
+$\nu(r)=\varnothing$이다. 따라서 $r_1\,r_2$의 미분 공식의 좌변
+$(\partial r_1/\partial a)r_2\VERT\nu(r_1)(\partial r_2/\partial a)$는
+$\varepsilon \in \llbracket r_1 \rrbracket$인 경우에는
+$\nu(r_1)=\varepsilon$이므로
+$(\partial r_1/\partial a)r_2\VERT(\partial r_2/\partial a)$와 같고,
+$\varepsilon \notin \llbracket r_1 \rrbracket$인 경우에는
+$\nu(r_2)=\varnothing$이으로 그냥 $(\partial r_1/\partial a)r_2$와 같다.
+
+문자열에 대한 미분은 기호 하나에 대한 미분을 이용해 계산한다.
+빈 문자열에 대해 미분은 앞에서 아무것도 떼어내지 않으므로
+원래 정규식 그대로다. 길이 1이상의 문자열에 대한 미분은 앞서 언급한
+정규식 미분의 성질 세 가지 중에서 마지막 세 번째 성질을 활용한다.
+문자열 $ax$에 대한 미분은 맨 앞의 기호 $a$에 대한 미분 결과를
+나머지 문자열 $x$에 대해 미분하여 계산한다.
+
+\subsection{정규식 미분으로 알아보는 동작과정 의미구조의 특징}
+지금까지 살펴본 그림\;\ref{fig:Brzozowski}의 공식은
+종이에 연필로 수식을 전개할 때 참고하기 좋은 초/중/고등학교
+수학 과목에서부터 우리에게 익숙한 형식이다. 그런데 이런 수학 공식 표기는
+역사적으로 최초의 컴퓨터 프로그램\cite{Lovelace1843notes}보다 훨씬
+오래되었다. 그래서 컴퓨터로 정규식 미분을 자동으로 수행시키려
+프로그램으로 옮겨 작성하는 데 가장 적합한 표현 방식은 아닐 것이다.
+그림\;\ref{fig:ReDerivBigSmallSem}에는 프로그램으로 옮겨 작성하기에
+더 적합한 정규식 미분의 동작과정 의미구조 두 가지를 정의해 놓았다.
+첫째는 정규식의 미분을 공식을 가능한 한 계속해 적용한 최종 결과와
+관련짓는 큰걸음(big-step) 의미구조이며, 둘째는 정규식의 미분을 기호
+하나씩만 미분한 바로 다음 계산 과정과 관련짓는 작은걸음(small-step)
+의미구조이다.
+
 \begin{figure}\centering
+\begin{subfigure}{\textwidth}
 \[
-\partial\varnothing\!/\partial a \Longmapsto \varnothing
-\qquad\quad
-\partial\varepsilon/\partial a \Longmapsto \varnothing
-\qquad\quad
-\partial a/\partial a \Longmapsto \varepsilon
-\quad~~
-\partial b/\partial a \Longmapsto \varnothing
+\langle\varnothing, a\rangle \Longmapsto \varnothing
+\qquad\qquad
+\langle\varepsilon, a\rangle \Longmapsto \varnothing
+\qquad\qquad
+\langle a, a\rangle \Longmapsto \varepsilon
+\quad\quad
+\langle b, a\rangle \Longmapsto \varnothing
 \]
-~\vspace{-1.75ex}
 \[
-\inference{ \partial_{}r_1/\partial a \Longmapsto r_1'
-          & \partial_{}r_2/\partial a \Longmapsto r_2' }{
-            \partial(r_1 \VERT r_2)\!/\partial a
-            ~\Longmapsto~ r_1'\VERT r_2'}
+\inference{ \langle r_1, a\rangle \Longmapsto r_1'
+          & \langle r_2, a\rangle \Longmapsto r_2' }{
+            \langle r_1 \VERT r_2, a\rangle
+            ~\Longmapsto~ \varsigma(r_1'\VERT r_2')}
 \qquad
-\inference{ \partial_{}r_1/\partial a \Longmapsto r_1'
-          & \partial_{}r_2/\partial a \Longmapsto r_2' }{
-            \partial(r_1\,r_2)\!/\partial a
-            ~\Longmapsto~ r_1'\;r_2 \,\VERT\,\nu(r_1)\,r_2'}
+\inference{ \langle r_1, a\rangle \Longmapsto r_1' }{
+            \langle r_1\,r_2, a\rangle
+            ~\Longmapsto~ \varsigma(r_1'\,r_2)}
+            \!^{(\nu(r_1)\,=\,\varnothing)}
 \]
-~\vspace*{.75ex}
 \[
 \inference{
-   \partial(r\,r^{*})\!/\partial a \Longmapsto r' }{
-   \partial_{}r^{*}\!/\partial a ~\Longmapsto~ r' }
-\qquad
-\partial_{}r/\partial\varepsilon \Longmapsto r
-\quad~
-\inference{ \partial_{}r/\partial a \Longmapsto r'
-          & \partial_{}r'/\partial x \Longmapsto r'' }{
-            \partial_{}r/\partial(ax) \Longmapsto r''}
+   \langle r\,r^{*}, a\rangle \Longmapsto r' }{
+   \langle r^{*}, a\rangle ~\Longmapsto~ r' }
+\qquad\qquad\quad
+\inference{ \langle r_1, a\rangle \Longmapsto r_1'
+          & \langle r_2, a \rangle \Longmapsto r_2' }{
+            \langle r_1\,r_2, a\rangle
+            ~\Longmapsto~ \varsigma(\varsigma(r_1'\,r_2)\,\VERT\,r_2')}
+            \!^{(\nu(r_1)\,=\,\varepsilon)}
 \]
-\vspace*{-.5ex}
-\[ \nu(\varnothing) = \varnothing \qquad\qquad
-   \nu(\varepsilon) = \varepsilon \qquad\qquad
-   \nu(a) = \varnothing \]
-\[ \nu(r_1\VERT r_2) = \nu(r_1)\VERT\nu(r_2) \qquad
-   \nu(r_1r_2) = \nu(r_1)\nu(r_2) \qquad
-   \nu(r^{*}) = \varepsilon \]
-\vspace*{-1ex}
 \[
+\langle r, \varepsilon\rangle \LONGmapsto r
+\qquad\qquad
+\inference{ \langle r, a\rangle \Longmapsto r'
+          & \langle r', x\rangle \LONGmapsto r'' }{
+            \langle r, ax\rangle \LONGmapsto~ r''}
+\]
+\caption{Big-step semantics:\label{sfig:ReDerivBig}
+\fbox{$\cdot\!\Longmapsto\!\cdot
+    \,\subset\, (\mathcal{R}\times \Sigma) \times \mathcal{R}$}
+\fbox{$\cdot\!\LONGmapsto\!\cdot
+    \,\subset\, (\mathcal{R}\times \Sigma^{*}) \times \mathcal{R}$}
+\hspace{2ex} }
+\end{subfigure}
+~\\
+\begin{subfigure}{\textwidth}
+\[
+\langle \varnothing,ax\rangle \longmapsto \langle \varnothing,x\rangle
+\qquad\quad
 \langle \varepsilon,ax\rangle \longmapsto \langle \varnothing,x\rangle
-\qquad\qquad
-\langle a,ax\rangle \longmapsto \langle \varepsilon,x\rangle
-\qquad\qquad
+\qquad\quad
+\begin{array}{ll}
+\langle a,ax\rangle \longmapsto \langle \varepsilon,x\rangle \\[.75ex]
 \langle b,ax\rangle \longmapsto \langle \varnothing,x\rangle
+\end{array}
 \]
 \[
 \inference{ \langle r_1, ax\rangle \longmapsto \langle r_1',x \rangle
          \\ \langle r_2, ax\rangle \longmapsto \langle r_2',x \rangle }{
             \langle r_1 \VERT r_2,\,ax \rangle
-            ~\longmapsto~ \langle r_1' \VERT r_2',\, x \rangle }
-\qquad
-\inference{ \langle r_1, ax\rangle \longmapsto \langle r_1',x \rangle
-         \\ \langle r_2, ax\rangle \longmapsto \langle r_2',x \rangle }{
+            \longmapsto \langle\varsigma(r_1' \VERT r_2'), x \rangle }
+\quad
+\inference{ \langle r_1, ax\rangle \longmapsto \langle r_1',x \rangle }{
             \langle r_1\,r_2,\, ax\rangle
-            ~\longmapsto~ \langle r_1'\;r_2 \VERT \nu(r_1)\,r_2',\,x\rangle }
+            \longmapsto \langle\varsigma(r_1'\,r_2), x\rangle }
+            \!^{(\nu(r_1)\,=\,\varnothing)}
 \]
 \[
 \inference{
    \langle r\,r^{*},\, ax \rangle \longmapsto \langle r',x\rangle }{
-   \langle r^{*},\, ax\rangle ~\longmapsto~ \langle r',x\rangle }
+   \langle r^{*},\, ax\rangle \longmapsto \langle r',x\rangle }
+\qquad~
+\inference{ \langle r_1, ax\rangle \longmapsto \langle r_1',x \rangle
+         \\ \langle r_2, ax\rangle \longmapsto \langle r_2',x \rangle }{
+            \langle r_1\,r_2,\, ax\rangle
+            \longmapsto
+            \langle\varsigma(\varsigma(r_1'\,r_2)\VERT r_2'),x\rangle }
+            \!^{(\nu(r_1)\,=\,\varepsilon)}
 \]
+\caption{Small-step semantics:\label{sfig:ReDerivSmall}
+\fbox{$\cdot\!\longmapsto\!\cdot
+    \,\subset\, (\mathcal{R}\times \Sigma^{*})
+         \times (\mathcal{R}\times \Sigma^{*})$}
+\fbox{$\langle r,\varepsilon\rangle$이면 끝마침} }
+\end{subfigure}
+~\\
 {\small($a$와 $b$가 함께 나타나는 규칙에서는 $a\neq b$임을 가정)}
 \caption{정규식 미분의 큰걸음(big-step) 및 작은걸음(small-step) 의미구조
          \label{fig:ReDerivBigSmallSem}}
 \end{figure}
 
-브쇼조브스키가 정리한 정규식의 미분 공식은 다음과 같다.\\
-\( \partial\varnothing/\partial a = \varnothing \qquad\qquad\quad
-   \partial\varepsilon/\partial a = \varnothing \) \hfill
-\( \partial a/\partial a = \varepsilon \qquad
-   \partial b/\partial a = \varnothing \) (단, $a\neq b$)\\
-\( \partial(r_1\VERT r_2)/\partial a = \partial r_1/\partial a \VERT
-                                       \partial r_2/\partial a \)\hfill
-\( \partial(r_1r_2)/\partial a = (\partial r_1/\partial a)r_2 \VERT
-                                 \nu(r_1)(\partial r_2/\partial a) \)\\
-\( \partial(r^{*})/\partial a = \partial rr^{*}/\partial a\varnothing \)\hfill
-\( \partial r/\partial \varepsilon = r \qquad
-   \partial r/\partial (ax) = \partial (\partial r/\partial a)/\partial x\)\\
-정규식의 미분공식 및 큰걸음과 작은걸음 의미구조(그림\;\ref{fig:ReDerivBigSmallSem})에
-나타나는 도우미 함수 $\nu:\mathcal{R}\to\mathcal{R}$의 성질은
-$\varepsilon \in \llbracket r \rrbracket$인 경우에만
-$\nu(r)\equiv\varepsilon$이며 그렇지 않은 경우에는
-$\nu(r)\equiv\varnothing$이다.
+동작과정 의미구조는 이항관계(binary relation)로 정의할 수 있다.
+그림\;\ref{fig:ReDerivBigSmallSem}에서도
+$\Longmapsto$와 $\LONGmapsto$로 큰걸음 의미구조를 정의하고
+$\longmapsto$로 작은걸음 의미구조를 정의하고 있다.
+큰걸음 의미구조는 일반적으로 계산의 대상이 되는 식을 나타내는 집합
+$E$와 결과값의 집합 $V$에 대한 이항관계 $e \Longmapsto v$로 정의되며,
+왼항 $e\in E$와 오른항 $v\in V$은 서로 다른 별개의 구조로 이루어진
+두 집합($E$, $V$)을 대응시킬 수 있다. 한편, 작은걸음 의미구조를
+정의하는 이항관계 $e \longmapsto e'$는 일반적으로 왼쪽과 오른쪽의
+두 항 $e,e'\in E$ 모두 같은 계산 대상의 집합($E$)끼리 대응시켜야 한다.
+작은걸음 의미구조는 여러 단계로 계산되는 과정의 각 단계를 나타내므로,
+계산과정에서 왼항 $e$가 $k$번째 단계의 식이라면
+오른항 $e'$는 $k+1$번째 단계의 식이며, 경우에 따라
+$e'\longmapsto e''$인 $k+2$번째 단계의 식 $e''$로
+한 단계 더 계산과정이 진행될 수도 있다.
 
-\lipsum[1]
+동작과정 의미구조의 이항관계는 보통 추론규칙의 형태로 정의된다.
+추론규칙이란 형식논리(formal logic)를 다루는 증명 체계(proof system)의
+증명 과정에 활용하도록 정의한 규칙을 말하며, 이런 형식논리의 증명 쳬계를
+본따 프로그래밍언어의 문법구조(syntax)를 따라 분석하며 의미를 다루는 방식이
+동작과정 의미구조라 볼 수 있다. 우리에게 익숙한 논리곱(logical and)에 대한
+추론규칙들은 아래와 같이 표현한다. 선 위쪽에는 전제들을, 아래쪽에는
+결론을 배치한다. 그리고 선 바로 옆에 규칙의 이름을 표시하기도 한다.
+\begin{quote}
+\( \inference*[$\land\mathrm{I}$]{A & B}{A \land B}\qquad\qquad
+   \inference[$\land\mathrm{E}_1$]{A\land B}{A} \qquad
+   \inference[$\land\mathrm{E}_2$]{A\land B}{B} \)
+\end{quote}
+규칙 $\land\mathrm{I}$는 $A$가 성립하고 $B$가 성립한다는 두 전제로부터
+논리곱 $A\land B$가 성립한다는 결론을 증명할 수 있도록 허용한다.
+규칙 $\land\mathrm{E}_1$는 논리곱 $A\land B$가 성립한다는 하나의 전제로부터
+$A$가 성립한다는 결론을 증명할 수 있도록 허용한다. 마찬가지로,
+규칙 $\land\mathrm{E}_2$는 논리곱 $A\land B$가 성립한다는 전제로부터
+$B$가 성립함을 증명할 수 있도록 허용한다. 전제가 비어있는 추론규칙을
+공리 혹은 공리꼴이라 하는데, 이런 공리나 공리꼴은 가로선을 생략하기도 한다.
+예를 들어, 그림\;\ref{fig:ReDerivBigSmallSem}의
+$\langle a, a\rangle\!\Longmapsto\!\varepsilon\,$이나
+$\langle a, ax\rangle\!\longmapsto\!\langle\varepsilon, x\rangle$는
+원래
+$\overline{
+  \langle a, a\rangle\!\Longmapsto\!\varepsilon}\,$이나
+$\overline{
+  \langle a, ax\rangle\!\longmapsto\!\langle\varepsilon, x\rangle}$에서
+가로선이 생략된 것으로 이해하도 무방하다.
 
-TODO
+\subsubsection{큰걸음과 작은걸음 의미구조 비교}
+큰걸음 의미구조에서는 $e\Longmapsto v$의 성립이 곧 $e$의 ``계산과정''을
+제대로 끝마친 것이다. 한편 작은걸음 의미구조에서는 ``계산과정''이 제대로
+끝났는지 확인하는 조건을 (누구나 짐작할만한 당연한 내용이 아니라면) 별도로
+명시하며, 명시된 종료조건 이외에 계산을 더 진행할 수 없는 경우를 비정상
+종료로 간주한다. 예컨대, 정수 산술식의 작은걸음 의미구조를 정의할 때,
+정상 종료조건을 정수 리터럴 형태의 식으로 명시하고, 나눗셈 형태의 식
+$n_1 / n_2$에 적용할 규칙을 $n_2\neq 0$인 경우에 대해서만 마련했다고 하자.
+이 때, $n_1/0$인 형태의 식이 계산과정에 나타난다면 적용가능한 규칙이 없어
+계산을 더 진행할 수도 없고 정상 종료조건에 해당하지도 않으므로 비정상적인
+계산의 종료로 취급된다. 만일 작은걸음 의미구조에 종료조건이 별도로 제시되지
+않았을 때는 더 이상 적용가능한 규칙이 없는 모든 경우를 계산과정의
+끝마침으로 취급하기도 한다. 참고로, 그림\;\ref{sfig:ReDerivSmall}에 명시한
+정규식 미분 계산과정의 종료조건은, 해당 조건이 제시되지 않았더라도 더 이상
+적용할 규칙이 없는 경우와 일치하도록 작은걸음 의미구조가 정의되어 있다.
+또한, 비정상 종료를 나타내는 형태의 식을 따로 두어 그에 대한 와 같은
+규칙을 정의하는 등, 계산값이나 종료조건에 대한 더 상세한 처리를 위한
+내용을 필요에 따라 큰걸음 및 작은걸음 의미구조에서 정의하기도 한다.
+
+정규식 $(a\VERT b)c^{*}$의 문자열 $acc$에 대한 미분을
+그림\;\ref{fig:Brzozowski}의 공식을 활용하여 \vspace*{-2ex}
+{\addtolength{\jot}{-1ex}
+\begin{align}
+     \partial((a\VERT b)c^{*})/\partial(acc)
+~=~& \partial(\partial(\partial((a\VERT b)c^{*})
+            / \partial a)/\partial c)/\partial c     \label{eqn:ReDeriv1}\\
+~=~& \partial(\partial((\varepsilon\VERT\varnothing)c^{*})
+            / \partial c)/\partial c                 \label{eqn:ReDeriv2}\\
+~=~& \partial(\partial c^{*}/\partial c)/\partial c  \label{eqn:ReDeriv3}\\
+~=~& \partial(\partial(cc^{*})/\partial c)/\partial c \label{eqn:ReDeriv4}\\
+~=~& \partial(\varepsilon c^{*}\VERT\varnothing(\partial c^{*}/\partial c))
+     /\partial c                                     \label{eqn:Rederiv5}\\
+~=~& \partial c^{*}/\partial c                       \label{eqn:ReDeriv6}\\
+~=~& \partial(cc^{*})/\partial c                     \label{eqn:ReDeriv7}\\
+~=~& \varepsilon c^{*}\VERT\varnothing(\partial c^{*}/\partial c)
+                                                     \label{eqn:ReDeriv8}\\
+~=~& c^{*}                                           \label{eqn:ReDeriv9}
+\end{align}
+\vspace*{-5ex}\\
+}
+위와 같이 손으로 풀어 나가듯 계산해 보았다. 이같은 계산 과정에서는
+계산을 진행하는 사람의 판단에 따라 한 단계의 등식 전개에 같은 공식을
+여러 번 반복적으로 적용(식\;\ref{eqn:ReDeriv1})하기도 하며,
+공식에 나타나는 형태 그대로 치환하는 데에만 그치지 않고 정규식의 의미상
+동치관계($r_1\equiv r_2$)까지 동원해 정규식을 간소화(식\;\ref{eqn:ReDeriv3},
+\ref{eqn:ReDeriv6}, \ref{eqn:ReDeriv9})하기도 한다.
+반면, 그림\;\ref{fig:ReDerivBigSmallSem}의
+동작과정 의미구조에 따른 기계적인 계산 과정에서는 (지시적 의미구구조에
+바탕을 둔) 정규식의 동치관계 등을 포함해 규칙에 나타나지 않은 계산의
+진행은 허용되지 않으며, $\langle r,a\rangle\Longmapsto r'$\,와
+$\langle r,x\rangle\LONGmapsto r'$ 형태의 큰걸음
+계산과정을 나타내는 유도나무(derivation tree)를 구성하는 각 단계마다
+규칙을 정확히 하나씩만 적용해야 한다. 앞서 손으로 계산했던
+$(a\VERT b)c^{*}$의 $acc$에 대한 미분을
+큰걸음 의미구조(그림\;\ref{sfig:ReDerivBig})에 따라 기계적으로
+계산하는 과정을 나타낸 유도나무는 대략 다음과 같은 모양이다.
+\vspace*{-2.5ex}
+\[%\hspace{-1em}
+\setpremisesend{-.25ex}
+\inference{
+  \inference*{
+    \inference{
+      \langle a,a\rangle \Longmapsto \varepsilon~ \\
+      \langle b,a\rangle \Longmapsto \varnothing
+    }{\langle a\VERT b,a\rangle \Longmapsto \varepsilon}
+  }{
+  \langle(a\VERT b)c^{*}\!,\,a\rangle \Longmapsto c^{*}
+  }
+& \text{\hspace{-2ex}\small$\!^{(\nu(a\!\VERT\!b)=\varnothing)}$}
+& \inference{
+    \inference*{\vdots}{
+    \langle c^{*}\!,\,c\rangle \Longmapsto c^{*}
+    }
+  & \inference{
+      \inference*{\vdots}{
+      \langle c^{*},\,c\rangle \Longmapsto c^{*}
+      }
+    & \langle c^{*}\!,\,\varepsilon\rangle \LONGmapsto c^{*}
+    }{
+    \langle c^{*}\!,\,c\rangle \LONGmapsto c^{*}
+    }
+  }{
+  \langle c^{*}\!,\,cc\rangle \LONGmapsto c^{*}
+  }
+}{
+\langle(a\VERT b)c^{*}\!,\,acc\rangle \LONGmapsto c^{*}
+}\vspace{-.5ex}
+\]
+위에서 정규식을 간소화도 사람이 판단해서 임의로 진행하는 것이 아니라,
+그림\;\ref{sfig:ReDerivBig}에서 $\Longmapsto$를 정의하는 규칙에
+간소화 함수(simplification function) $\varsigma$가 나타나는 곳에서만
+$\varsigma$의 정의(그림\;\ref{fig:Brzozowski})에 따라 정규식을
+간소화하며 기계적으로 계산을 진행하는 것이다. 예를 들어,
+방금 살펴본 유도나무의 왼쪽에 나타나는
+$\langle(a\VERT b)c^{*}\!,\,a\rangle \Longmapsto c^{*}$를
+유도하는 부분 유도나무에 적용된 규칙의 형태를 그대로 옮기면
+$\langle(a\VERT b)c^{*}\!,\,a\rangle
+ \Longmapsto \varsigma(\varepsilon c^{*})$이므로
+$\varsigma(\varepsilon c^{*}) = c^{*}$로 간소화되는 것이다.
+
+마찬가지 미분을 이번에는 작은걸음 의미구조(그림\;\ref{sfig:ReDerivSmall})에
+따라 기계적으로 계산해 보자. 그러려면 아래에 연쇄적인 형태로 작성한
+세 단계의 작은걸음 관계($\longmapsto$)가 성립함을 보이는
+세 개의 유도나무를 구성해야 한다. \vspace*{-1ex}
+\begin{quote}
+\( \langle(a\VERT b)c^{*}\!,\,acc\rangle
+~\stackrel{\text{\footnotesize\textcircled{\tiny 1}}}{\longmapsto}~
+\langle c^{*}\!,\,cc\rangle
+~\stackrel{\text{\footnotesize\textcircled{\tiny 2}}}{\longmapsto}~
+\langle c^{*}\!,\,c\rangle
+~\stackrel{\text{\footnotesize\textcircled{\tiny 3}}}{\longmapsto}~
+\langle c^{*}\!,\,\varepsilon\rangle \) \vspace*{-1.5ex}
+\end{quote}
+위의 각 작은걸음 관계의 성립을 보이는 유도나무는 다음과 같다.
+\begin{itemize}
+ \item[\textcircled{\small 1}]
+ $\inference*{
+    \inference{
+       \langle a,acc\rangle \longmapsto \langle\varepsilon,cc\rangle
+     & \langle b,acc\rangle \longmapsto \langle\varnothing,cc\rangle
+    }{
+    \langle a\VERT b,acc\rangle \longmapsto \langle\varepsilon,cc\rangle
+    }
+  }{
+  \langle(a\VERT b)c^{*}\!,\,acc\rangle \longmapsto
+  \langle c^{*},\,cc\rangle
+ }$\hspace{-8ex}{\small$\!^{(\nu(a\!\VERT\!b)=\varnothing)}$}
+ \\[-.5ex]
+ \item[\textcircled{\small 2}]
+ $\inference*{
+    \inference{
+       \langle c,cc\rangle \longmapsto \langle\varepsilon,c\rangle
+    }{
+    \langle cc^{*}\!,\,cc\rangle \longmapsto \langle c^{*}\!,\,c\rangle
+    }
+    \text{\small$\!^{(\nu(c)=\varnothing)}$\hspace{-6ex}}
+  }{
+  \langle c^{*}\!,\,cc\rangle \longmapsto
+  \langle c^{*},\,c\rangle
+ }$\\[-.5ex]
+ \item[\textcircled{\small 3}]
+ $\inference*{
+    \inference{
+       \langle c,c\rangle \longmapsto \langle\varepsilon,\varepsilon\rangle
+    }{
+    \langle cc^{*}\!,\,c\rangle \longmapsto \langle c^{*}\!,\,\varepsilon\rangle
+    }
+    \text{\small$\!^{(\nu(c)=\varnothing)}$\hspace{-6ex}}
+  }{
+  \langle c^{*}\!,\,c\rangle \longmapsto
+  \langle c^{*},\,\varepsilon\rangle
+ }$\\[-.5ex]
+\end{itemize}
+
+같은 언어에 대한 큰걸음과 작은걸음 의미구조는 정상적으로 종료되는 계산식에
+대해 같은 계산과정을 나타내도록 동작해야 한다. 정규식 미분의 큰걸음과
+작은걸음 의미구조(그림\;\ref{fig:ReDerivBigSmallSem})도 다음의 성질을
+만족하도록 정의되어 있다.
+\vspace*{-1ex}
+\begin{itemize}\tightlist
+ \item
+  $\langle r,x\rangle\LONGmapsto r'$이면
+  $\langle r,x\rangle\longmapsto^{*} \langle r',\varepsilon\rangle$이고,
+ \item
+  $\langle r,x\rangle\longmapsto^{*} \langle r',\varepsilon\rangle$이면
+  $\langle r,x\rangle\LONGmapsto r'$이다. \vspace*{-1ex}
+\end{itemize}
+위에서 $\longmapsto^{*}$는 0회 이상 연쇄적인 작은걸음($\longmapsto$)
+계산과정을 뜻한다. 즉, 여러 번의 작은걸음으로 정상종료 형태의 식에 도달한
+경우에 큰걸음으로도 그 식에 해당하는 결과값이 계산되어야 하며, 반대로
+큰걸음으로 계산한 결과값에 대해 여러 번의 작은걸음으로도 그 결과값에
+해당하는 정상종료 형태의 식에 도달할 수 있어야 한다는 말이다.
+
+\subsection{비결정적 (작은걸음) 의미구조와 합류성}
+비결정적 의미구조(nondeterministic semantics)란 하나의 계산식에
+두 가지 이상의 방법으로 규칙이 적용 가능한 경우가 있어 여러 갈래로
+계산이 진행될 가능성이 있는 의미구조를 일컫는다. 우리가 아는
+대부부분의 수학 공식을 그대로 작은걸음 의미구조로 옮긴다면 자연스럽게
+비결정적 의미구조가 될 것이다. 왜냐하면 큰 계산식에 공식을 적용할 수 있는
+부분이 여러 곳에 있는 경우 어느 한 곳만이 아니라 그 중 어느 곳에든
+적용해 계산을 진행해도 되는 경우가 많기 때문이다. 예컨데,
+널($\varnothing$)과 엡실론($\varepsilon$)이 포함된 정규식
+$(\varepsilon\VERT \varnothing)(\varnothing\VERT \varepsilon)$을
+차근차근 간소화(simplify)하려 할 때 다음과 같이 왼쪽 먼저 할 수도 있고
+오른쪽 먼저 할 수도 있는 비결정성이 있으며, 그 다음 단계에서도
+엡실론이 이어붙이기에 대한 항등원임을 활용할지 아니면
+널의 합집합에 대한 항등원임을 이용할지에 따라 또다시
+두갈래씩 계산 방향이 나누어진다.
+\begin{quote}
+\(
+(\varepsilon\VERT \varnothing)(\varnothing\VERT \varepsilon) =
+\left<\phantom{\begin{array}{l}.\\[4ex].\end{array}}\hspace*{-4ex}\right.
+\begin{array}{l}
+  \varepsilon(\varnothing\VERT \varepsilon) =
+     \Big<\hspace*{-1ex}
+     \begin{array}{l}
+       \varnothing\VERT \varepsilon \\
+       \varepsilon\varepsilon
+     \end{array}
+  \\[1ex]
+  (\varnothing\VERT \varepsilon)\varepsilon =
+     \Big<\hspace*{-1ex}
+     \begin{array}{l}
+      \varepsilon\varepsilon  \\
+      \varnothing\VERT \varepsilon
+     \end{array}
+\end{array}
+\)
+\end{quote}
+그런데 여러 갈래로 계산을 진행할 수 있더라도 계속 진행하다 보면
+어디선가 하나로 합쳐서서 최종 결과는 어떻게든 같아지는 성질을 가진
+계산들도 상당히 많다. 바로 위에서 진행시키던 간소화도 계속해 보면
+아래와 같이 어떤 갈래로 진행하든 결과는 모두 $\varepsilon$으로
+합류한다.
+\begin{quote}
+\(
+(\varepsilon\VERT \varnothing)(\varnothing\VERT \varepsilon) =
+\left<\phantom{\begin{array}{l}.\\[4ex].\end{array}}\hspace*{-4ex}\right.
+\begin{array}{l}
+  \varepsilon(\varnothing\VERT \varepsilon) =
+     \Big<\hspace*{-1ex}
+     \begin{array}{l}
+       \varnothing\VERT \varepsilon \\
+       \varepsilon\varepsilon
+     \end{array}\hspace*{-1ex}
+     \Big>
+  \\[1ex]
+  (\varnothing\VERT \varepsilon)\varepsilon =
+     \Big\langle\hspace*{-1ex}
+     \begin{array}{l}
+      \varepsilon\varepsilon  \\
+      \varnothing\VERT \varepsilon
+     \end{array}\hspace*{-1ex}
+     \Big>
+\end{array}
+\left.\phantom{\begin{array}{l}.\\[4ex].\end{array}}\hspace*{-4.5ex}\right>
+= \varepsilon
+\)
+\end{quote}
+이와 같이 여러 갈래로 계산이 진행되는 비결정적인 의미구조라도
+정상 종료되는 결과값에 와서는 하나로 합류하는 성질을
+합류성(confluence)이라고 한다. 다시 말하자면, 수학에서 상당수의
+대수적 계산식은 합류성을 갖도록 정의된 경우가 많다는 것이다.
+작은걸음 의미구조가 비결정적이더라도 합류성을 만족한다면,
+정상 종료되는 계산식은 그에 대응되는 큰걸음 의미구조에서
+하나의 결과값으로 항상 수렴한다. 정리하면, 합류성은 계산 과정이
+여러 갈래로 비결정적이더라도 계산 결과가 존재한다면 하나로
+결정되도록 보장하는 성질이다.
+
+
+\begin{comment}
+{
+\newcommand{\simpRE}[0]{\mathrlap{~~^{\,_\mathfrak{s}}}\longmapsto}
+\begin{multline}
+a\\
+\varnothing \VERT r \simpRE r \\
+r \VERT \varnothing \simpRE r \\
+\varnothing\,r \simpRE \varnothing \\
+r\,\varnothing \simpRE \varnothing \\
+\varepsilon\,r \simpRE r \\
+r\,\varepsilon \simpRE r \\
+\varnothing^{*} \simpRE \varepsilon \\
+\varepsilon^{*} \simpRE \varepsilon \\
+\inference{r_1\simpRE r_1'}{r_1 \VERT r_2 \simpRE r_1'\VERT r_2 } \\
+\inference{r_2\simpRE r_2'}{r_1 \VERT r_2 \simpRE r_1 \VERT r_2'} \\
+\inference{r_1\simpRE r_1'}{r_1\,r_2 \simpRE r_1' r_2 } \\
+\inference{r_2\simpRE r_2'}{r_1\,r_2 \simpRE r_1\,r_2'} \\
+\inference{r\simpRE r'}{r^{*} \simpRE r'^{*}} \\
+b
+\end{multline}
+}
+\end{comment}
+
+동작과정 의미구조에 관해서는 소개할 내용이 더 있지만 앞으로도
+이 책에서 동작과정 의미구조를 바탕으로 실행가능한 프로그래밍 언어의
+구현을 프로그램으로 작성해 보면서 새롭게 필요한 개념이 등장하면
+그때 소개하기로 한다. 이 절을 마치며 사족을 달자면, 사실
+그림\;\ref{sfig:ReDerivSmall}의 정규식 미분의 의미구조는
+표면적인 포장은 분명 작은걸음 의미구조의 형태이기는 하나,
+큰걸음 의미구조와 관련성이 잘 드러나면서 프로그램으로 옮기기
+편하게 정의하다 보니, 다소 큰걸음의 풍미가 첨가되었다고 볼 수 있다.
+전형적인 작은걸음 의미구조로 정의하려면 정규식의 미분
+$\partial r/\partial x$를 을 나타내는 식 $r \pdvinfix x$를
+정규식의 문법구조에 추가하여
+\begin{quote}
+$r\in \mathcal{R}_{\partial} ~::=~
+ \varnothing ~\mid~ \varepsilon ~\mid~ a ~\mid~
+ r\VERT r ~\mid~ rr ~\mid~ r^{*} ~\mid~ r \pdvinfix x$
+\end{quote}
+위와 같이 같이 확장하고,
+미분공식(그림\;\ref{fig:Brzozowski})에 따라 이항관계
+$\cdot\!\longmapsto\!\cdot \subset R_{\partial}\times R_{\partial}$를
+적절히 정의하되 종료조건이 되는 계산식의 형태는
+추가된 미분 연산자($\pdvinfix$)를 포함하지 않는
+원래의 정규식 $r\in \mathcal{R}$로 하면 된다.
 
 \section{공리적 의미구조}
-공리적 의미구조(axiomatic semantics)에 대해서는 이 책에서는 많이
-다루지 않으므로 간략히 개념만 설명하고 넘어가겠다. 그렇다고 해서
-그다지 중요하지 않은 프로그래밍언어의 의미구조 표현 방식이라는 뜻은
-결코 아니다. 어떤 관점에서는 공리적 의미구조야말로 지금까지 실용적
-활용 사례\footnote{단적으로, NASA에서도 활용한다.
+공리적 의미구조(axiomatic semantics)에 대해서는 이 책에서는 많이 다루지
+않으므로 간략히 개념만 설명하고 넘어가겠다. 그렇다고 해서 중요하지 않은
+프로그래밍언어의 의미구조 표현 방식이라는 뜻은 아니다. 어떤 관점에서는
+공리적 의미구조야말로 지금까지 실용적 활용 사례\footnote{단적으로,
+  NASA에서도 활용한다.
   \url{https://ti.arc.nasa.gov/tech/rse/publications/vnv/}}가 가장 많은
 의미구조의 표현 방식이라 볼 수도 있다. 역사적으로도 공리적 의미구조의
 기원이 되는 이론인 호어 논리(Hoare logic)\cite{Hoare69}의 발표와 함께
@@ -2144,10 +2582,10 @@ TODO
 확장한 분리 논리(separation logic)\cite{IshtiaqOHearn01,
 OHearnReynoldsYang01}를 프로그램 검증에 활용하는 추세다.
 
-\begin{figure}
-\includegraphics[scale=.5]{SirTonyHoare.jpg}
-\caption{Sir Charles Antony Richard Hoare (2011 사진) \label{fig:Hoare}}
-\end{figure}
+% \begin{figure}
+% \includegraphics[scale=.5]{SirTonyHoare.jpg}
+% \caption{Sir Charles Antony Richard Hoare (2011 사진) \label{fig:Hoare}}
+% \end{figure}
 
 
 프로그램 검증은 일반적인 검사(testing) 방식의 한계를 극복할 수 있게 한다.
@@ -2258,6 +2696,96 @@ $\{\text{밥}\ge n+2\}
 구현된 알고리즘의 복잡도와 관련된 개념을 검증하고자 할 때는
 이를테면 비교 연산이나 산술 연산 등 핵심 연산이 얼마나 많이
 수행되는지에만 집중하여 표현된 공리적 의미구조를 정의하는 것도 가능하다.
+
+\section{이름의 유효범위와 타입}
+컴파일러 관련 기술을 논할 때, 구문분석(syntax analysis)을 마치고
+가운데단의 중간 코드 생성(intermediate code generation) 및
+최적화(optimization)와 뒷단의 코드 생성(code generation)을 하기 전,
+그 사이에 앞단의 작업을 마무리하며 진행되는 일련의 작업을
+대략 의미분석(semantic analysis)이라 부른다 \cite{Aho2013compilers2nd}.
+프로그램에서 이름(name) 혹은 식별자(identifier)가 유효범위(scope)에
+맞게 사용되지, 또 계산식이 타입(type)에 맞게 활용되는지 등에 대한 검사도
+여기에 포함되며, 이런 작업을 진행하며 얻은 정보를 문법나무의
+속성(attribute)으로 추가하기도 한다. 예를 들면 문법나무의 요소마다
+타입 검사 결과로 알게 된 타입 정보를 이후의 최적화 및 코드생성 등에
+요긴하게 활용하기 위해 속성으로 추가해 놓기도 하는 것이다. 하지만
+이것은 지금까지 대개의 프로그래밍 언어 구현을 그런 식으로 구성했다는
+현상에 대한 분석일 뿐이다.
+
+보통의 컴파일러에서 소위 `의미분석'으로 분류되는 모든 작업이 원론적으로
+문법구조의 영역이 아닌 의미구조의 영역으로 딱 떨어지게 경계지을 수 있는
+것은 아니다. 문맥자유문법(CFG)의 범위를 넘어 문맥의존문법(CSG)까지
+활용하면 변수가 유효범위에 맞게 사용되었는지는 형식문법으로 표현이
+가능하다고 알려져 있다.
+
+\subsection{요약문법나무 + 이름의 유효범위 묶음 = 요약묶음나무}
+요약문법나무(abstract syntax tree, AST)에다
+이름을 유효범위에 묶어두기(name binding)까지 한 구조를
+요약묶음나무(abstract binding tree, ABT)라고 한다.
+
+\lipsum[1-2]
+
+\subsection{프로그래밍 언어의 타입}
+대부분의 프로그래밍 언어에는 정수, 부동소수점 수, 문자 등의
+기본 타입(basic type) 혹은 원시 타입(primitive type)이 제공되며,
+순서쌍, 구조체, 리스트, 배열 등 여러개의 자료를 하나로 묶는
+복합 타입(compound type)이 제공된다. 또한 함수를 값으로서 다루는
+프로그래밍 언어에서는 함수 타입의 계산식이나 값을 직접 다룰 수 있다.
+타입(type)을 `유형', `형', 또는 `꼴' 등의 우리말 용어로 옮기기도
+하지만 워낙 프로그래밍 이외의 분야에서 일상용어로도 흔히 쓰는
+외래어이므로 이 책에서는 그냥 `타입'이라 부르겠다.
+
+타입은 실행 전의 프로그램식이나 계산의 진행 과정에 있는 계신식
+또는 계산의 결과값을 분류하는 유형이다. 정적(static) 타입은 실행 전에
+계산식을 미리 분류하는 개념으로, 실행 중에도 그 성질이 유지될 것을
+기대하며 최종적으로 어떤 종류의 값으로 계산될지도 가늠해 볼 수 있다.
+동작방식 의미론의 관점에서 표현해 보면 다음과 같다. 실행 전에 $e:\tau$,
+즉 프로그램식 $e$가 타입 $\tau$로 분류된다면, 작은걸음으로
+$e\longmapsto e_1\longmapsto e_2\longmapsto\cdots$일 때
+$e_2:\tau,\;e_2:\tau,\;\cdots$임을 기대하며 큰걸음으로
+$e\Longmapsto v$일 때 $v:\tau$임을 기대한다는 말이다.
+이렇게 정적 타입을 기반으로 한 언어에서 대표적으로 만족되기를
+기대하는 실행 과정에서 타입이 유지되는 성질을
+`타입보존'(type perservation)이라고 한다.
+
+그에 상대되는 개념인 동적(dynamic) 타입은, 더 이상 계산할 필요 없이
+자명한 기본타입의 리터럴 등 일부 프로그램의 요소를 제외하고는,
+일반적으로 실행 전의 프로그램식을 미리 분류하지 않고 실행하여 계산된
+결과값에 대해서만 어떤 타입인지 확인하여 그 다음 계산 진행 과정에
+적합한지 판단한다. 예를 들어 함수를 호출하는 위치에 해당하는 변수의
+값을 계산해 그 결과를 확인해 보았는데, 결과값이 함수가 아닌 정수이거나
+할 경우에는 그 다음의 계산 과정인 함수 호출이 불가능하므로 실행 오류가
+발생하게 되는 것이다.
+
+참고로, 정적 타입을 기반으로 하는 언어에서도 동적 타입의 요소가 일부
+가미되는 경우는 흔하다. 예를 들면 동적 디스패치를 기반으로 하는
+객체지향 언어에서는 정적 타입으로 추상적인 상위 범주만 분류되고,
+구체적으로 어떤 하위 범주로 분류되는 내용이 계산 과정이나 최종 결과값에
+나타날지는 실행 시간에 동적 타입으로 확인가능한 경우도 있다. 그리고
+조금 더 동적 타입에 가까운 요소로는 소위 리플렉션(reflection)이라 불리는,
+프로그램 실행 중에 새로이 타입을 구성하는 기능을 제공하는 정적 타입 기반의
+언어들도 있다. 이런 내용은 보통 컴퓨터 관련 전공 교육과정에서 객체지향에
+대한 이론을 다루거나 다른 주제를 다루면서도 실습용으로 객체지향 언어를
+사용하며 접할 기회들도 있을 것이므로 더 이상의 자세한 설명은 생락한다.
+
+정적 타입을 기반으로 동적 타입의 요소를 가미하는 정도가 아닌,
+동적 타입 언어 작성하듯 프로그래밍할 수 있으면서 필요에 따라서
+정적 타입의 기능을 일부 활용한다거나, 정적 타입 언어에서처럼
+더 많은 타입 정보를 명세함으로써 더 원활한 동적 타입 언어의 활용을
+꾀하는 등의 여러가지 다양한 방식을 아울러 하이브리드(hybrid) 타입이라
+부른다. 예를 들면 소위 소프트(soft) 타입\cite{Cartwright2004soft}을
+표방하는 언어 시스템은 추가적인 타입 정보를 동적 언어에 제공함으로써
+실행 성능 향상을 도모하거나 실행 오류가 발생했을 때 추가적인 타입 정보를
+함께 활용함으로써 더 나은 오류 처리를 도모하기는 하지만, 정적 타입의
+가장 핵심적인 기능이자 장점인 실행 전에 프로그램에서 아귀가 맞지 않는
+부분을 찾아 오류를 검출하는 기능을 도입하지는 않았었다. 최근 들어
+업계에서도 인기가 높아지는 점진적(gradual) 타입\cite{Jeremy2006gradual}을
+표방하는 언어 시스템은 정적 타입 검사로 실행 전에 오류를 검출할 수
+있으면서도, 기존에 동적 타입 언어로 작성된 코드를 정적 타입의 틀에 맞춰
+일괄적으로 변환하지 않고도 거의 그대로 활용할 수 있도록 원하는 부분에
+필요한 만큼만 정적 타입을 점진적으로 적용할 수 있게 설계되어 있다.
+
+
 
 \section*{요점정리}
 \begin{itemize}

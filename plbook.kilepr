@@ -7,7 +7,7 @@ img_extIsRegExp=false
 img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
 kileprversion=3
 kileversion=2.9.93
-masterDocument=
+masterDocument=main.tex
 name=PLbook
 pkg_extIsRegExp=false
 pkg_extensions=.cls .sty .bbx .cbx .lbx
@@ -17,6 +17,18 @@ src_extensions=.tex .ltx .latex .dtx .ins
 [Tools]
 MakeIndex=
 QuickBuild=
+
+[item:imgs/AlonzoChurch.jpg]
+archive=true
+encoding=
+highlight=
+mode=
+
+[item:imgs/ChoeKwangMoo.jpg]
+archive=true
+encoding=
+highlight=
+mode=
 
 [item:imgs/Chomsky1977.jpg]
 archive=true
@@ -30,7 +42,37 @@ encoding=
 highlight=
 mode=
 
+[item:imgs/DeskCalculator.jpg]
+archive=true
+encoding=
+highlight=
+mode=
+
+[item:imgs/Gcalc.png]
+archive=true
+encoding=
+highlight=
+mode=
+
+[item:imgs/HaskellBCurry.jpg]
+archive=true
+encoding=
+highlight=
+mode=
+
+[item:imgs/JanuszBrzozowski.jpg]
+archive=true
+encoding=
+highlight=
+mode=
+
 [item:imgs/JohnBackus.jpg]
+archive=true
+encoding=
+highlight=
+mode=
+
+[item:imgs/Kleene.jpg]
 archive=true
 encoding=
 highlight=
@@ -43,6 +85,12 @@ highlight=
 mode=
 
 [item:imgs/RomanAbacusRecon.jpg]
+archive=true
+encoding=
+highlight=
+mode=
+
+[item:imgs/SirTonyHoare.jpg]
 archive=true
 encoding=
 highlight=
