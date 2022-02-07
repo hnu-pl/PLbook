@@ -438,10 +438,19 @@
 이해가 있어야 하므로 관련된 기본 개념도 앞부분에서 짧은 분량으로나마
 간략히 최소한의 개념을 소개하는 정도로 다루고 있다. 컴퓨터 관련
 전공 과정이라 하더라도 응용 분야가 다양해지고 세분화되는 시대인 만큼
-형식언어/오토마타/계산이론을 주제로 한 전공과목이 없는 경우도 있고
-있다 하더라도 프로그래밍언어를 주제로 하는 강좌의 선수과목 혹은
-저학년에 배치되지 않은 경우에도 한 교재 안에서 최소한의 내용을
-참고할 수 있도록 하기 위함이다.
+형식언어/오토마타/계산이론을 주제로 한 전공과목이 없거나,
+있다 하더라도 프로그래밍언어를 주제로 하는 강좌의 선수과목이나
+저학년의 필수과목으로 배치되지 않은 경우에도, 이 하나의 교재 안에서
+최소한의 내용을 참고할 수 있도록 하기 위함이다.
+
+이 책에서는 프로그래밍 언어의 원리에 접근하는 이론적 시각을 강조하고자
+하지만, 그렇다고 엄밀한 정의와 논리적 전개를 바탕으로 차근차근 체계적인
+이론을 쌓아올리는, 비유하자면 진국을 우려내는 슬로우푸드를 만드는
+방식으로는 접근하지 않으려 한다. 원리를 조명하는 이론적 시각에 대한
+직관적 이해와 활용되는 맥락에 대한 이해를 바탕에 두고, 프로그래밍 언어의
+원리와 맞닿아 있는 예제를 직접 실행해 보며 훑어보는 방식으로 체득할 수 있는
+패스트푸드를 제공하고 싶다. 
+
 
 \newpage
 \tableofcontents
@@ -2697,35 +2706,328 @@ $\{\text{밥}\ge n+2\}
 이를테면 비교 연산이나 산술 연산 등 핵심 연산이 얼마나 많이
 수행되는지에만 집중하여 표현된 공리적 의미구조를 정의하는 것도 가능하다.
 
-\section{이름의 유효범위와 타입}
+\section*{요점정리}
+\begin{itemize}
+ \item 지시적 의미구조(denotational semantics)는 프로그램 e의 의미를
+       수학적 구조 $\llbracket e\rrbracket$에 대응시킴으로써 정의한다.
+       예를 들면 정규식의 지시적 의미구조를 문자열의 `집합'인 언어에
+       대응시킴으로써 정의할 수 있다.
+ \item 의미구조 괄호 $\llbracket \cdot \rrbracket$로 표기되는
+       함수를 지시함수(denotation function) 또는
+       의미값함수(semantic evaluation function)이라 한다.
+ \item 지시적 의미구조는 원론적인 의미구조를 정의함으로써 대상 언어의
+       성질을 이론적으로 규명하기에 적합하다는 장점이 있다.
+ \item 하나의 언어에 대한 지시함수를 다르게 정의하여 여러가지로
+       지시적 의미구조를 정의할 수 있으며, 필요에 따라서는 실용적으로
+       활용가능한 컴파일러에 해당하는 지시적 의미구조도 정의할 수 있다.
+ \item 하나의 언어를 대상으로 하는 서로 다른 의미구조가 서로 어긋남
+       없이 일관된 뜻을 나타낸다 엄밀한 이론적 증명이 필요하다.
+ \item 동작과정 의미구조(operational semantics)는 프로그램의 의미구조를
+       외부의 대상에서 찾지 않고 프로그램이 결과값으로 바뀌어 가는
+       계산과정 자체를 의미구조로 정의한다. 따라서 프로그램으로 옮겨
+       대상이 되는 언어를 구현하기에 적합한 의미구조의 표현 방식이라 볼 수 있다.
+ \item 동작과정 의미구조는 이항구조로 정의할 수 있는데,
+       프로그램($e$)을 최종 결과값($v$)과 연관짓는 ($e\Longmapsto v$)
+       큰걸음(bit-step) 의미구조와 계산 과정의 계산식($e$)을 바로
+       다음 단계의 계산식($e'$)와 연관짓는 ($e\longmapsto e'$)
+       작은걸음 의미구조의 두 가지 정의 방식으로 크게 분류할 수 있다.
+ \item 큰걸음 의미구조에서는 $e\Longmapsto v$의 성립 자체가 정상적인
+       계산의 종료를 의미한다.
+ \item 작은걸음 의미구조에서는 계산이 정상 종료되는 계산식의 형태를
+       종료조건으로 명시하면 그 이외의 형태로 더 이상 진행할 수 없는
+       계산은 비정상 종료로 취급한다.
+ \item 같은 언어에 큰걸음과 작은걸음 의미구조를 서로 같은 계산과정을
+       표현하도록 정의했다면, 큰걸음으로 $e\Longmapsto v$일 때
+       0회 이상의 여러 작은걸음으로 $e\longmapsto \cdots \longmapsto v$이어야 하고,
+       반대로 여러 작은걸음 $e\longmapsto \cdots \longmapsto e'$로
+       정상종료되는 계산과정은 큰걸음에서도 $e\Longmapsto e'$이며 이 때
+       $e'$는 큰걸음에서 최종 계산값의 형태에 부합한다.
+ \item 여러 갈래로 진행될 가능성이 있는 계산을 포함하는 작은걸음 의미구조를
+       비결정적(nondeterministic)인 의미구조라 하는데, 이 때 정상 종료하는
+       계산에 대해서는 항상 갈라졌던 계산이 다시 하나로 합쳐지면서 유일무이한
+       결과값으로 수렴한다면 그러한 의미구조는 합류성(confluence)이 있다.
+ \item 문자열을 둘로 자르는 모든 경우에 나타날 수 있는 앞쪽을 앞부분(prefix)
+       그리고 뒤쪽을 뒷부분(postfix)라고 한다.
+ \item 문자열의 왼쪽에 $x^{-1}$라 쓰면 앞부분이 $x$인 문자열에서 그 앞부분 $x$를
+       떼내고 남은 뒷부분을 계산하는 연산이며 이를 문자열의 집합인 언어($L$)로
+       확장한 개념이 바로 언어의 문자열에 대한 미분($x^{-1} L)$이다.
+       브쇼조브스키는 문자열의 미분을 기반으로 정의한 정규식의 미분을 연구하였다.
+ \item 공리적 의미구조(axiomatic semantics)는 호어 논리(Hoare logic)에서
+       그 기원을 찾을 수 있으며, 역사적으로 호어 로직과 함께 프로그램
+       검증 분야가 본격적으로 시작되었기에 프로그램 검증에 실용적으로
+       가장 활발하게 응용되어 온 방식의 의미구조라 볼 수 있다.
+ \item 프로그램 검증이란 프로그램을 실행해 특정 입력 사례에 대해 기대하는
+       결과가 계산되는지 알아보는 일반적인 프로그램 검사와 달리 일반적으로
+       모든 경우에 프로그램이 어떤 성질을 만족하는지 수학에서의 증명과 같이
+       논리적으로 검증하는 접근 방식이다.
+ \item 공리적 의미구조는 프로그램($C$)이 실행되기 전에 만족되어야 하는
+       선행조건($P$)과 실행 후에 만족될 후행조건($Q$)으로써 프로그램의
+       의미를 정의한다. 이렇게 프로그램과 그 선행조건 및 후행조건의
+       세 요소로 이루어진 표현 $\{P\}\,C\,\{Q\}$를
+       호어 트리플(Hoare triple)이라 한다.
+\end{itemize}
+
+\section*{연습문제}
+\begin{enumerate}
+ \item 덧셈과 곱셈을 포함하는 계산식에 대한
+       큰걸음 의미구조와 작은걸음 의미구조를 정의해 보라.
+ \item 앞의 문제에서 정의한 의미구조가 결정적인지 비결정적인지 따져보라.
+\end{enumerate}
+
+\section*{탐구과제}
+\begin{enumerate}
+ \item 비결정적인 작은걸음 의미구조를 결정적인 의미구조로 바꾸려면
+       어떻게 해야 하는지 알아보라.
+ \item 동작과정 의미구조를 설명하는 본문의 끝부분에 더 작은걸음스러운
+       정규식 미분의 작은걸음 의미구조를 정의하려면 어떤 방향으로 접근해야
+       할지 제시했다. 실제로 구체적인 규칙을 정의해 가며 작은걸음 이런
+       방향으로 정규식 미분의 작은걸음 의미구조를 정의해 보라.
+ \item 호어 로직을 확장한 분리 논리(separation logic)의 특징과 응용 사례를 조사해 보라.
+\end{enumerate}
+
+\chapter{유효범위(Scope)와 타입(Type)}
 컴파일러 관련 기술을 논할 때, 구문분석(syntax analysis)을 마치고
 가운데단의 중간 코드 생성(intermediate code generation) 및
 최적화(optimization)와 뒷단의 코드 생성(code generation)을 하기 전,
-그 사이에 앞단의 작업을 마무리하며 진행되는 일련의 작업을
-대략 의미분석(semantic analysis)이라 부른다 \cite{Aho2013compilers2nd}.
+앞단의 작업을 마무리하며 진행되는 일련의 작업을 대략
+의미분석(semantic analysis)이라 부른다 \cite{Aho2013compilers2nd}.
 프로그램에서 이름(name) 혹은 식별자(identifier)가 유효범위(scope)에
-맞게 사용되지, 또 계산식이 타입(type)에 맞게 활용되는지 등에 대한 검사도
-여기에 포함되며, 이런 작업을 진행하며 얻은 정보를 문법나무의
-속성(attribute)으로 추가하기도 한다. 예를 들면 문법나무의 요소마다
-타입 검사 결과로 알게 된 타입 정보를 이후의 최적화 및 코드생성 등에
-요긴하게 활용하기 위해 속성으로 추가해 놓기도 하는 것이다. 하지만
-이것은 지금까지 대개의 프로그래밍 언어 구현을 그런 식으로 구성했다는
-현상에 대한 분석일 뿐이다.
-
-보통의 컴파일러에서 소위 `의미분석'으로 분류되는 모든 작업이 원론적으로
+맞게 사용되는지, 또 계산식이 타입(type)에 맞게 활용되는지 등에 대한
+검사도 여기에 포함되며, 이런 작업을 진행하며 얻은 정보를 (추상)문법나무에
+추가적인 속성(attribute)으로 추가하기도 한다. 하지만 그렇다고 해서
+보통의 컴파일러에서 소위 `의미분석'으로 분류되는 모든 작업을 원론적으로
 문법구조의 영역이 아닌 의미구조의 영역으로 딱 떨어지게 경계지을 수 있는
-것은 아니다. 문맥자유문법(CFG)의 범위를 넘어 문맥의존문법(CSG)까지
-활용하면 변수가 유효범위에 맞게 사용되었는지는 형식문법으로 표현이
-가능하다고 알려져 있다.
+것은 아니며, 단지 지금까지 프로그래밍 언어 구현을 보통 그런 식으로
+구성했다는 말이다. 프로그래밍 언어에서 유효범위(scope)와 타입(type)은
+문법구조(syntax)일까 의미구조(semantics)일까?
+
+\newpage
+
+\section{이름의 유효범위와 문법구조}
+변수 등의 이름이 그 유효범위에 맞게 사용되는지는 문맥자유문법(CFG)의
+표현 범위를 넘어선 문맥의존문법(CSG)까지 동원하면 형식문법으로 표현
+가능하므로 이론적으로는 얼마든지 순수한 문법구조의 영역으로 볼 수 있다.
+물론 일반적인 CSG는 프로그래밍언어 구현에서 현실적인 용도로 사용할 만큼
+효율적인 알고리듬으로 처리하기 어렵기 때문에 지금까지의 대부분 프로그래밍
+언어 구현에서 대략 CFG로 표현 가능한 만큼의 구문분석을 한 뒤에
+유효범위 등은 별도로 처리하는 것이 일반적이었던 것이다. 하지만
+문맥자유문법의 비교적 온건한 확장\cite{Okhotin2005existence}으로도
+이름 유효범위와 같은 기능을 처리할 수 있음이 밝혀져 있으므로, 새로운
+언어 구현을 시도한다면 이를 구문분석 과정의 일부로 처리하는 것도
+비현실적 접근은 아니다. 이 절에서는 특정 형식문법으로 효과적으로
+표현 가능한가에 대한 내용보다는, 어째서 이름 유효범위를 의미구조보다
+문법구조로 보는 것이 자연스러운지 직관적인 예시로 설명한다. 또한,
+유효범위를 어떤 데이터 구조의 관점에서 접근하면 개념적으로 이해하기도
+좋고 구현과 관련한 활용에도 유용한지 소개하려 한다.
+
+\subsection{이름의 유효범위(scope)와 납치(cature)}
+그림\;\ref{fig:samefun}에는 C/C++ 언어로 1부터 n까지의 합을 계산하는 함수를
+처음에는 단순한 반복문으로 작성(그림\;\ref{sfig:samefun1})하고, 이를 여러모로
+수정해 보았다. 반복문 정도의 기초적인 프로그램 요소 정도에만 익숙하더라도
+원래 함수인 그림\;\ref{sfig:samefun1}과 \texttt{y}를 \texttt{z}로 바꿔친
+그림\;\ref{sfig:samefun2}는 똑같은 함수지만, \texttt{y}를 \texttt{n}으로
+바꿔친 그림\;\ref{sfig:samefun3}는 전혀 다른 함수라는 것을 한눈에 알아볼 수
+있을 것이다. 고정 크기 정수의 넘침(overflow)같은 컴퓨터 하드웨어를 고려한 
+정수 표현의 세부사항은 무시하고 수학적으로 이상적인 정수의 연산만을 생각한다면,
+그림\;\ref{sfig:samefun1}과 \ref{sfig:samefun5}는 조금 다른 측면에서
+``같은'' 함수이다. 그림\;\ref{sfig:samefun1}과 \ref{sfig:samefun2}는
+그냥 생긴 것만 봐도 같은, 즉 문법구조적으로도 거의 같지만,
+그림\;\ref{sfig:samefun1}과 \ref{sfig:samefun5}는 정수 덧셈, 곱셈, 나눗셈의
+성질 등 수학적 의미를 따져보았을 때 의미구조상 같다고 정리할 수 있다.
+
+\begin{figure}
+\lstset{numbers=left,numberstyle=\scriptsize\color{gray}}
+\begin{subfigure}[b]{.4\textwidth}
+\begin{lstlisting}
+int f(int n) {
+  int y = 0;
+  for (int x = 1; x <= n; x++)
+      y += x;
+  return y;
+}
+\end{lstlisting}
+\vspace*{-\baselineskip}
+\caption{n까지 더하는 함수\label{sfig:samefun1}}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.4\textwidth}
+\begin{lstlisting}
+int f(int n) {
+  int z = 0;
+  for (int x = 1; x <= n; x++)
+      z += x;
+  return z;
+}
+\end{lstlisting}
+\vspace*{-\baselineskip}
+\caption{\texttt{y}를 \texttt{z}로 바꿔치기\label{sfig:samefun2}}
+\end{subfigure}
+\\[1ex]
+\begin{subfigure}[b]{.4\textwidth}
+\begin{lstlisting}
+int f(int n) {
+  int n = 0;
+  for (int x = 1; x <= n; x++)
+      n += x;
+  return n;
+}
+\end{lstlisting}
+\vspace*{-\baselineskip}
+\caption{\texttt{y}를 \texttt{n}으로 바꿔치기\label{sfig:samefun3}}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{.4\textwidth}
+\begin{lstlisting}
+int f(int n) {
+  int y = n - 100;
+  for (int x = 1; x <= n; x++)
+      y += x;
+  return x;
+}
+\end{lstlisting}
+\vspace*{-\baselineskip}
+\caption{\texttt{0}을 \texttt{n-100}으로 바꿔치기$\hspace{-7ex}$\label{sfig:samefun4}}
+\end{subfigure}
+\\[1ex]
+\begin{subfigure}[b]{.4\textwidth}
+\begin{lstlisting}
+int f(int n) { return (n + 1) * n / 2; }
+\end{lstlisting}
+\vspace*{-.6\baselineskip}
+\caption{가우스의 덧셈 공식\label{sfig:samefun5}}
+\end{subfigure}
+\caption{요렇게 저렇게 바꾸면 무엇이 무엇이 똑같은가?\label{fig:samefun}}
+\end{figure}
+
+그렇다면 그림\;\ref{sfig:samefun2}와 비슷한 방식으로 수정한 
+그림\;\ref{sfig:samefun3}은 어째서 우리가 한눈에 보고 다른 함수라고 판단했을까?
+프로그래밍에 대해 잘 모르는 친구가 이런 식으로 물어보면 뭐라고 설명할까
+잠깐 고민하다가, 저렇게 고치면 1부터 n까지 합이 아닌 엉뚱한 계산을 한다고,
+아마도 설명하려 들 것이다. 그런데 설명하려고 잠깐 고민하기 전부터
+기초적인 프로그래밍이라도 직접 해본 사람이라면, 이미 이건 함수의 내용을
+따지기 전에 뭔가 달라졌다고 직감했을 것이다. 이런 직감을 전문용어를
+동원해 설명하자면 변수의 이름을 바꿔치기(substitution) 혹은 치환하면서
+원래 함수에서 이름이 유효범위에 묶여있던 (name binding) 구조까지도 의도치
+않게 바꿔버린 것이다. 그림\;\ref{sfig:samefun2}에서는 변수 \texttt{y}를 선언하고
+사용하는 모든 곳에서 새로운 이름 \texttt{z}로 바꿔치더라도 이름이 유효범위에
+묶여있는 구조는 변하지 않았다. 하지만 그림\;\ref{sfig:samefun3}에서 \texttt{y}를
+\texttt{n}으로 바꿔치면, 원래 함수(그림\;\ref{sfig:samefun1})에서 3째줄의
+\texttt{x\,<=\,n}에 사용되는 \texttt{n}은 1째줄에 함수의 매개변수(parameter)로
+선언된 \texttt{n}에 묶여있었는데 이름을 바꿔친 다음(그림\;\ref{sfig:samefun3})에는
+같은 3째줄의 \texttt{x\,<=\,n}의 \texttt{n}이 이제는 함수의 지역 변수로 선언된
+2째줄의 \texttt{int n}에 묶여있다. 즉, 3째줄의 \texttt{n}이 원래 함수 전체
+유효범위에 묶여있던 이름이였는데 수정한 다음에 함수의 일부인 2째줄 이후의
+더 좁은 유효범위에 묶여있는 이름이 되어버린 것이다. 이렇게 의도치 않게
+더 좁은 유효범위에 같히는 상황을 이름이 납치(capture)되었다고도 한다.
+
+그림\;\ref{sfig:samefun4}에서는 그림 자체에 나타나 있지 않은 상황을 추가로
+가정하자면, 함수 바깥에 프로그램의 다른 부분에서 상수로 사용하는 전역변수
+\texttt{n}의 값이 \texttt{100}으로 정의되어 있다고 하자. 그러면 함수 바깥의
+다른 곳에서는 \texttt{n-100}의 값이 \texttt{0}이므로 같은 값의 식끼리 치환을
+시도한 상황이 된다. 그런데 하필 함수 파라메터의 이름이 \texttt{n}으로 전역변수의
+이름과 겹쳐서 이 함수 안으로 들어온 2째줄의 \texttt{n-100}에서 \texttt{n}은
+더이상 원래 의도했던 전역 유효범위가 아닌 더 좁은 범위의 함수 유효볌위에 묶인
+이름이 되어버린다. 유효범위가 의도한 것보다 더 좁은 곳에 묶인다는 점은 같지만
+앞서 그림\;\ref{sfig:samefun3}에서는 내부적으로 사용하는 이름을 (더 가독성이
+좋은 이름으로 새로 짓거나 하는 등의 이유에서) 일괄적으로 바꾸려다 의도치 않은
+이름의 납치가 발생한 상황이라면 이번 경우는 바깥에서 사용하던 프로그램식을
+안으로 옮겨 사용하려다 이름의 납치가 발생한 상황이다.
+
+이렇듯 단순히 문서편집기에서 문자열을 다른 문자열로 바꿔치기(substitution)하는
+방식으로는 이름 납치가 발생할 위험성이 있다. 그래서 기존에 작성했던 소스코드의
+구조개선을 돕는 리팩토링(refactoring) 도구 등의 프로그래밍언어 소스코드의
+문법구조를 따라 안전하게 일괄적으로 치환하는 기능이 필요한 도구에는
+``납치없는 바꿔치기''(capture avoiding substitution)를 구현해야
+한다. 예를 들면 방금 살펴본 그림\;\ref{sfig:samefun4}에서는 \texttt{n-100}을
+함수 안으로 옮겨오기 전에 이름 납치의 가능성을 인지하고 함수 파라메터 이름을
+\texttt{n}에서 \texttt{m}과 같은 겹치지 않는 이름으로 먼저 일괄적으로 바꿔
+놓으면 된다. 물론 이렇게 내부적으로 이름을 치환하는 중에도 이름 납치가 발생하지
+않도록 하면서 말이다.
+
+\subsection{이름의 유효범위 묶음(name binding)을 포함한 문법구조의 같음}
+\begin{figure}\centering
+\begin{subfigure}{.25\textwidth}
+\includegraphics[scale=1]{AlonzoChurch.jpg}
+\includegraphics[trim={140pt 360pt 80pt 12pt},clip,scale=1]{deBruijn.jpg}
+\end{subfigure}
+\begin{subfigure}{.6\textwidth}\small
+람다식의 문법구조
+{\large\[e ~::=~ x ~\mid~ \lambda x.e ~\mid~ e\;e\]}
+{\footnotesize Y-combinator의 표준적 람다식 표기와}\\[1.5ex]
+{\normalsize
+$\phantom{.}\qquad\lambda f.(\lambda x.\,f\,(x\;x))\,(\lambda x.\,f\,(x\;x))$\\[1.25ex]
+$\phantom{.}\qquad\lambda~~\,(\lambda~~2~(1~1))\,(\lambda~~2~(1~1))$}\\[1ex]
+{\footnotesize 그에 상응하는 이름없는 람다식 표기}
+
+{\footnotesize
+\[
+\begin{forest}
+for tree={inner sep=0, l sep-=.5em, l=0}
+[$\lambda f.$ [@ [$\lambda x.$ [@ [$f$] [@ [x] [x]]]]
+                 [$\lambda x.$ [@ [$f$] [@ [x] [x]]]] ] ]
+\end{forest}
+\]
+}
+\end{subfigure}
+\caption{람다계산법($\lambda$-calculus)의 창시자인 알론조 처치(Alonzo Church)와
+         이름없는 람다식 표기를 고안한
+         니콜라스 드 브루인(Nicholaas de Bruijn)
+         {\scriptsize(사진 출처: MacTutor, 위키미디어 공용)}
+         \label{fig:ChurchDeBruijn} }         
+\end{figure}
+앞서 다룬 바를 간단히 정리해 보면, $f(x) = x+x$와 $f(y) = 2\times x$는 문법구조는
+다르지만 의미구조상 같고, $f(x) = x+x$와 $f(y) = y+y$는 문법구조상 본질적으로
+같다고 볼 수 있다. 이름(name)을 뭐라고 부르는가는 편의상 임의로 정했을 뿐
+그 자체가 본질적인 것은 아니며 오히려 이름이 어느 유효범위에
+묶여있는지(name binding)의 구조가 이름의 본질이라 할 수 있다. 따라서
+함수 이름 $f$를 항상 작성하는 친숙한 표기 방식은 함수의 본질만 담은
+최소한의 표기는 아니다. 이러한 관점에서 알론조 처치(Alonzo Church)는
+함수 $f(x) = x+x$를 이름짓지 않고 $\lambda x.x+x$와 같이 표기하는
+람다계산법($\lambda$-calculus)을 1930년대 초에 창안\cite{Church1932}하였으며
+이름 납치없는 바꿔치기로 똑같아질 수 있는 관계를
+$\lambda x.x \equiv_\alpha \lambda y.y$와 같이 표기하고
+$\alpha$동치($\alpha$-equivalence)라 불렀다.
+니콜라스 드브루인(Nicholaas de Bruijn)은 람다식 문법나무에서 이름이 몇번째로
+가까운 유효범위에 묶여있는지 나타내는 정수값인 드브루인 인덱스(de Bruin index)를
+이름 대신에 표시함으로써 $\alpha$동치인 람다식이 유일무이한 형태로 표기되는
+람다식에 대한 이름없는 표기 방식\cite{deBruijn1972}을 고안하였다. 그러니까 람다식을
+드브루인 인덱스를 활용한 표기로 바꿔봤는데 똑같다면 서로 $\alpha$동치라는 말이다.
+
+그림\;\ref{fig:ChurchDeBruijn}에는 같은 람다식의 표준적 표기와
+드브루인 인덱스를 활용한 이름없는 표기를 나란히 비교해 놓았다.
+문법나무를 살펴보면,
+$x$는 첫번째 가까운 $\lambda x.\cdots$로 시작하는 범위에서 나타되므로 1로,
+$f$는 두번째 가까운 $\lambda f.\cdots$로 시작하는 범위에서 나타되므로 2로
+표시하고 있다. 그런데 같은 이름이라도 어디에서 쓰이느냐에 따라 다른
+드브루인 인덱스로 표시될 수 있다는 점에 유의하라. 예를 들어
+람다식 $\lambda f.\,f\,(\lambda x.\,f\;x)$는 $\lambda~1~(\lambda~2~1)$에 상응한다.
+오른쪽과 왼쪽의 $f$를 각각 1과 2의 서로 다른 드브루인 인덱스로 표시하고 있다.
+왜냐하면 오른쪽 $f$가 묶여있는 $\lambda f.\cdots$는 가장 가까이 있지만
+왼쪽 $f$는 $\lambda x.\cdots$ 안에 있으므로 묶여있는 곳을 찾아가려면
+거기서 가장 가까운 $\lambda x.\cdots$를 거쳐 두번째로 가까운
+$\lambda f.\cdots$로 가야 하기 때문이다.
+
+람다식에 나타나는 모든 이름이 드브로인 인덱스로 변환되지는 않는다.
+단적으로 이름 자체만으로 이루어진 $x$와 같은 람다식에서 이름 $x$는
+드브로인 인덱스로 옮길 수 없다. 왜냐하면 이런 경우 $x$는 어디에도 묶이지
+않고 자유롭기(free) 때문이다. 또한 $\lambda x.\,y\;x$의 경우도 
+$\lambda~y~1$ 정도까지만 이름을 드브로인 인덱스로 변환할 수 있다.
+왜냐하면 $\lambda x.\,y\;x$에서 $x$는 묶인이름(bound name)이지만
+$y$는 자유이름(free name)이기 때문이다. 람다식에 자유이름이 있으면
+열려있다(open)고 하고 자유이름이 없으면 닫혀있다(closed)고 한다.
+보통 컴파일러의 의미분석 단계 작업의 하나로 분류되는
+유효범위 분석(scope analysis)을 이런 관점에서 단순화해서 설명하면,
+분석 대상이 되는 프로그램이 자유변수가 없는 닫힌 프로그램이면 통과시키고
+자유변수를 포함하는 열린 프로그램이면 거부하며 오류를 내는 작업으로 볼 수 있다.
 
 \subsection{요약문법나무 + 이름의 유효범위 묶음 = 요약묶음나무}
-요약문법나무(abstract syntax tree, AST)에다
-이름을 유효범위에 묶어두기(name binding)까지 한 구조를
+요약문법나무(abstract syntax tree, AST)에
+이름의 유효범위 묶음(name binding)까지 표현된 구조를
 요약묶음나무(abstract binding tree, ABT)라고 한다.
 
 \lipsum[1-2]
 
-\subsection{프로그래밍 언어의 타입}
+\section{프로그래밍 언어의 타입}
 대부분의 프로그래밍 언어에는 정수, 부동소수점 수, 문자 등의
 기본 타입(basic type) 혹은 원시 타입(primitive type)이 제공되며,
 순서쌍, 구조체, 리스트, 배열 등 여러개의 자료를 하나로 묶는
@@ -2735,18 +3037,31 @@ $\{\text{밥}\ge n+2\}
 하지만 워낙 프로그래밍 이외의 분야에서 일상용어로도 흔히 쓰는
 외래어이므로 이 책에서는 그냥 `타입'이라 부르겠다.
 
+\subsection{정적 타입과 동적 타입}
 타입은 실행 전의 프로그램식이나 계산의 진행 과정에 있는 계신식
 또는 계산의 결과값을 분류하는 유형이다. 정적(static) 타입은 실행 전에
 계산식을 미리 분류하는 개념으로, 실행 중에도 그 성질이 유지될 것을
 기대하며 최종적으로 어떤 종류의 값으로 계산될지도 가늠해 볼 수 있다.
-동작방식 의미론의 관점에서 표현해 보면 다음과 같다. 실행 전에 $e:\tau$,
+동작과정 의미구조의 관점에서 표현해 보면 다음과 같다. 실행 전에 $e:\tau$,
 즉 프로그램식 $e$가 타입 $\tau$로 분류된다면, 작은걸음으로
 $e\longmapsto e_1\longmapsto e_2\longmapsto\cdots$일 때
 $e_2:\tau,\;e_2:\tau,\;\cdots$임을 기대하며 큰걸음으로
 $e\Longmapsto v$일 때 $v:\tau$임을 기대한다는 말이다.
 이렇게 정적 타입을 기반으로 한 언어에서 대표적으로 만족되기를
 기대하는 실행 과정에서 타입이 유지되는 성질을
-`타입보존'(type perservation)이라고 한다.
+`타입보존'(type perservation)이라고 한다. 또한 잘 설계된 정적
+타입 언어에서는 모든 구성 요소가 타입으로 잘 분류되는 (well-typed)
+프로그램은 계산 도중에 비정상 종료되지 않고 원활히 진행(progress)되는
+성질을 만족할 것도 기대한다. 정리하면, 이상적인 정적 타입 언어는
+타입으로 잘 분류되는 프로그램이 실행 전에 분류된 타입대로 성질을 유지하며
+원활히 계산이 진행되도록 타입 시스템이 `안전성'(soundness)을
+보장하는 것을 추구한다. 실행 효율의 측면에서도 정적 타입 언어는
+유리하다. 프로그램식이나 변수의 타입이 실행 중에 보존된다는 성질을
+기대할 수 있으므로, 예를 들어 실행 전에 정수 타입으로 분류된 변수는
+실행 중에 혹시 갑자기 문자열이나 함수로 내용이 바뀌지 않을까
+동적 언어에서처럼 걱정하며 추가로 검사나 예외처리를 할 필요 없이
+정수를 처리에 필요한 만큼만의 메모리를 배정하고 정수 타입에
+최적화된 처리를 할 수 있기 때문이다.
 
 그에 상대되는 개념인 동적(dynamic) 타입은, 더 이상 계산할 필요 없이
 자명한 기본타입의 리터럴 등 일부 프로그램의 요소를 제외하고는,
@@ -2755,10 +3070,16 @@ $e\Longmapsto v$일 때 $v:\tau$임을 기대한다는 말이다.
 적합한지 판단한다. 예를 들어 함수를 호출하는 위치에 해당하는 변수의
 값을 계산해 그 결과를 확인해 보았는데, 결과값이 함수가 아닌 정수이거나
 할 경우에는 그 다음의 계산 과정인 함수 호출이 불가능하므로 실행 오류가
-발생하게 되는 것이다.
+발생하게 되는 것이다. 동적 언어는 이렇게 미리 오류를 검출하기 어렵고
+실행 시간에 뒤늦게 오류가 드러나는 단점을 감수하고서라도 프로그래머가
+표현하고자 하는 모든 정상적으로 계산 가능한 프로그램은 다 수용하겠다는
+`완전성'(completeness)를 추구한다고 볼 수도 있다. 정적 타입 언어에서는
+안전성을 추구하다 보니 실제로 실행해 보면 문제 없이 동작하는
+일부 프로그램이 타입 시스템의 규칙에 부합하지 않는다는 이유로
+바람직하지 못한 프로그램으로 취급되어 컴파일 및 실행이 거부되기도 한다.
 
 참고로, 정적 타입을 기반으로 하는 언어에서도 동적 타입의 요소가 일부
-가미되는 경우는 흔하다. 예를 들면 동적 디스패치를 기반으로 하는
+가미되는 경우도 많다. 예를 들면 동적 디스패치를 기반으로 하는
 객체지향 언어에서는 정적 타입으로 추상적인 상위 범주만 분류되고,
 구체적으로 어떤 하위 범주로 분류되는 내용이 계산 과정이나 최종 결과값에
 나타날지는 실행 시간에 동적 타입으로 확인가능한 경우도 있다. 그리고
@@ -2785,41 +3106,151 @@ $e\Longmapsto v$일 때 $v:\tau$임을 기대한다는 말이다.
 일괄적으로 변환하지 않고도 거의 그대로 활용할 수 있도록 원하는 부분에
 필요한 만큼만 정적 타입을 점진적으로 적용할 수 있게 설계되어 있다.
 
+\subsection{요약된 의미로서의 타입}
+어떤 프로그래밍 언어에 다음 기본 함수가 제공된다고 하자 (단, $\Sigma=\{a,b\}$).
+\vspace{-1.5ex}
+\begin{align*}
+\texttt{plus} :\; & \mathbb{N} \times \mathbb{N} \to \mathbb{N} & \text{자연수의 덧셈}\\
+\texttt{slen} :\; & \Sigma^{*} \to \mathbb{N} & \text{문자열의 길이}\\[-5.5ex]
+\end{align*}
+위의 각 함수의 지시적 의미구조는 다음과 같은 대응의 집합으로 정의하고,\vspace*{-1.5ex}
+\begin{align*}
+ \llbracket\,\texttt{plus}\,\rrbracket
+ =~& \{ (0,0)\mapsto 0,\,
+        (0,1)\mapsto 1,\,(1,0)\to 1,\,
+        (0,2)\mapsto 2,\,(1,1)\mapsto 2,\,
+        \ldots\,
+     \}
+ \\
+ \llbracket\,\texttt{slen}\,\rrbracket
+ =~& \{ \varepsilon\mapsto 0, 
+        a\mapsto 1,\;b\mapsto 1,\;
+        aa\mapsto 2,\;ab\mapsto 2,\;ba\mapsto 2,\;bb\mapsto 2,\;
+        \ldots\;
+     \} \\[-5.5ex]
+\end{align*}
+자연수나 문자열의 의미는
+$\llbracket 25 \rrbracket = \{25\}$나 $\llbracket abba \rrbracket = \{abba\}$ 같이
+그 값 하나만으로 이루어진 집합(singleton set)으로, 그리고 순서쌍의 의미는
+각 요소 의미의 곱집합인
+$\llbracket(e_1,\ldots,e_k)\rrbracket =
+ \llbracket e_1\rrbracket\times\cdots\times\llbracket e_k\rrbracket$로 정의하자.
+그러면 함수 호출의 의미는 다음과 같이 정의할 수 있다.\vspace*{-1ex}
+\begin{quote}
+$ \llbracket\,f(e_1,\ldots,e_k)\,\rrbracket
+ = \{ v' \mid v \in \llbracket (e_1,\ldots,e_k)\rrbracket,\,
+              v\mapsto v' \in \llbracket f\rrbracket \} $
+\end{quote}
+이런 의미구조는 실행했을 때 구체적으로 어떤 결과값일지 정확한 내용을
+표현한다. 예컨대, 두 문자열 $ab$와 $bba$의 길이이 합을 구하는 프로그램을
+지시함수 $\llbracket\cdot\rrbracket$의 정의에 따라 풀어가 보면 다음과 같다.
+\vspace*{-1.5ex}
+{\addtolength{\jot}{-.5ex}
+\begin{align*}
+  & \llbracket\,\texttt{plus}(\texttt{slen}(ab),\,\texttt{slen}(bba))\,\rrbracket \\
+=~& \{ v' \mid
+       v \in \llbracket\,(\texttt{slen}(ab),\,\texttt{slen}(\texttt{bba}))\,\rrbracket,\;
+       v\mapsto v' \in \llbracket\texttt{plus}\rrbracket \} \\
+=~& \{ v' \mid
+       v \in \llbracket\texttt{slen}(ab)\rrbracket\times
+             \llbracket\texttt{slen}(bba)\rrbracket,\,
+       v\mapsto v' \in \llbracket\texttt{plus}\rrbracket \} \\
+=~& \cdots \\
+=~& \{ v' \mid
+       v \in \{2\}\times\{3\},\,
+       v\mapsto v' \in \llbracket\texttt{plus}\rrbracket \} \\
+=~& \{ v' \mid v\in \{\,(2,\,3)\,\},~\;
+       v\mapsto v' \in \llbracket\texttt{plus}\rrbracket \} \\
+=~& \{5\}
+\end{align*}
+}
 
+\begin{figure}
+\begin{align*}
+\llbracket\,\texttt{plus}\,\rrbracket_t =~& \mathbb{N}\times\mathbb{N} \to \mathbb{N} \\
+\llbracket\,\texttt{slen}\,\rrbracket_t =~& \Sigma^{*} \to \mathbb{N} \\
+\llbracket\,n\,\rrbracket_t =~& \mathbb{N} \qquad (n\in\mathbb{N}) \\
+\llbracket\,x\,\rrbracket_t =~& \Sigma^{*} \qquad (x\in\Sigma^{*}) \\
+\llbracket\,(e_1,\ldots,e_k)\,\rrbracket_t =~& 
+    \llbracket e_1\rrbracket_t\times\cdots\times\llbracket e_k\rrbracket_t \\
+\llbracket\,f(e_1,\ldots,e_k)\,\rrbracket_t =~& \!\!\!\!
+    \begin{cases}
+     B & \llbracket\,f\,\rrbracket_t = \llbracket(e_1,\cdots,e_k)\rrbracket_t \to B\\
+     \{\,\} & \text{otherwise}
+    \end{cases}
+\end{align*}
+\caption{요약된 의미로서의 타입을 나타내는 지시적 의미구조\label{fig:AbsSemType}}
+\end{figure}
+
+이번에는 같은 언어에 때한 또다른 의미구조($\llbracket\,\cdot\,\rrbracket_t$)를
+그림\;\ref{fig:AbsSemType}와 같이 정의해 보자. 가장 기본적인 값인 자연수와
+문자열의 의미를 정확히 그 하나의 값으로만 이루어진 집합으로 좁히는
+$\llbracket\cdot\rrbracket$과 달리, 이번에 정의한 지시함수
+$\llbracket\cdot\rrbracket_t$는 크게 어림잡아 자연수 전체의 집합 $\mathbb{N}$과
+문자열 전체의 집합 $\Sigma^{*}$이라는 아주 넓은 범위를 그 의미로 삼는다.
+즉, 자연수끼리나 문자열끼리 구체적인 값이야 어찌되었든 의미를 구별하지 않고
+뭉뚱그려 취급하는 것이다. 앞서 지시함수 $\llbracket\cdot\rrbracket$의 정의에 따라
+풀어가 보았던 프로그램 $\texttt{plus}(\texttt{slen}(ab),\,\texttt{slen}(bba))$를
+이번에는 $\llbracket\cdot\rrbracket_t$의 정의에 따라 풀어가 보자.
+$\llbracket\texttt{slen}\rrbracket_t = \Sigma^{*}\to\mathbb{N}$이고
+$\llbracket ab\rrbracket_t = \Sigma^{*}$라서
+$\llbracket\texttt{slen}\rrbracket_t = \llbracket ab\rrbracket_t \to \mathbb{N}$이
+성립하므로, 그림\;\ref{fig:AbsSemType}에서 마지막의 함수 호출에 대한 지시함수
+정의를 적용하면 $\llbracket\texttt{slen}(ab)\rrbracket_t = \mathbb{N}$이다.
+마찬가지로 $\llbracket\texttt{slen}(bba)\rrbracket_t = \mathbb{N}$이며,
+따라서 $\llbracket(\texttt{slen}(ab),\texttt{slen}(bba))\rrbracket_t
+                      = \mathbb{N} \times \mathbb{N}$이다.
+$\llbracket\texttt{plus}\rrbracket_t = \mathbb{N}\times\mathbb{N}\to\mathbb{N}$이므로
+$\llbracket\texttt{plus}\rrbracket_t
+ = \llbracket(\texttt{slen}(ab),\texttt{slen}(bba))\rrbracket_t\to\mathbb{N}$이
+성립하므로, 다시 함수 호출에 대한 정의를 적용하면
+$\llbracket\texttt{plus}(\texttt{slen}(ab),\texttt{slen}(bba))\rrbracket_t 
+ = \mathbb{N}$이 된다. 구체적 의미구조로
+ $\llbracket\texttt{plus}(\texttt{slen}(ab),\texttt{slen}(bba))\rrbracket
+ = \{5\}$였으므로 다음이 성립함을 알 수 있다.\vspace*{-1ex}
+\begin{quote}
+$\llbracket\texttt{plus}(\texttt{slen}(ab),\texttt{slen}(bba))\rrbracket \subset
+ \llbracket\texttt{plus}(\texttt{slen}(ab),\texttt{slen}(bba))\rrbracket_t$
+\vspace*{-1ex}
+\end{quote} 
+일반적으로 구체적인 의미구조로 정확히 풀이된 의미는 요약된 의미구조로
+어림잡아 계산된 포괄적인 의미의 부분집합이 될 것이다
+(즉, $\llbracket e\rrbracket \subset \llbracket e\rrbracket_t$).
+ 
+방금전의 요약된 의미구조 $\llbracket\cdot\rrbracket_t$에 따른 풀이 과정은,
+타입 검사 과정에서 함수에 넘어가는 인자들의 타입과 함수 파라메터의 타입이
+일치하는지 확인되면 해당 함수 호출식의 타입은 결과적으로 함수의 리턴 타입으로
+분류되는 타입 검사과정의 논리구조와 동일하다. 이러한 점에서 프로그래밍언어의
+정적 타입 시스템은 요약된 의미구조를 구현하고 있다고 볼 수 있으며, 그런
+의미에서 정적 타입 시스템을 프로그래밍 언어의 정적 의미구조(static semantics)라
+부르기도 한다.
 
 \section*{요점정리}
-\begin{itemize}
- \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
- \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
- \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-\end{itemize}
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
 \section*{연습문제}
-\begin{enumerate}
- \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
- \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
- \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-\end{enumerate}
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
 \section*{탐구과제}
-\begin{enumerate}
- \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
- \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
- \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-\end{enumerate}
-
-\part{파트}
-
-\chapter{첫째장 제목}
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 
-\includegraphics[scale=.2]{AlonzoChurch.jpg} 사진 출처 MacTutor
 
-\includegraphics[scale=.2]{Kleene.jpg} 사진 출처 MacTutor
-
-\includegraphics[scale=.2]{HaskellBCurry.jpg} 사진 출처 위키미디어 공용
+%% \part{파트}
+%% 
+%% \chapter{첫째장 제목}
+%% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+%% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+%% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+%% 
+%% \includegraphics[scale=.2]{Kleene.jpg} 사진 출처 MacTutor
+%% 
+%% \includegraphics[scale=.2]{HaskellBCurry.jpg} 사진 출처 위키미디어 공용
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \printbibliography[title=참고문헌]
