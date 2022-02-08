@@ -17,6 +17,7 @@
 \usepackage[style=numeric-comp,natbib=true,sorting=nyt]{biblatex}
 \addbibresource{sample.bib}
 \usepackage{stmaryrd}
+\usepackage{bm}
 \usepackage{mathtools}
 \usepackage{semantic}
 % \usepackage{physics}
@@ -2914,7 +2915,7 @@ int f(int n) { return (n + 1) * n / 2; }
 \texttt{n}으로 바꿔치면, 원래 함수(그림\;\ref{sfig:samefun1})에서 3째줄의
 \texttt{x\,<=\,n}에 사용되는 \texttt{n}은 1째줄에 함수의 매개변수(parameter)로
 선언된 \texttt{n}에 묶여있었는데 이름을 바꿔친 다음(그림\;\ref{sfig:samefun3})에는
-같은 3째줄의 \texttt{x\,<=\,n}의 \texttt{n}이 이제는 함수의 지역 변수로 선언된
+같은 3째줄의 \texttt{x\,<=\,n}에서 \texttt{n}이 이제는 함수의 지역 변수로 선언된
 2째줄의 \texttt{int n}에 묶여있다. 즉, 3째줄의 \texttt{n}이 원래 함수 전체
 유효범위에 묶여있던 이름이였는데 수정한 다음에 함수의 일부인 2째줄 이후의
 더 좁은 유효범위에 묶여있는 이름이 되어버린 것이다. 이렇게 의도치 않게
@@ -3023,15 +3024,81 @@ $y$는 자유이름(free name)이기 때문이다. 람다식에 자유이름이 
 \subsection{요약문법나무 + 이름의 유효범위 묶음 = 요약묶음나무}
 요약문법나무(abstract syntax tree, AST)에
 이름의 유효범위 묶음(name binding)까지 표현된 구조를
-요약묶음나무(abstract binding tree, ABT)라고 한다.
-앞서 소개한 람다식서에 $\lambda$와 같이 이름을 유효범위에 묶어주는
-요소를 바인더(binder)라고 하는데 순수한 람다식의 문법구조에서
-바인더는 $\lambda$가 유일하다. 실용적인 프로그래밍언어는 물론이고
-이론적으로 연구되는 프로그래밍언어의 모형에서도 여러 종류의
-바인더를 포함하는 경우가 드물지 않다.
+요약묶음나무(abstract binding tree, ABT)라 한다 \cite{PFPL2nd}.
+람다계산법(그림\;\ref{fig:ChurchDeBruijn})에서 $\lambda$와 같이
+이름을 유효범위에 묶어주는 요소를 바인더(binder)라
+하는데 순수한 람다식에서 바인더는 $\lambda$ 하나 뿐이다.
+참고로, 여러 부분식으로 이루어지는 식을 한데 모아 복합적인(compound)
+식을 구성한다는 점에서는 바인더와 같지만  이름의 유효범위 묶음을
+다루지는 않는 $e_1 + e_2$에서 $+$와 같은 요소까지 아우르는 문법구조의
+개념을 생성자(constructor)라고도 부른다.
+실용적인 언어는 물론이고 이론적 연구 주제로 다루는 프로그래밍언어의
+모형에서도 여러 여러 종류의 바인더를 포함하는 문법구조는 드물지 않다.
+요약묶음나무는 이렇게 여러 종류의 바인더를 포함한 언어의 문법구조를
+다루기에 적합한 표현 방식이다.
 
-문법구조에서는
-\lipsum[1-2]
+\begin{figure}
+\begin{subfigure}{.5\textwidth}
+\begin{align*}
+    x \in \mathcal{N} & \\
+ e,e_i\in E ~&\\
+   ~::=~& x \\
+  ~\mid~& \bm{\lambda}\,x\,\bm{.}\;e
+        & (\text{binds}~ x ~\text{in}~ e)\phantom{_{3}}\\
+  ~\mid~& e_1\;e_2 \\
+  ~\mid~& \textbf{let}\;x\pmb{=}e_1\;\textbf{in}\;e_2
+        & (\text{binds}~ x ~\text{in}~ e_2)
+\\[-5ex]
+\end{align*}
+\caption{Sewell 형식\label{sfig:ABTstyle1} }
+\end{subfigure}
+\hfill
+\begin{subfigure}{.4\textwidth}
+\begin{align*}
+    x \in \mathcal{N} & \\
+ e,e_i\in E ~&\\
+   ~::=~& x \\
+  ~\mid~& \bm{\lambda}(x.e) \\
+  ~\mid~& \pmb{\textbf{@}}(e_1;\,e_2) \\
+  ~\mid~& \textbf{let}(e_1;\,x.e_2)
+\\[-5ex]
+\end{align*}
+\caption{Harper 형식\label{sfig:ABTstyle2} }
+\end{subfigure}
+\caption{요약묶음나무(ABT)의 두 가지 표현 형식\label{fig:ABTstyles}}
+\end{figure}
+
+람다식에 지역(local) 이름을 선언하는, 이를테면
+$\textrm{let}\;x=3\;\textrm{in}\;x+2$를 계산한 결과가 5인,
+새로운 바인더 $\textrm{let}\,\cdots\,\textrm{in}\,\cdots$으로
+이루어지는 식을 추가하자.
+일반적으로 let식의 형태를 $\textrm{let}\;x=e_1\;\textrm{in}\;e_2$라
+하면 여기서 $e_1$은 $x$의 값을 초기화하기 위한 식일 뿐
+$x$의 유효범위에 포함되지 않고 실제 $x$가 묶이는 범위는 $e_2$로 한다.
+이렇게 우리말 문장으로 설명해 놓으면 어떤 이름을 어떤 유효범위에
+묶는지 뜻이 전달되기는 하지만 한눈에 잘 들어오지는 않는다.
+이를 그림\;\ref{fig:ABTstyles}와 같이 추상묶음나무(ABT) 형식으로 정리하여
+표시하면 추상문법나무(AST)가 나타내는 문법구조의 내용과 함께
+각 바인더가 어떤 이름 유효범위 묶음(name binding) 구조를 구성하는지
+한눈에 들어온다. 왼쪽(그림\;\ref{sfig:ABTstyle1})은
+Sewell\cite{Sewell2007ott}이 개발을 주도한 의미구조 정의
+자동화 도구인 OTT의 표기와 유사한 방식이다.
+OTT는 구체적문법을 처리하는 파서도 자동으로 생성하는 기능을
+포함하므로 구체적문법에 가깝게 문법구조를 표현하고
+바인더를 포함하는 식의 오른쪽에 이름이 묶이는 범위에
+대한 부가조건을 명시한다. 오른쪽은 \citet{PFPL2nd}의 교재에 나타나는
+표현 방식은 추상문법 표현을 규격화하여 복합적인(compound) 문법요소을
+만들어내는 생성자(constructor)를 가장 앞부분(prefix)에 오도록 표현하며,
+구체적문법의 표기 순서와 다르게 조정해서라도 이름 $x$와 그 유효범위에
+해당하는 식 $e$를 항상 나란히 $x.e$와 같이 표기한다. 이와 같이
+요약문법나무(ABT)로 정의된 문법구조는 납치없는 바꿔치기(capture avoiding
+substitution) 및 $\alpha$동치($\alpha$-equivalence) 등과 같은
+이름의 유효범위 묶음(name binding)을 다루는 기본적인 연산이 제공된다고
+가정한다. 실제 ABT의 기능을 자체적으로 내장한 언어\cite{FreshML2003}나
+ABT의 개념을 바탕으로 문법구조에서 이름의 유효범위를 편리하게 다루는
+라이브러리\cite{Unbound2011}도 출시되어 있는데, 이런 언어나
+라이브러리에서는 해당 연산을 미리 구현해 제공하거나 손쉽게 구현할
+수 있는 기능을 마련하고 있다.
 
 \section{프로그래밍 언어의 타입}
 대부분의 프로그래밍 언어에는 정수, 부동소수점 수, 문자 등의
@@ -3258,7 +3325,7 @@ $\llbracket\texttt{plus}(\texttt{slen}(ab),\texttt{slen}(bba))\rrbracket \subset
        포함된 문법구조의 표현을 추상묶음나무(ABT)라 한다.
  \item 람다식에서 $\lambda$와 같이 이름을 유효범위에 묶는 문법구조의
        요소를 바인더(binder)라고 하며, 추상묶음나무로 바인더를
-       포함한 문법구조를 정의한다.
+       포함한 문법구조를 정의할 수 있다.
  \item 정적 타입 언어는 실행 전에 프로그램식을 타입으로 분류하므로
        일찍 오류를 검출할 수 있다. 또한 계산 과정과 최종 결과값에
        이르기까지 타입을 보존(preservation)하려 하므로 실행 성능에

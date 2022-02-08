@@ -12,6 +12,63 @@
 	year = {1972}
 }
 
+@inproceedings{FreshML2003,
+author = {Shinwell, Mark R. and Pitts, Andrew M. and Gabbay, Murdoch J.},
+title = {FreshML: Programming with Binders Made Simple},
+year = {2003},
+isbn = {1581137567},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/944705.944729},
+doi = {10.1145/944705.944729},
+abstract = {FreshML extends ML with elegant and practical constructs for declaring and manipulating syntactical data involving statically scoped binding operations. User-declared FreshML datatypes involving binders are concrete, in the sense that values of these types can be deconstructed by matching against patterns naming bound variables explicitly. This may have the computational effect of swapping bound names with freshly generated ones; previous work on FreshML used a complicated static type system inferring information about the 'freshness' of names for expressions in order to tame this effect. The main contribution of this paper is to show (perhaps surprisingly) that a standard type system without freshness inference, coupled with a conventional treatment of fresh name generation, suffices for FreshML's crucial correctness property that values of datatypes involving binders are operationally equivalent if and only if they represent a-equivalent pieces of object-level syntax. This is established via a novel denotational semantics. FreshML without static freshness inference is no more impure than ML and experience with it shows that it supports a programming style pleasingly close to informal practice when it comes to dealing with object-level syntax modulo a-equivalence.},
+booktitle = {Proceedings of the Eighth ACM SIGPLAN International Conference on Functional Programming},
+pages = {263–274},
+numpages = {12},
+keywords = {metaprogramming, variable binding, alpha-conversion},
+location = {Uppsala, Sweden},
+series = {ICFP '03}
+}
+
+@article{Unbound2011,
+author = {Weirich, Stephanie and Yorgey, Brent A. and Sheard, Tim},
+title = {Binders Unbound},
+year = {2011},
+issue_date = {September 2011},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {46},
+number = {9},
+issn = {0362-1340},
+url = {https://doi.org/10.1145/2034574.2034818},
+doi = {10.1145/2034574.2034818},
+abstract = {Implementors of compilers, program refactorers, theorem provers, proof checkers, and other systems that manipulate syntax know that dealing with name binding is difficult to do well. Operations such as α-equivalence and capture-avoiding substitution seem simple, yet subtle bugs often go undetected. Furthermore, their implementations are tedious, requiring "boilerplate" code that must be updated whenever the object language definition changes.Many researchers have therefore sought to specify binding syntax declaratively, so that tools can correctly handle the details behind the scenes. This idea has been the inspiration for many new systems (such as Beluga, Delphin, FreshML, FreshOCaml, Cαml, FreshLib, and Ott) but there is still room for improvement in expressivity, simplicity and convenience.In this paper, we present a new domain-specific language, Unbound, for specifying binding structure. Our language is particularly expressive - it supports multiple atom types, pattern binders, type annotations, recursive binders, and nested binding (necessary for telescopes, a feature found in dependently-typed languages). However, our specification language is also simple, consisting of just five basic combinators. We provide a formal semantics for this language derived from a locally nameless representation and prove that it satisfies a number of desirable properties.We also present an implementation of our binding specification language as a GHC Haskell library implementing an embedded domain specific language (EDSL). By using Haskell type constructors to represent binding combinators, we implement the EDSL succinctly using datatype-generic programming. Our implementation supports a number of features necessary for practical programming, including flexibility in the treatment of user-defined types, best-effort name preservation (for error messages), and integration with Haskell's monad transformer library.},
+journal = {SIGPLAN Not.},
+month = {sep},
+pages = {333–345},
+numpages = {13},
+keywords = {patterns, generic programming, haskell, name binding}
+}
+
+
+
+@inproceedings{Sewell2007ott,
+author = {Sewell, Peter and Nardelli, Francesco Zappa and Owens, Scott and Peskine, Gilles and Ridge, Thomas and Sarkar, Susmit and Strni\v{s}a, Rok},
+title = {Ott: Effective Tool Support for the Working Semanticist},
+year = {2007},
+isbn = {9781595938152},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/1291151.1291155},
+doi = {10.1145/1291151.1291155},
+abstract = {It is rare to give a semantic definition of a full-scale programming language, despite the many potential benefits. Partly this is because the available metalanguages for expressing semantics - usually either LaTEX for informal mathematics, or the formal mathematics of a proof assistant - make it much harder than necessary to work with large definitions.We present a metalanguage specifically designed for this problem, and a tool, ott, that sanity-checks such definitions and compiles them into proof assistant code for Coq, HOL, Isabelle, and (in progress) Twelf, together with LaTEX code for production-quality typesetting, and OCaml boilerplate. The main innovations are:(1) metalanguage design to make definitions concise, and easy to read and edit;(2) an expressive but intuitive metalanguage for specifying binding structures; and (3) compilation to proof assistant code.This has been tested in substantial case studies, including modular specifications of calculi from the TAPL text, a Lightweight Java with Java JSR 277/294 module system proposals, and a large fragment of OCaml (around 306 rules), with machine proofs of various soundness results. Our aim with this work is to enable a phase change: making it feasible to work routinely, without heroic effort, with rigorous semantic definitions of realistic languages.},
+booktitle = {Proceedings of the 12th ACM SIGPLAN International Conference on Functional Programming},
+pages = {1–12},
+numpages = {12},
+location = {Freiburg, Germany},
+series = {ICFP '07}
+}
+
 @article{Church1932,
  ISSN = {0003486X},
  URL = {http://www.jstor.org/stable/1968337},
