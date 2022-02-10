@@ -30,7 +30,7 @@
     basewidth={.5em}
 }
 \usepackage{float}
-
+\usepackage{multicol}
 \usepackage{lipsum}
 
 %%%%%%%% BEGIN: Jupyter generated LaTeX header %%%%%%%%
@@ -96,7 +96,7 @@
     \usepackage{titling}
     \usepackage{longtable} % longtable support required by pandoc >1.10
     \usepackage{booktabs}  % table support for pandoc > 1.12.2
-    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[inline,shortlabels]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
     \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
                                 % normalem makes italics be italics, not underlines
     \usepackage{mathrsfs}
@@ -1614,10 +1614,14 @@ $::=$ 기호 및 수학의 집합 관련 기호 등을 활용한 추상문법 �
 검색 및 입력 형식 확인 등 대부분의 정규언어 활용 사례에 적합한 표현 방식이
 바로 정규식이다.
 
-\begin{figure}[b]\centering\vspace*{-2ex}
+\begin{figure}[b]\vspace*{-2ex}
 \begin{align*}
 \text{문법구조(syntax)\hspace{-5ex}} & &~&
-&\text{의미구조(semantics)\hspace{-7ex}} & \\
+&\text{의미구조(semantics)\hspace{-7ex}} & \qquad\qquad\qquad
+\text{\makebox[0pt][l]{%
+\raisebox{-.92\totalheight}[0pt][0pt]{%
+\includegraphics[scale=.25]{Kleene.jpg}}}%
+} \\
 a \in \Sigma \qquad & &~&
 & \llbracket\;\cdot\;\rrbracket ~:~& \mathcal{R}\to 2^{\Sigma^{*}} \\
 r \in \mathcal{R}
@@ -1642,7 +1646,11 @@ r \in \mathcal{R}
                             r^{1+n}&\!\!\!\!=\, r\,r^n  \end{array} }
 \end{align*}
 \vspace*{-3ex}
-\caption{정규식의 문법구조와 의미구조\label{fig:RegexSynSem}}
+\caption{정규식의 문법구조와 의미구조,
+         반복을 나타내는 별표 표기를 도입한
+         스티븐 클레이니(Stephan Kleene)
+         {\footnotesize(사진 출처 MacTutor)}
+         \label{fig:RegexSynSem}}
 \end{figure}
 
 앞절에서 이론적인 맥락에서와 실용적인 활용을 염두에 둔 두 가지 형태의
@@ -2009,7 +2017,7 @@ $x$를 앞부분(prefix) $y$를 뒷부분(postfix)이라 하는데,
 즉, 언어 $L$의 문자열 $x$에 대한 미분이란 $L$에서 앞부분이 $x$인
 문자열만 골라 앞부분 $x$을 떼어내고 남은 뒷부분으로 이루어진 언어이다.
 예컨대, $(ab)^{-1} \{aa,aab,aabc,ab,abc,abcd\} = \{\varepsilon, c, cd\}$.
-언어의 미분을 브쇼조브시키가 최초로 생각한 것은 아니지만,
+언어의 미분을 브쇼조브스키가 최초로 생각한 것은 아니지만,
 $x^{-1} \llbracket\,r\,\rrbracket = \llbracket\,r' \rrbracket$를
 만족하는 정규식의 미분\footnote{정규식 미분은 $D_a r$나
     $\partial_a r$가 일반적 표기지만
@@ -2592,10 +2600,22 @@ $\cdot\!\longmapsto\!\cdot \subset R_{\partial}\times R_{\partial}$를
 확장한 분리 논리(separation logic)\cite{IshtiaqOHearn01,
 OHearnReynoldsYang01}를 프로그램 검증에 활용하는 추세다.
 
-% \begin{figure}
-% \includegraphics[scale=.5]{SirTonyHoare.jpg}
-% \caption{Sir Charles Antony Richard Hoare (2011 사진) \label{fig:Hoare}}
-% \end{figure}
+\begin{figure}
+\begin{subfigure}{.33\textwidth}
+\includegraphics[]{SirTonyHoare.jpg}
+\end{subfigure}
+\begin{subfigure}{.65\textwidth}\small
+호어 논리(Hoare logic) 외에도, 퀵정렬(Quicksort) 알고리듬과
+동시에 실행되는 프로세스 사이의 통신을 표현하는 형식언어인
+CSP를 고안하였으며, 데이커스트라(Dijkstra)와 함께
+구조적 프로그래밍(structured programming)을 주창하며
+ALGOL 언어의 설계에도 공헌하는 등 초기 컴퓨터과학의 발전에
+크게 기여하였다. ALGOL에 널참조(null reference)라는 개념을
+도입하는 바람에 이후 여러 다른 언어에도 쓰이게 되며 수많은
+SW버그의 요인이 되는 것을 보고 후회했다는 언급을 하기도 했다.
+\end{subfigure}
+\caption{Sir Charles Antony Richard Hoare (2011 사진) \label{fig:Hoare}}
+\end{figure}
 
 
 프로그램 검증은 일반적인 검사(testing) 방식의 한계를 극복할 수 있게 한다.
@@ -3087,18 +3107,19 @@ OTT는 구체적문법을 처리하는 파서도 자동으로 생성하는 기�
 포함하므로 구체적문법에 가깝게 문법구조를 표현하고
 바인더를 포함하는 식의 오른쪽에 이름이 묶이는 범위에
 대한 부가조건을 명시한다. 오른쪽은 \citet{PFPL2nd}의 교재에 나타나는
-표현 방식은 추상문법 표현을 규격화하여 복합적인(compound) 문법요소을
-만들어내는 생성자(constructor)를 가장 앞부분(prefix)에 오도록 표현하며,
-구체적문법의 표기 순서와 다르게 조정해서라도 이름 $x$와 그 유효범위에
-해당하는 식 $e$를 항상 나란히 $x.e$와 같이 표기한다. 이와 같이
-요약문법나무(ABT)로 정의된 문법구조는 납치없는 바꿔치기(capture avoiding
-substitution) 및 $\alpha$동치($\alpha$-equivalence) 등과 같은
-이름의 유효범위 묶음(name binding)을 다루는 기본적인 연산이 제공된다고
-가정한다. 실제 ABT의 기능을 자체적으로 내장한 언어\cite{FreshML2003}나
-ABT의 개념을 바탕으로 문법구조에서 이름의 유효범위를 편리하게 다루는
-라이브러리\cite{Unbound2011}도 출시되어 있는데, 이런 언어나
-라이브러리에서는 해당 연산을 미리 구현해 제공하거나 손쉽게 구현할
-수 있는 기능을 마련하고 있다.
+표현 방식으로 추상문법 표현을 규격화하여 복합적인(compound) 문법요소을
+만들어내는 생성자(constructor)를 앞부분(prefix)에 오도록 표현하며,
+구체적문법에 나타나는 순서와 다르게 조정해서라도 이름 $x$와 그 유효범위에
+해당하는 식 $e$를 항상 바로 옆에 놓고 한 덩어리로 묶어 $x.e$와
+같이 표기한다. 이런 요약문법나무(ABT)로 정의된 문법구조는
+납치없는 바꿔치기(capture avoiding substitution) 및
+$\alpha$동치($\alpha$-equivalence) 등과 같은
+이름의 유효범위 묶음(name binding)을 다루는 기본적인 연산이
+제공된다고 가정한다. 실제로 ABT의 기능을 자체적으로 내장한
+언어\cite{FreshML2003}나 ABT의 개념을 바탕으로 문법구조에서
+이름의 유효범위를 편리하게 다루는 라이브러리\cite{Unbound2011}도
+출시되어 있는데, 이런 언어나 라이브러리에서는 해당 연산을
+미리 구현해 제공하거나 손쉽게 구현할 수 있는 기능을 마련하고 있다.
 
 \section{프로그래밍 언어의 타입}
 대부분의 프로그래밍 언어에는 정수, 부동소수점 수, 문자 등의
@@ -3341,20 +3362,31 @@ $\llbracket\texttt{plus}(\texttt{slen}(ab),\texttt{slen}(bba))\rrbracket \subset
        넓게 어림잡아 계산하는 요약된 의미구조로 이해할 수도 있다.
 \end{itemize}
 
-%% \section*{연습문제}
-%% \begin{itemize}
-%%  \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-%%  \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-%%  \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-%% \end{itemize}
-%%
-%%
-%% \section*{탐구과제}
-%% \begin{itemize}
-%%  \item TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-%%  \item 업계에서 활용되는 점진적 타입에 기반한 프로그래밍 언어에
-%%        대해 조사해 보라.
-%% \end{itemize}
+\section*{연습문제}
+~\vspace{-6ex}
+\begin{multicols}{4}
+  \begin{enumerate}[(1)]\tightlist
+   \item $\lambda x.\lambda x.x$
+   \item $\lambda x.\lambda x.y$
+   \item $\lambda x.\lambda y.x$
+   \item $\lambda x.\lambda y.y$
+   \item $\lambda y.\lambda x.x$
+   \item $\lambda y.\lambda x.y$
+   \item $\lambda y.\lambda x.y$
+   \item $\lambda y.\lambda y.y$
+  \end{enumerate}
+\end{multicols}
+\begin{enumerate}
+ \item 위의 각 람다식이 닫힌식인지 열린식인지 구분해 보라.
+ \item 위에서 $\alpha$동치인 람다식끼리 모아 분류해 보라.
+ \item 위의 각 람다식을 드브루인 인덱스를 이용한 표기로 바꾸어 보라.
+\end{enumerate}
+
+\section*{탐구과제}
+\begin{enumerate}
+ \item 업계에서 활용되는 점진적 타입(gradual type)에
+       기반한 프로그래밍언어에 대해 조사해 보라.
+\end{enumerate}
 
 
 %% \part{파트}
@@ -3363,8 +3395,6 @@ $\llbracket\texttt{plus}(\texttt{slen}(ab),\texttt{slen}(bba))\rrbracket \subset
 %% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 %% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 %% TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-%% 
-%% \includegraphics[scale=.2]{Kleene.jpg} 사진 출처 MacTutor
 %% 
 %% \includegraphics[scale=.2]{HaskellBCurry.jpg} 사진 출처 위키미디어 공용
 
