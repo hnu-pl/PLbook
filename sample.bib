@@ -12,6 +12,64 @@
 	year = {1972}
 }
 
+@article{Ramsdell1989alonzo,
+author = {Ramsdell, J. D.},
+title = {The Alonzo Functional Programming Language},
+year = {1989},
+issue_date = {Sept. 1989},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {24},
+number = {9},
+issn = {0362-1340},
+url = {https://doi.org/10.1145/68127.68139},
+doi = {10.1145/68127.68139},
+abstract = {Alonzo is a programming language for specifying an output stream of characters as a function of a given input stream of characters. It is a non-strict language based on the untyped λ-calculus, and it has been enriched by adding syntax for local bindings and mutual recursion. Primitive data and their operators have been included along with strict vectors.},
+journal = {SIGPLAN Not.},
+month = {10},
+pages = {152–157},
+numpages = {6}
+}
+
+
+@InProceedings{Seijas2020Marlowe,
+author="Lamela Seijas, Pablo
+and Nemish, Alexander
+and Smith, David
+and Thompson, Simon",
+editor="Bernhard, Matthew
+and Bracciali, Andrea
+and Camp, L. Jean
+and Matsuo, Shin'ichiro
+and Maurushat, Alana
+and R{\o}nne, Peter B.
+and Sala, Massimiliano",
+title="Marlowe: Implementing and Analysing Financial Contracts on Blockchain",
+booktitle="Financial Cryptography and Data Security",
+year="2020",
+publisher="Springer International Publishing",
+address="Cham",
+pages="496--511",
+abstract="Marlowe is a DSL for financial contracts. We describe the implementation of Marlowe on the Cardano blockchain, and the Marlowe Playground web-based development and simulation environment.",
+isbn="978-3-030-54455-3"
+}
+
+@inproceedings{Hudak2007HistoryHaskell,
+author = {Hudak, Paul and Hughes, John and Peyton Jones, Simon and Wadler, Philip},
+title = {A History of Haskell: Being Lazy with Class},
+year = {2007},
+isbn = {9781595937667},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/1238844.1238856},
+doi = {10.1145/1238844.1238856},
+abstract = {This paper describes the history of Haskell, including its genesis and principles, technical contributions, implementations and tools, and applications and impact.},
+booktitle = {Proceedings of the Third ACM SIGPLAN Conference on History of Programming Languages},
+pages = {12–1–12–55},
+location = {San Diego, California},
+series = {HOPL III}
+}
+
 @inproceedings{FreshML2003,
 author = {Shinwell, Mark R. and Pitts, Andrew M. and Gabbay, Murdoch J.},
 title = {FreshML: Programming with Binders Made Simple},
@@ -44,7 +102,7 @@ url = {https://doi.org/10.1145/2034574.2034818},
 doi = {10.1145/2034574.2034818},
 abstract = {Implementors of compilers, program refactorers, theorem provers, proof checkers, and other systems that manipulate syntax know that dealing with name binding is difficult to do well. Operations such as α-equivalence and capture-avoiding substitution seem simple, yet subtle bugs often go undetected. Furthermore, their implementations are tedious, requiring "boilerplate" code that must be updated whenever the object language definition changes.Many researchers have therefore sought to specify binding syntax declaratively, so that tools can correctly handle the details behind the scenes. This idea has been the inspiration for many new systems (such as Beluga, Delphin, FreshML, FreshOCaml, Cαml, FreshLib, and Ott) but there is still room for improvement in expressivity, simplicity and convenience.In this paper, we present a new domain-specific language, Unbound, for specifying binding structure. Our language is particularly expressive - it supports multiple atom types, pattern binders, type annotations, recursive binders, and nested binding (necessary for telescopes, a feature found in dependently-typed languages). However, our specification language is also simple, consisting of just five basic combinators. We provide a formal semantics for this language derived from a locally nameless representation and prove that it satisfies a number of desirable properties.We also present an implementation of our binding specification language as a GHC Haskell library implementing an embedded domain specific language (EDSL). By using Haskell type constructors to represent binding combinators, we implement the EDSL succinctly using datatype-generic programming. Our implementation supports a number of features necessary for practical programming, including flexibility in the treatment of user-defined types, best-effort name preservation (for error messages), and integration with Haskell's monad transformer library.},
 journal = {SIGPLAN Not.},
-month = {sep},
+month = {9},
 pages = {333–345},
 numpages = {13},
 keywords = {patterns, generic programming, haskell, name binding}
