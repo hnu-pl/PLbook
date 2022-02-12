@@ -804,7 +804,7 @@ syntax는 같은 영어 단어라도 다른 맥락에서 쓰이는 조금 다른
 
 \begin{figure}\centering
 \setlength{\tabcolsep}{.8ex}
-\renewcommand{\arraystretch}{1}
+\renewcommand{\arraystretch}{1.25}
 \begin{subfigure}{.8\textwidth}\ttfamily
 \begin{tabular}{| *{25}{m{.8ex}|} }
 \hline 
@@ -883,7 +883,7 @@ for tree={inner sep=0, l sep+=1em, l=0}
 \end{figure}
 
 그림\;\ref{sfig:charseq}는 문자열
-\lstinline[columns=flexible
+\lstinline[columns=flexible,
                    ,keepspaces=true
                    ,showspaces=true]|"5 * (   10 - 8) * 2^2 ^ 3"|를
 이루는 각각의 글자(character)를 일차원적인 공간에 차례대로 배치하고 있다.
@@ -937,8 +937,7 @@ parse는 품사(parts of speech)를 뜻하는 라틴어에서 유래했다\cite{
 첫째는 토큰열로부터 구체적문법나무를 구성하기 위한
 구체적문법(concrete syntax), 둘째는 요약문법나무의 구조를
 나타내는 요약문법(abstract syntax)이다. 물론 요약문법을
-추상문법이라고도 옮긴다. 용어의 다양한 우리말 옮김에 대해서는
-충분히 소개했으니 이제부터 이 책에서는 `추상-'보다는 `요약-'이 붙은
+추상문법이라고도 옮긴다. 이제부터 이 책에서는 `추상-'보다는 `요약-'이 붙은
 용어를 사용하기로 한다. 이어지는 절(\S\ref{sec:GrammarNotation})에서는
 구체적문법과 요약문법의 표기방법에 대해 대해 먼저 알아보고,
 그 다음 절(\S\ref{sec:regex})에서 어휘분석에 활용되는 정규식에

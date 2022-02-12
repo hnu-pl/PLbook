@@ -1,4 +1,6 @@
 \documentclass[b5paper,chapter,figtabcapt]{oblivoir}
+%\usepackage[scaled=0.8]{FiraMono}
+\usepackage{inconsolata}
 \usepackage{svg}
 \usepackage{graphicx}
 \graphicspath{{imgs/}}
@@ -23,6 +25,7 @@
 \usepackage{semantic}
 % \usepackage{physics}
 \usepackage[linguistics]{forest}
+\usepackage{tikz-cd}
 \usepackage[hang]{caption}
 \usepackage{subcaption}
 \usepackage{listings}
@@ -33,6 +36,7 @@
 \usepackage{float}
 \usepackage{multicol}
 \usepackage{haskelllogo}
+\usepackage{relsize}
 \usepackage{lipsum}
 
 %%%%%%%% BEGIN: Jupyter generated LaTeX header %%%%%%%%
@@ -420,9 +424,10 @@
 \mathop{\textstyle{}\!\!\phantom{.}^{\curvearrowright}\!\!_{\!\!^{\partial}}\!/_{\!\!^\partial}}%
 }
 
+\fvset{fontfamily=fvm, fontsize=\relsize{-1},
+ listparameters=\setlength{\topsep}{0ex}\setlength{\partopsep}{0ex}
+}
 \tcbset{after skip=1ex}
-\fvset{listparameters=\setlength{\topsep}{0ex}\setlength{\partopsep}{0ex}}
-
 
 \title{프로그래밍언어론}
 \author{안기영 \and 손범준}
@@ -480,7 +485,7 @@
 개념을 직접 하스켈(Haskell)\footnote{\url{https://haskell.org}}
 코드로 작성해 보는 실습과 함께 조금 더 구체적으로 알아볼 것이다.
 하스켈은 람다계산법에 기반한 순수 함수형 프로그래밍 언어(purely
-functional programming language)로 게으른 계산법(lazy evaluation)에
+functional programming language)로 게으른 값계산(lazy evaluation)에
 따라 실행되며 타입 유추(type inference)를 지원하는 강력한
 정적 타입 시스템을 갖추고 있다. 하스켈의 대표적 구현인 글래스고우
 하스켈 컴파일러(Glasgow Haskell Compiler, GHC)는
@@ -530,7 +535,7 @@ functional programming language)로 게으른 계산법(lazy evaluation)에
 
 다시 하스켈의 역사\cite{Hudak2007HistoryHaskell} 이야기로 돌아오면,
 하스켈은 학계의 효율적인 연구 활동을 위해 학계에서 위원회를 구성해 만든 언어다.
-1980년대 후반 즈음에는 게으른 계산법에 따라 실행되는 정적 타입을 갖춘
+1980년대 후반 즈음에는 게으른 값계산에 따라 실행되는 정적 타입을 갖춘
 함수형 프로그래밍언어에 대하 연구하던 사람들이 각자 자신의 연구를 위해
 비슷한 기능을 가진 학술 연구를 위한 실험용 언어를 중구난방으로 만들고
 있던 상황이었다고 한다. 그래서 비슷한 주제에 관심을 가진 연구자들끼리
@@ -570,12 +575,12 @@ functional programming language)로 게으른 계산법(lazy evaluation)에
 더 역사를 거슬러 올라가 보면 존 매카시가 최초의 함수형 언어로
 볼 수 있는 1950년대 말에 최초의 리습(LISP)을 만들었고,
 로빈 밀너의 주도로 타입 유추를 지원하는 정적 타입 시스템을 갖추고
-있으며 적극적 계산법(eager evaluation)에 따라 실행되는 함수형 언어인
+있으며 적극적 값계산(eager evaluation)에 따라 실행되는 함수형 언어인
 엠엘(ML)을 1970년대 초반에 만들었다. LISP은 Common Lisp, Scheme,
 Racket, Clojure 등 여러 사투리(dialect)로 나뉘었다.
 ML의 경우는 SML, OCaml, F\#이 대표적인 사투리다. 그리고
-그 이후 적극적 계산법과는 다른 계산 전략(evaluation strategy)인
-게으른 계산법(lazy evaluation)에 따르는 학계의 표준적
+그 이후 적극적 값계산과는 다른 값계산 전략(evaluation strategy)인
+게으른 값계산(lazy evaluation)에 따르는 학계의 표준적
 함수형 언어로 기획된 하스켈(Haskell)이 1980년대 후반부터
 만들어지기 시작해서 1990년대 중반 즈음 지금에 가까운
 정리된 모습을 갖추게 되었다\cite{Hudak2007HistoryHaskell}.
