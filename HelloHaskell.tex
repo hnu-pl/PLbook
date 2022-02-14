@@ -1012,7 +1012,7 @@ associative)이며 하스켈에서도 마찬가지다. 즉, 위의 셀에서 연
 수 있다.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
-\prompt{In}{incolor}{50}{\boxspacing}
+\prompt{In}{incolor}{44}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{f0} \PY{k+kr}{\PYZus{}} \PY{o+ow}{=} \PY{l+m+mi}{0}   \PY{c+c1}{\PYZhy{}\PYZhy{} 패턴 전체를 와일드카드 패턴으로 작성하는 것도 가능하다}
 
@@ -1043,76 +1043,400 @@ associative)이며 하스켈에서도 마찬가지다. 즉, 위의 셀에서 연
 \section{타입있는 람다계산법과
 하스켈}\label{uxd0c0uxc785uxc788uxb294-uxb78cuxb2e4uxacc4uxc0b0uxbc95uxacfc-uxd558uxc2a4uxcf08}}
 
-지금까지 하스켈 소스코드에서 타입이 단 한 번도 등장하지 않았다. 다만
-에러 메시지에는 타입에 대한 내용이 나오기는 했다. 그렇다고 해서 하스켈이
-실행 중에만 타입을 따지는 동적 타입 언어는 결코 아니며 사실 학계의 연구
-결과를 상당히 적극적으로 반영하여 매우 정교한 정적 타입 시스템이
-돋보이는 언어다. 그럼에도 하스켈 소스코드에서 타입에 대한 정보가
-번잡스럽게 많이 나타나지 않는 까닭은 프로그래머가 타입 정보를 세세하게
-작성하지 않아도 컴파일러가 자동으로 타입을 유추해 주는 기능을 잘
-구현하고 있기 때문이다. 참고로, 타입 유추(type inferene)에 관해 선구적인
-업적을 남긴 대표적인 학자가 바로 앞서 ML의 창시자로 소개한 로빈
-밀너(Robin Milner)로 (그림 \ref{fig:McCarthyMilner}), ML과 Haskell을
-포함한 많은 함수형 언어의 타입 시스템이 그의 연구를 바탕으로 하고 있다.
-여기서는 타입 유추에 대한 내용보다는, 앞서 타입없는 람다계산법을
-하스켈과 관련지어 설명한 것처럼, 타입있는 람다계산법과 하스켈을 관련지어
-설명한다.
+지금까지 하스켈 소스코드에서 타입이 단 한 번도 등장하지 않았고 에러
+메시지만 타입에 대한 내용이 조금 있었다. 그렇다고 해서 하스켈이 실행
+중에만 타입을 따지는 동적 타입 언어는 결코 아니다. 사실 하스켈은 학계의
+연구 결과를 상당히 적극적으로 반영한 매우 정교한 정적 타입 시스템이
+돋보이는 언어다. 그럼에도 하스켈 소스코드에서 타입에 정보가 번잡스럽게
+드러나지 않는 까닭은 프로그래머가 타입 정보를 자세히 알려주지 않아도
+컴파일러가 자동으로 타입을 유추하기 때문이다. 참고로, 타입 유추(type
+inferene)에 관해 선구적인 업적으로 유명한 학자가 앞서 ML의 창시자로
+소개한 로빈 밀너(Robin Milner)로, ML과 Haskell 등 많은 함수형 언어의
+타입 시스템이 그의 연구\cite{Milner78}를 바탕으로 한다. 여기서는 타입
+유추보다는 타입있는 람다계산법과 하스켈을 관련지어 설명한다.
 
-람다계산법의 창시자인 알론조 처치는 그의 람다계산법을 논리체계와
-연관짓고자 할 때 타입이 없어서 발생하는 모순(paradox)을 피하고자
-람다계산법에 타입을 추가하였으며 그 이후로도 더욱 다양한 기능의 타입을
-갖추도록 변경된 람다계산법의 연구되었는데, 이런 부류의 람다계산법을
-통틀어 타입있는 람다계산법(typed \(\lambda\)-calculus)라고 부르며 그에
-대비되는 원래 알론조 처치가 맨 처음 창시한 가장 단순한 형태의
-람다계산법을 타입없는 람다계산법(untyped lambda calculus)라고 부른다.
+알론조 처치는 그가 창시한 람다계산법을 논리체계와 연관지으려 할 때
+발생하는 모순(paradox)을 피하고자 단순한 타입을 추가한 람다계산법인
+단순타입 람다계산법\cite{Church1940stlc}을 고안하였고, 그 이후로 더
+다채로운 기능의 타입을 갖춘 람다계산법이 연구되었다. 이렇게 타입이
+첨가된 부류의 람다계산법을 타입있는 람다계산법(typed
+\(\lambda\)-calculus)이라 부르며, 그에 대비되는 타입이 추가되기 전에
+원래의 람다계산법을 타입없는 람다계산법(untyped
+\(\lambda\)-calculus)이라 부른다.
+
+\begin{figure}
+    문법구조\vspace{-4.5ex} \begin{align*}
+\qquad
+t \in B & \quad\text{\small(기본타입)} &
+\tau\in T ~::= ~& t ~\mid~ \tau \to \tau
+\\
+c \in C & \quad\text{\small(기본상수)} &
+e\in E ~::=~ & c ~\mid~ x ~\mid~ \lambda x{\,:\,}\tau.\,e ~\mid~ e~e
+\end{align*} 타입규칙
+\(\qquad \Delta ~::=~ c{\,:\,}\tau,\Delta ~\mid~ \bm{\cdot} \qquad\qquad\qquad \Gamma ~::=~ x{\,:\,}\tau,\Delta ~\mid~ \bm{\cdot}\)
+\[
+{\scriptstyle(\textsc{Con})}
+\frac{~ ~}{~ \Gamma \vdash c:\tau ~}
+({\scriptstyle c{\,:\,}\tau\;\in\,\Delta})
+\qquad\qquad
+{\scriptstyle(\textsc{Var})}
+\frac{~ ~}{~ \Gamma \vdash x:\tau ~}
+({\scriptstyle x{\,:\,}\tau\;\in\,\Gamma})
+\] \vspace*{-.5ex} \[
+{\scriptstyle(\textsc{Abs})}
+\frac{~ x:\tau_2,\Gamma \vdash e:\tau ~}{~ \Gamma \vdash \lambda x{\,:\,}\tau_2.\,e : \tau_2\to\tau ~}
+\qquad
+{\scriptstyle(\textsc{App})}
+\frac{~ \Gamma \vdash e_1:\tau_2\to\tau ~\quad~ \Gamma \vdash e_2:\tau_2 ~}{~ \Gamma \vdash e_1\;e_2 : \tau ~}
+\]
+\caption{처치(Church)의 단순타입 람다계산법(simply-typed $\lambda$-calculus) \label{fig:STLC} }
+\end{figure}
+
+    처치가 고안한 단순타입 람다계산법(STLC, 그림 \ref{fig:STLC})에는 원래
+람다식의 세 문법요소 외에 기본상수(c)가 또 한 가지 추가된다. 또한,
+타입없는 람다계산법에서 함수요약식(\(\lambda x.e\))의 파라메터(\(x\))
+옆에 콜론(\(:\))기호로 타입 표기가 추가된 \(\lambda x{\,:\,}\tau.\,e\)를
+STLC의 함수요약식 형태로 삼는데, 여기서 \(x{\,:\,}\tau\)는 함수 파라메터
+\(x\)에 넘어오는 인자의 타입이 \(\tau\)여야 함을 나타낸다. 참고로,
+\(e:\tau\)는 타입 이론에서 식 \(e\)의 타입이 \(\tau\)임을 뜻하는
+통상적인 표기다. 물론 이런 타입을 표기하기 위해서는 타입에 대한
+문법구조가 정의되어야 한다. STLC의 타입은 기본타입(\(t\))이거나
+함수타입(\(\tau\to\tau\))이다.
+
+STLC의 타입규칙은 \(\Gamma \vdash e:\tau\) 형태의 판단(judgement)을
+증명하기 위한 추론규칙의 형식으로 작성되어 있다. \(\Gamma\)를 지역적으로
+가정할 때 \(e:\tau\)를 증명할 수 있다는 판단을
+\(\Gamma \vdash e:\tau\)로 나타낸다. 상수나 이름과 타입을 관련짓는
+가정으로 이루어진 \(\Delta\)나 \(\Gamma\)와 같은 구조를 타입문맥(typing
+context) 혹은 타입환경(typing environment)이라고 부르며, 타입과 관련된
+내용만을 다루는 혼란의 여지가 없는 맥락에서는 그냥 `문맥' 혹은
+`환경'이라고 줄여서 부른다. 기본상수(\(c\))의 타입에 관한
+\textsc{\small Con}규칙은 미리 주어지는 전역환경 \(\Delta\)에 따라
+지역환경 \(\Gamma\)과 무관하게 기본상수 \(c\)의 타입이 판단됨을 뜻한다.
+이름(\(x\))의 타입에 관한 \textsc{\small Var}규칙은 지역환경
+\(\Gamma\)에 따라 이름 \(x\)의 타입이 판단됨을 뜻한다.
+함수요약식(\(\lambda x{\,:\,}\tau_2.\,e\))의 타입에 관한
+\textsc{\small Abs}규칙은 함수 파라메터의 타입을 추가로 가정한 환경
+\(x:\tau_2,\Gamma\)에서 함수 몸체 \(e\)의 타입을 \(\tau\)로 판단할 수
+있다면 함수요약식 \(\lambda x{\,:\,}\tau_2.\,e\)의 타입을
+\(\tau_2\to\tau\)로 판단할 수 있음을 뜻한다. 함수적용식(\(e_1\;e_2\))의
+타입에 관한 \textsc{\small App}규칙은 같은 환경 \(\Gamma\)에 따라 왼쪽
+\(e_1\)의 타입은 \(\tau_2\to\tau\)으로 오른쪽 \(e_2\)의 타입은
+\(\tau_2\)으로, 즉 \(e_1\)의 함수타입에서 정의역(화살표 왼편)과
+\(e_2\)의 타입이 일치하도록, 판단할 수 있다면 함수적용식 \(e_1\;e_2\)의
+타입을 \(e_1\)의 함수타입에서 공역(화살표 오른편)에 해당하는 \(\tau\)로
+판단할 수 있음을 뜻한다.
+
+    기본타입의 집합(\(B\)), 기본상수의 집합(\(C\)), 전역환경(\(\Delta\))를
+설정함으로써 구체적인 버전의 STLC가 정의된다. 예를 들어
+\(B = \{\,\texttt{bool}\,\}\),
+\(C = \{\,c_\texttt{F},\;c_\texttt{T},\;c_\neg,\;c_\land\,\}\),
+\(\Delta = c_\texttt{F}{:\,}\texttt{bool}, \, c_\texttt{T}{:\,}\texttt{bool}, \, c_\neg{:\,}\texttt{bool}{\to\,}\texttt{bool}, \,  c_\land{:\,}\texttt{bool}{\to\,}\texttt{Bool}{\to\,}\texttt{bool}, \, \bm{\cdot}\)로
+설정하면 진리값 및 관련 연산인 논리부정과 논리곱을 다루는 버전의 STLC
+문법구조와 타입규칙이 그림 \ref{fig:STLC}의 틀에 따라 정의된다. 그런데
+지금까지 STLC의 설명에서 빠진 부분이 하나 있으니 그것은 바로
+의미구조이다. STLC는 정적 타입 언어와 같이 실행 전에 타입규칙으로
+타입검사가 가능하다. 따라서 STLC의 의미구조는 기본적으로 타입없는
+람다계산법(그림 \ref{fig:UTLC})과 같지만, 한 가지 더 추가된 문법요소인
+기본상수(\(c\))를 어떻게 실행할지에 대한 규칙을 설정에 맞게 아래와 같이
+추가로 정의할 필요가 있다. 이런 추가적인 규칙을 \(\delta\)규칙이라고도
+부른다.\vspace*{-1.5ex}
+\begin{quote}
+    \(c_\neg ~ c_\texttt{F} \longmapsto c_\texttt{T} \qquad  c_\neg ~ c_\texttt{T} \longmapsto c_\texttt{F} \qquad~  c_\land ~ c_\texttt{F} ~ e \longmapsto c_\texttt{F} \qquad  c_\land ~ c_\texttt{T} ~ e \longmapsto e\)
+\end{quote}
+    하스켈에서 아래와 같이 사용자 정의 데이터 타입과 관련 연산을 함수로
+선언하는 것이 STLC에서 \(B\), \(C\), \(\Delta\)를 설정하고
+\(\delta\)규칙을 정의하는 것에 해당한다.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
-\prompt{In}{incolor}{46}{\boxspacing}
+\prompt{In}{incolor}{45}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{fu}  \PY{n}{x} \PY{n}{y}  \PY{o+ow}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{x}
-\PY{n+nf}{fc} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{o+ow}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{x}
+\PY{c+c1}{\PYZhy{}\PYZhy{} 기본타입 Tbool과 기본상수 CF,CB가 선언됨 }
+\PY{k+kr}{data} \PY{k+kt}{Tbool} \PY{o+ow}{=} \PY{k+kt}{CF} \PY{o}{|} \PY{k+kt}{CT}    \PY{k+kr}{deriving} \PY{p}{(}\PY{k+kt}{Eq}\PY{p}{,} \PY{k+kt}{Ord}\PY{p}{,} \PY{k+kt}{Show}\PY{p}{)}
+
+\PY{c+c1}{\PYZhy{}\PYZhy{} 기본상수 cNeg와 관련 δ규칙 선언됨}
+\PY{n+nf}{cNeg} \PY{k+kt}{CF} \PY{o+ow}{=} \PY{k+kt}{CT}
+\PY{n+nf}{cNeg} \PY{k+kt}{CT} \PY{o+ow}{=} \PY{k+kt}{CF}
+
+\PY{c+c1}{\PYZhy{}\PYZhy{} 기본상수 cAnd와 관련 δ규칙 선언됨}
+\PY{n+nf}{cAnd} \PY{k+kt}{CF} \PY{n}{e} \PY{o+ow}{=} \PY{k+kt}{CF}
+\PY{n+nf}{cAnd} \PY{k+kt}{CT} \PY{n}{e} \PY{o+ow}{=} \PY{n}{e}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
-\prompt{In}{incolor}{47}{\boxspacing}
+\prompt{In}{incolor}{46}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{fu}  \PY{l+m+mi}{3} \PY{l+m+mi}{7}
-\PY{n+nf}{fc} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}
+\PY{c+c1}{\PYZhy{}\PYZhy{} Δ는 타입 유추를 통해 위 셀의 선언으로부터 자동으로 설정됨}
+\PY{k+kt}{:}\PY{k+kr}{type} \PY{k+kt}{CF}
+\PY{k+kt}{:}\PY{k+kr}{type} \PY{k+kt}{CT}
+\PY{k+kt}{:}\PY{k+kr}{type} \PY{n}{cNeg}
+\PY{k+kt}{:}\PY{k+kr}{type} \PY{n}{cAnd}
 \end{Verbatim}
 \end{tcolorbox}
 
     
     \begin{Verbatim}[commandchars=\\\{\}]
-4
+CF :: Tbool
     \end{Verbatim}
 
     
     
     \begin{Verbatim}[commandchars=\\\{\}]
-4
+CT :: Tbool
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+cNeg :: Tbool -> Tbool
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+cAnd :: Tbool -> Tbool -> Tbool
+    \end{Verbatim}
+
+    
+    \noindent 참고로, 하스켈에서 데이터 타입 및 생성자의 이름은
+\texttt{Tbool} 및 \texttt{CF}, \texttt{CT}처럼 대문자로 시작하며, 함수나
+변수의 이름은 \texttt{cNeg}, \texttt{cAnd}나 \texttt{e}처럼 소문자로
+시작한다. 실제로 하스켈 표준라이브러리에서는, 여기서 설명을 위해 작성한
+\texttt{Tbool} 코드와 마찬가지 방법으로, 하스켈의 표준적인 진리값 타입인
+\texttt{Bool} 및 생성자 \texttt{False}, \texttt{True}, 그리고
+논리부정(\texttt{not})과 논리곱(\texttt{\&\&}) 등 관련 연산을 선언하여
+제공한다.
+
+하스켈 컴파일러에게 대화식으로 요청하거나 환경설정을 하는 콜론(:)으로
+시작하는 명령들이 있다. \texttt{:type\ \textless{}식\textgreater{}}으로
+식의 타입을 유추해 달라고 요청하고
+\texttt{:info\ \textless{}이름\textgreater{}}으로 타입, 생성자, 함수,
+변수 등의 정보를 알려달라고 요청한다.\vspace*{-.75ex}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{47}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kt}{:}\PY{n}{info} \PY{k+kt}{Bool}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+type Bool :: *
+data Bool = False | True
+  	-- Defined in ‘GHC.Types’
+instance Bounded Bool -- Defined in ‘GHC.Enum’
+instance Enum Bool -- Defined in ‘GHC.Enum’
+instance Eq Bool -- Defined in ‘GHC.Classes’
+instance Ord Bool -- Defined in ‘GHC.Classes’
+instance Show Bool -- Defined in ‘GHC.Show’
+instance Read Bool -- Defined in ‘GHC.Read’
     \end{Verbatim}
 
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
 \prompt{In}{incolor}{48}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{p1} \PY{o+ow}{=} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}
-\PY{n+nf}{fc} \PY{n}{p1}
+\PY{k+kt}{:}\PY{k+kr}{type} \PY{k+kt}{False}
+\PY{k+kt}{:}\PY{k+kr}{type} \PY{k+kt}{True}
+\PY{k+kt}{:}\PY{k+kr}{type} \PY{n}{not}
+\PY{k+kt}{:}\PY{k+kr}{type} \PY{p}{(}\PY{o}{\PYZam{}\PYZam{}}\PY{p}{)}
 \end{Verbatim}
 \end{tcolorbox}
 
     
     \begin{Verbatim}[commandchars=\\\{\}]
-4
+False :: Bool
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+True :: Bool
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+not :: Bool -> Bool
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+(\&\&) :: Bool -> Bool -> Bool
     \end{Verbatim}
 
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
 \prompt{In}{incolor}{49}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{k+kr}{let} \PY{n}{x} \PY{o+ow}{=} \PY{n}{z} \PY{k+kr}{where} \PY{n}{z} \PY{o+ow}{=} \PY{l+m+mi}{3}
- \PY{k+kr}{in} \PY{n}{x}
+\PY{n+nf}{not} \PY{k+kt}{False}
+\PY{n+nf}{not} \PY{k+kt}{True}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+False
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{50}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kt}{False} \PY{o}{\PYZam{}\PYZam{}} \PY{k+kt}{False}
+\PY{k+kt}{False} \PY{o}{\PYZam{}\PYZam{}} \PY{k+kt}{True}
+\PY{k+kt}{True}  \PY{o}{\PYZam{}\PYZam{}} \PY{k+kt}{False}
+\PY{k+kt}{True}  \PY{o}{\PYZam{}\PYZam{}} \PY{k+kt}{True}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+False
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+False
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+False
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+    \end{Verbatim}
+
+    
+    하스켈 컴파일러에서 나오는 메시지를 유심히 봤으면 이미 알아차렸을텐데,
+타입 이론에서 통상적인 \(e:\tau\) 표기와 비슷하지만 약간 다르게
+콜론(\texttt{:})을 두 번 써서 하스켈에서는 \texttt{e\ ::\ T} 형태로
+표현한다. 컴파일러 메시지만이 아니라 코드를 작성할 때도 같은 표현을 쓸
+수 있다. 아래에서 \texttt{read}의 예처럼 식의 타입을 표시하거나,
+\texttt{betweenAtoZ}의 예처럼 선언되는 함수나 변수의 타입을 표시하거나,
+람다식의 예처럼 패턴의 타입을 표시할 수도 있다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{51}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kt}{:}\PY{k+kr}{type} \PY{n}{read} \PY{c+c1}{\PYZhy{}\PYZhy{} 문자열(String)을 여러 타입(a)으로 변환}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+read :: forall a. Read a => String -> a
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{52}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{read} \PY{l+s}{\PYZdq{}}\PY{l+s}{123}\PY{l+s}{\PYZdq{}} \PY{o+ow}{::} \PY{k+kt}{Int}     \PY{c+c1}{\PYZhy{}\PYZhy{} Int로 변환}
+\PY{n+nf}{read} \PY{l+s}{\PYZdq{}}\PY{l+s}{123}\PY{l+s}{\PYZdq{}} \PY{o+ow}{::} \PY{k+kt}{Double}  \PY{c+c1}{\PYZhy{}\PYZhy{} Double로 변환}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+123
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+123.0
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{53}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{betweenAtoZ} \PY{o+ow}{::} \PY{k+kt}{Char} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{k+kt}{Bool}
+\PY{n+nf}{betweenAtoZ} \PY{n}{c} \PY{o+ow}{=} \PY{l+s+sc}{\PYZsq{}A\PYZsq{}} \PY{o}{\PYZlt{}=} \PY{n}{c} \PY{o}{\PYZam{}\PYZam{}} \PY{n}{c} \PY{o}{\PYZlt{}=} \PY{l+s+sc}{\PYZsq{}Z\PYZsq{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{54}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{betweenAtoZ} \PY{l+s+sc}{\PYZsq{}B\PYZsq{}}
+\PY{n+nf}{betweenAtoZ} \PY{l+s+sc}{\PYZsq{}3\PYZsq{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+True
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+False
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{55}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kt}{:}\PY{k+kr}{type} \PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x}  \PY{c+c1}{\PYZhy{}\PYZhy{} 상당히 일반적인 타입으로 유추된다}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\textbackslash{}x -> x :: forall p. p -> p
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{56}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{p}{(}\PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x}\PY{p}{)} \PY{l+m+mi}{3}        \PY{c+c1}{\PYZhy{}\PYZhy{} Int 타입 인자도 넘길 수 있고}
+\PY{p}{(}\PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x}\PY{p}{)} \PY{l+s}{\PYZdq{}}\PY{l+s}{hello}\PY{l+s}{\PYZdq{}}  \PY{c+c1}{\PYZhy{}\PYZhy{} String 타입 인자도 넘길 수 있다}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+"hello"
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{57}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{p}{(}\PY{n+nf}{\PYZbs{}}\PY{p}{(}\PY{n}{x} \PY{o+ow}{::} \PY{k+kt}{Int}\PY{p}{)} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x}\PY{p}{)} \PY{l+m+mi}{3}    \PY{c+c1}{\PYZhy{}\PYZhy{} 타입있는 람다계산법처럼 함수 파라메터에 타입 표시}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -1123,12 +1447,221 @@ associative)이며 하스켈에서도 마찬가지다. 즉, 위의 셀에서 연
 
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
-\prompt{In}{incolor}{ }{\boxspacing}
+\prompt{In}{incolor}{58}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-
+\PY{p}{(}\PY{n+nf}{\PYZbs{}}\PY{p}{(}\PY{n}{x} \PY{o+ow}{::} \PY{k+kt}{Int}\PY{p}{)} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x}\PY{p}{)} \PY{l+s}{\PYZdq{}}\PY{l+s}{hello}\PY{l+s}{\PYZdq{}}  \PY{c+c1}{\PYZhy{}\PYZhy{} 타입 표시로 Int만 받는 함수가 되므로 오류}
 \end{Verbatim}
 \end{tcolorbox}
 
+    \begin{Verbatim}[commandchars=\\\{\}, frame=single, framerule=1mm, rulecolor=\color{outerrorbackground}]
+<interactive>:1:20: error:
+    • Couldn't match expected type ‘Int’ with actual type ‘String’
+    • In the first argument of ‘\textbackslash{} (x :: Int) -> x’, namely ‘"hello"’
+      In the expression: (\textbackslash{} (x :: Int) -> x) "hello"
+      In an equation for ‘it’: it = (\textbackslash{} (x :: Int) -> x) "hello"
+    \end{Verbatim}
+
+    위의 \texttt{read}나 \texttt{\textbackslash{}x\ -\textgreater{}\ x}의
+경우처럼, 하스켈은 STLC보다 훨씬 다양한 형태와 기능을 갖춘 타입을 다루고
+있다. 이러한 내용을 여기에서 한꺼번에 다 소개하지 않지만, 가장 기본적인
+형태의 타입을 다루는 STLC와 하스켈을 관련지어 이해할 수 있다면 더 다양한
+형태의 타입을 다루는 타입있는 람다계산법을 하스켈과 관련지어 이해하는 데
+도움이 될 것이다.
+
+    \hypertarget{uxd568uxc218-uxd30cuxb77cuxba54uxd130uxb294-uxb531-uxd55c-uxac1cuxba74-uxcda9uxbd84}{%
+\section{함수 파라메터는 딱 한 개면
+충분}\label{uxd568uxc218-uxd30cuxb77cuxba54uxd130uxb294-uxb531-uxd55c-uxac1cuxba74-uxcda9uxbd84}}
+
+람다계산법 그리고 람다계산법을 기반으로 한 하스켈에서 원론적으로 함수
+파라메터는 항상 한 개이다. 람다계산법에서 \(\lambda x.\lambda y.e\), 즉
+\(\lambda x.(\lambda y.e)\)는 두 개의 인자에 한꺼번에 적용하는 함수가
+아니라, 한 개의 인자 \(e_1\)에 적용하면 결과값으로 함수인
+\(\lambda y.\{x{\,\mapsto}e_1\}e\)가 계산되고, 그렇게 계산된
+\(\lambda y.\{x{\mapsto}e_1\}e\)를 또 한 개의 인자 \(e_2\)에 적용하면
+결과값으로 \(\{y{\,\mapsto}e_2\}(\{x{\,\mapsto}e_1\}e)\)가 계산되는
+함수인 것이다.
+\begin{quote}
+    \(((\lambda x.(\lambda y.e))~e_1)~e_2 \longmapsto (\lambda y.\{x{\,\mapsto}e_1\}e)~e_2 \longmapsto \{y{\,\mapsto}e_2\}(\{x{\,\mapsto}e_1\}e)\)
+\end{quote}
+    나중에 나타나는 정수(\texttt{y})에서 먼저 나타나는 정수(\texttt{x})를 뺀
+값(\texttt{y\ -\ x})을 계산하는 비슷한 두 하스켈 함수 \texttt{fu}와
+\texttt{fc}를 비교해 보자.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{59}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{fu} \PY{o+ow}{::} \PY{p}{(}\PY{k+kt}{Int}\PY{p}{,}\PY{k+kt}{Int}\PY{p}{)} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{k+kt}{Int}    \PY{c+c1}{\PYZhy{}\PYZhy{} 순서쌍 하나를 받으면 정수값이 결과}
+\PY{n+nf}{fu} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{o+ow}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{x}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{60}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{fu} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)} \PY{c+c1}{\PYZhy{}\PYZhy{} fu는 이렇게만 사용}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{61}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{fc} \PY{o+ow}{::} \PY{k+kt}{Int} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{p}{(}\PY{k+kt}{Int} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{k+kt}{Int}\PY{p}{)} \PY{c+c1}{\PYZhy{}\PYZhy{} 정수 하나를 받으면 (Int \PYZhy{} \PYZgt{}Int)함수값이 결과}
+\PY{n+nf}{fc}  \PY{n}{x} \PY{n}{y}  \PY{o+ow}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{x}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{62}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{fc} \PY{l+m+mi}{3} \PY{l+m+mi}{7} \PY{c+c1}{\PYZhy{}\PYZhy{} 이렇게 인자를 하나씩 연달아 두 번에 걸쳐 적용하며 활용할 수도}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{63}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{sub3} \PY{o+ow}{=} \PY{n}{fc} \PY{l+m+mi}{3}  \PY{c+c1}{\PYZhy{}\PYZhy{} 인자를 한번만 적용해 계산된 함수값을 sub3로 선언해 놓고}
+\PY{c+c1}{\PYZhy{}\PYZhy{} 아래처럼 활용할 수도}
+\PY{n+nf}{sub3} \PY{l+m+mi}{7}  \PY{c+c1}{\PYZhy{}\PYZhy{} 7보다 3작은 수 계산}
+\PY{n+nf}{sub3} \PY{l+m+mi}{5}  \PY{c+c1}{\PYZhy{}\PYZhy{} 5보다 3작은 수 계산}
+\PY{n+nf}{sub3} \PY{l+m+mi}{1}  \PY{c+c1}{\PYZhy{}\PYZhy{} 1보다 3작은 수 계산}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+2
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+-2
+    \end{Verbatim}
+
+    
+    \noindent 참고로, \texttt{fu}와 \texttt{fc}를 아래와 같이 람다식으로
+바꿔서 선언해 보면 오히려 타입을 이해하기 쉬워지는 측면도 있다. 두 번
+연이은 함수적용식 \(e~e_1~e_2\)는 왼쪽에서부터 괄호로 묶은
+\((e~e_1)~e_2\)와 같으므로, 연이어 두 번 인자를 받는 함수 타입
+\(t_1 \to t_2 \to t\)는 오른쪽에서부터 괄호로 묶은
+\(t_1 \to (t_2 \to t)\)와 같은 타입이다. 따라서 \texttt{fc}의 타입을
+괄호를 생략한
+\texttt{Int\ -\textgreater{}\ Int\ -\textgreater{}\ Int}라고 해도
+괜찮다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{64}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{fu} \PY{o+ow}{::} \PY{p}{(}\PY{k+kt}{Int}\PY{p}{,}\PY{k+kt}{Int}\PY{p}{)} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{k+kt}{Int}
+\PY{n+nf}{fu} \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{p}{(} \PY{n}{x} \PY{p}{,} \PY{n}{y} \PY{p}{)} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{x}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{65}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{fc} \PY{o+ow}{::} \PY{k+kt}{Int} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{p}{(}\PY{k+kt}{Int} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{k+kt}{Int}  \PY{p}{)}
+\PY{n+nf}{fc} \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{n}{x}   \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{p}{(}\PY{n+nf}{\PYZbs{}}\PY{n}{y}  \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    한 요소씩 여러 번에 걸쳐 인자를 적용하는 \texttt{fc}같은 함수를
+커리된(curried) 함수라고 하며, 순서쌍으로 한꺼번에 묶인 인자에 적용하는
+\texttt{fu}같은 함수를 커리되지 않은(uncurried) 함수라고 부른다. 이는
+하스켈 커리(Haskell Curry)의 성씨인 커리(Curry)를 따라 이름붙인 용어다.
+하스켈에서는 의미상 순서쌍이 자연스러운 경우를 제외하면 일반적으로
+커리된 함수 형태의 선언을 장려한다. 람다계산법과 마찬가지로 괄호 등
+함수적용을 나타내는 별도의 기호 없이 인자를 한 번에 하나씩만 넘기는
+함수적용 문법을 하스켈도 따르고 있어 커리된 함수를 활용하기 편리하다.
+
+그런데 커리된 함수를 경우에 따라서는 커리되지 않은 방식으로
+적용한다거나, 반대로 커리되지 않은 함수를 커리된 함수처럼 각각의 요소를
+하나씩 두 번 적용하거나 아니면 순서쌍의 두 요소 중 하나만 적용해
+활용하고 싶은 경우가 생길 수도 있다. 그래서 하스켈 표준라이브러리에서는
+\texttt{fu}함수를 \texttt{fc}처럼 활용할 수 있도록 바꿔주는
+\texttt{curry}와, 또 반대로 \texttt{fc}함수를 \texttt{fu}처럼 활용할 수
+있도록 바꿔주는 \texttt{uncrry}라는 고차함수(higher-order function)을
+제공한다. 고차함수에 대해서는 다음 장에서 다시 설명하기로 하자.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{66}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kt}{:}\PY{k+kr}{type} \PY{n}{curry}    \PY{c+c1}{\PYZhy{}\PYZhy{} ((a, b) \PYZhy{}\PYZgt{} c) \PYZhy{}\PYZgt{} (a \PYZhy{}\PYZgt{} b \PYZhy{}\PYZgt{} c)}
+\PY{k+kt}{:}\PY{k+kr}{type} \PY{n}{uncurry}  \PY{c+c1}{\PYZhy{}\PYZhy{} (a \PYZhy{}\PYZgt{} b \PYZhy{}\PYZgt{} c) \PYZhy{}\PYZgt{} ((a, b) \PYZhy{}\PYZgt{} c)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+curry :: forall a b c. ((a, b) -> c) -> a -> b -> c
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+uncurry :: forall a b c. (a -> b -> c) -> (a, b) -> c
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{67}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{fu} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}
+\PY{p}{(}\PY{n}{curry} \PY{n}{fu}\PY{p}{)} \PY{l+m+mi}{3} \PY{l+m+mi}{7}     \PY{c+c1}{\PYZhy{}\PYZhy{} fu를 fc처럼 하나씩 두 번 호출하도록 바꿔줌}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{68}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{fc} \PY{l+m+mi}{3} \PY{l+m+mi}{7}
+\PY{p}{(}\PY{n}{uncurry} \PY{n}{fc}\PY{p}{)} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}  \PY{c+c1}{\PYZhy{}\PYZhy{} fc를 fu처럼 순서쌍으로 호출할 수 있게 바꿔줌}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+    \end{Verbatim}
+
+    
 
     % Add a bibliography block to the postdoc
     
