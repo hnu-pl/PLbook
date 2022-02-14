@@ -1,11 +1,12 @@
     
     
 
-    \section{람다계산법과 하스켈}
+    %% \fvset{numbers=left,numbersep=3pt}
+    \hypertarget{uxb78cuxb2e4uxacc4uxc0b0uxbc95uxacfc-uxd558uxc2a4uxcf08}{%
+\section{람다계산법과
+하스켈}\label{uxb78cuxb2e4uxacc4uxc0b0uxbc95uxacfc-uxd558uxc2a4uxcf08}}
 
-%% \fvset{numbers=left,numbersep=3pt}
-
-    앞서 람다계산법의 문법구조(그림 \ref{fig:ChurchDeBruijn})를 소개하며
+앞서 람다계산법의 문법구조(그림 \ref{fig:ChurchDeBruijn})를 소개하며
 수학에서 보통 \(f(x)=e\) 형태로 정의되는 함수를 람다식으로는 이름을
 붙이지 않고 \(\lambda x.e\) 형태의 함수요약(function abstraction)식으로
 표현한다고 설명했다. 여기서는 \(e_1~e_2\) 형태의 함수적용(function
@@ -283,7 +284,7 @@ evaluation)은
 \prompt{In}{incolor}{9}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{k+kr}{import} \PY{n+nn}{IHaskell.Display.Graphviz}
-\PY{n+nf}{dot} \PY{p}{(} \PY{l+s}{\PYZdq{}}\PY{l+s}{digraph \PYZob{} rankdir=}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{LR}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{; }\PY{l+s}{\PYZdq{}}
+\PY{n+nf}{dot} \PY{p}{(} \PY{l+s}{\PYZdq{}}\PY{l+s}{digraph \PYZob{} rankdir=}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{LR}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{; node [shape=}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{none}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{]}\PY{l+s}{\PYZdq{}}
   \PY{o}{++}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{((λx.x)(λy.y)) ((λz.z)(λw.w))}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{ \PYZhy{}\PYZgt{} }\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{((λx.x)(λy.y)) (λw.w)}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{;}\PY{l+s}{\PYZdq{}}
   \PY{o}{++}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{((λx.x)(λy.y)) ((λz.z)(λw.w))}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{ \PYZhy{}\PYZgt{} }\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{(λy.y) ((λz.z)(λw.w))}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{;}\PY{l+s}{\PYZdq{}}
   \PY{o}{++}\PY{l+s}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{(λy.y) ((λz.z)(λw.w))}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{ \PYZhy{}\PYZgt{} }\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{(λz.z)(λw.w)}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{ \PYZhy{}\PYZgt{} }\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{(λw.w)}\PY{l+s+se}{\PYZbs{}}\PY{l+s+se}{\PYZdq{}}\PY{l+s}{;}\PY{l+s}{\PYZdq{}}
@@ -298,15 +299,71 @@ evaluation)은
     \end{center}
     { \hspace*{\fill} \\}
     
-    \section{TODO}
+    방금전의 셀에서는 Graphviz를 연동하는 하스켈 라이브러리를 이용해 앞서
+본문에서 보여준 람다식을 비결정적 줄이는 그림을 자동으로 생성하여
+출력하고 있다. 이와 같이 ihaskell-notebook 환경에서는 웹브라우저를
+매개로 한 대화형 프로그래밍 환경의 장점 살려 실행 결과를 평이한 텍스트
+형태만이 아니라 HTML이나 그래픽 등의 형태로 출력하는 것도 가능하다.
 
-이게 무슨 이야기인가 테스트 이게 무슨 이야기인가 테스트 이게 무슨
-이야기인가 테스트
+    하스켈이 적극적 값계산이 아닌 게으른 값계산에 따라 실행됨을 확인하는
+실험을 하나 해보자. 함수 몸체(\(v\))가 파라메터(\(x\))에 의존하지 않고
+(즉, \(x\notin\mathrm{fv}(v)\)) 이미 계산이 종료된 값인 함수요약식
+\((\lambda x.v)\)를 정상적인 값으로 계산이 끝나지 않고 오류가 발생하는
+식 \(e_\textrm{bad}\)에 적용하는 함수적용식
+\((\lambda x.v)~e_\textrm{bad}\)를 생각해 보라. 함수 인자부터 먼저
+계산하는 전략인 적극적 값계산에 따르면 \(e_\textrm{bad}\)를 먼저
+계산하려 하므로 오류가 발생할 것이다. 하지만 함수 적용부터 우선하는
+전략인 게으른 값계산에 따르면 끝까지 계산되지 않은 \(e_\textrm{bad}\)가
+함수 파라메터 \(x\)에 넘어가지만 \(v\)에 \(x\)에 의존하지 않으므로
+\(x\)에 넘어간 \(e_\textrm{bad}\)는 계산할 필요 없이 버려지며 계산
+결과값은 \(v\)가 된다. 실제로 하스켈로
+\((\lambda x.v)~e_\textrm{bad}\)에 해당하는 프로그램을 작성해 보면
+다음과 같이 게으른 계산법을 따름을 확인할 수 있다.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
 \prompt{In}{incolor}{10}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{k+kr}{let} \PY{n}{x1} \PY{o+ow}{=} \PY{l+m+mi}{5} \PY{k+kr}{in} \PY{n}{x1} \PY{o}{+} \PY{n}{x1}
+\PY{n+ne}{error} \PY{l+s}{\PYZdq{}}\PY{l+s}{bad}\PY{l+s}{\PYZdq{}}                 \PY{c+c1}{\PYZhy{}\PYZhy{} 오류를 발생시키는 error 함수의 실행 예시}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}, frame=single, framerule=1mm, rulecolor=\color{outerrorbackground}]
+bad
+CallStack (from HasCallStack):
+  error, called at <interactive>:1:1 in interactive:Ghci300
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{p}{(}\PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{l+s}{\PYZdq{}}\PY{l+s}{good}\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{p}{(}\PY{n+ne}{error} \PY{l+s}{\PYZdq{}}\PY{l+s}{bad}\PY{l+s}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZhy{}\PYZhy{} 적극적 값계산에 따르면 오류가 발생해야}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+"good"
+    \end{Verbatim}
+
+    
+    \hypertarget{uxd558uxc2a4uxcf08uxc5d0uxc11c-uxbcc0uxc218uxc640-uxd568uxc218uxc758-uxc120uxc5b8}{%
+\section{하스켈에서 변수와 함수의
+선언}\label{uxd558uxc2a4uxcf08uxc5d0uxc11c-uxbcc0uxc218uxc640-uxd568uxc218uxc758-uxc120uxc5b8}}
+
+앞절에서 람다계산법과 하스켈의 관계에 대해 간단히 알아보았다. 여기서는
+하스켈에서 람다계산법 이외의 추가적 문법요소 중 가장 기본적인 변수와
+함수의 선언에 대해 알아본다.
+
+    \hypertarget{uxc9c0uxc5ed-uxc120uxc5b8uxacfc-uxc804uxc5ed-uxc120uxc5b8}{%
+\subsection{지역 선언과 전역
+선언}\label{uxc9c0uxc5ed-uxc120uxc5b8uxacfc-uxc804uxc5ed-uxc120uxc5b8}}
+
+지역변수는 let식으로 선언하여 그 안에서만 활용한다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{12}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kr}{let} \PY{n}{x1} \PY{o+ow}{=} \PY{l+m+mi}{5} \PY{k+kr}{in} \PY{n}{x1} \PY{o}{+} \PY{n}{x1}         \PY{c+c1}{\PYZhy{}\PYZhy{} 지역번수를 선언하여 활용하는 let식}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -317,62 +374,39 @@ evaluation)은
 
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
-\prompt{In}{incolor}{11}{\boxspacing}
+\prompt{In}{incolor}{13}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{k+kr}{let} \PY{n}{f1} \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{*} \PY{n}{x} \PY{k+kr}{in} \PY{n}{f1} \PY{l+m+mi}{7}
+\PY{k+kr}{let} \PY{n}{f1} \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{*} \PY{n}{x} \PY{k+kr}{in} \PY{n}{f1} \PY{l+m+mi}{7}  \PY{c+c1}{\PYZhy{}\PYZhy{} 지역변수를 함수값을 나타내는 람다식으로 정의}
 \end{Verbatim}
 \end{tcolorbox}
 
     
     \begin{Verbatim}[commandchars=\\\{\}]
 49
-    \end{Verbatim}
-
-    
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
-\prompt{In}{incolor}{12}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{f1} \PY{n}{x1}
-\end{Verbatim}
-\end{tcolorbox}
-
-    \begin{Verbatim}[commandchars=\\\{\}, frame=single, framerule=1mm, rulecolor=\color{outerrorbackground}]
-<interactive>:1:1: error: Variable not in scope: f1 :: t0 -> t
-<interactive>:1:4: error: Variable not in scope: x1
-    \end{Verbatim}
-
-    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
-\prompt{In}{incolor}{13}{\boxspacing}
-\begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{x2} \PY{o+ow}{=} \PY{l+m+mi}{5}
-\PY{n+nf}{x2} \PY{o}{+} \PY{n}{x2}
-\end{Verbatim}
-\end{tcolorbox}
-
-    
-    \begin{Verbatim}[commandchars=\\\{\}]
-10
     \end{Verbatim}
 
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
 \prompt{In}{incolor}{14}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{f2} \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{*} \PY{n}{x}
-\PY{n+nf}{f2} \PY{l+m+mi}{7}
+\PY{k+kr}{let} \PY{n}{x1} \PY{o+ow}{=} \PY{l+m+mi}{5}                 \PY{c+c1}{\PYZhy{}\PYZhy{} 여러개의 지역변수가 필요하다면}
+ \PY{k+kr}{in} \PY{k+kr}{let} \PY{n}{f1} \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{*} \PY{n}{x}   \PY{c+c1}{\PYZhy{}\PYZhy{} 이렇게 let식을 중첩해서 선언하고}
+     \PY{k+kr}{in} \PY{n}{f1} \PY{n}{x1}              \PY{c+c1}{\PYZhy{}\PYZhy{} 활용하면 된다. (들여쓰기 필요!)}
 \end{Verbatim}
 \end{tcolorbox}
 
     
     \begin{Verbatim}[commandchars=\\\{\}]
-49
+25
     \end{Verbatim}
 
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
 \prompt{In}{incolor}{15}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{f2} \PY{n}{x2}
+\PY{k+kr}{let} \PY{n}{x1} \PY{o+ow}{=} \PY{l+m+mi}{5}                 \PY{c+c1}{\PYZhy{}\PYZhy{} 이렇게 하나의 let식으로 한꺼번에}
+    \PY{n}{f1} \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{*} \PY{n}{x}       \PY{c+c1}{\PYZhy{}\PYZhy{} 여러개의 지역번수를 선언하여}
+ \PY{k+kr}{in} \PY{n}{f1} \PY{n}{x1}                  \PY{c+c1}{\PYZhy{}\PYZhy{} 활용 가능하다. (들여쓰기 필요!)}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -385,13 +419,170 @@ evaluation)은
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
 \prompt{In}{incolor}{16}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{f2} \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{*} \PY{n}{x}
-\PY{n+nf}{f2\PYZsq{}}   \PY{n}{x}  \PY{o+ow}{=} \PY{n}{x} \PY{o}{*} \PY{n}{x}
+\PY{n+nf}{f1} \PY{n}{x1}                \PY{c+c1}{\PYZhy{}\PYZhy{} 지역변수는 범위를 벗어난 곳에서 접근 불가}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}, frame=single, framerule=1mm, rulecolor=\color{outerrorbackground}]
+<interactive>:1:1: error: Variable not in scope: f1 :: t0 -> t
+<interactive>:1:4: error: Variable not in scope: x1
+    \end{Verbatim}
+
+    \noindent 전역변수는 별도의 키워드 없이 등식의 형태로 독립적으로
+선언한다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{17}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{x2} \PY{o+ow}{=} \PY{l+m+mi}{5}            \PY{c+c1}{\PYZhy{}\PYZhy{} 전역변수 선언에는 키워드(예약어) 필요없음}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
-\prompt{In}{incolor}{17}{\boxspacing}
+\prompt{In}{incolor}{18}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{x2} \PY{o}{+} \PY{n}{x2}           \PY{c+c1}{\PYZhy{}\PYZhy{} 다른 셀의 계산식에서 활용 가능}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+10
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{19}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{x2} \PY{o+ow}{=} \PY{l+m+mi}{5}            \PY{c+c1}{\PYZhy{}\PYZhy{} 하나의 셀에서 선언과}
+\PY{n+nf}{x2} \PY{o}{+} \PY{n}{x2}           \PY{c+c1}{\PYZhy{}\PYZhy{} 계산식을 섞어 쓸 수도 있다}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+10
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{20}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{f2} \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{*} \PY{n}{x}  \PY{c+c1}{\PYZhy{}\PYZhy{} 전역변수를 함수값을 나타내는 람다식으로 정의}
+\PY{n+nf}{f2} \PY{l+m+mi}{7}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+49
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{21}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{f2} \PY{n}{x2}             \PY{c+c1}{\PYZhy{}\PYZhy{} 전역변수에는 이렇게 다른 셀에서도 접근 가능}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+25
+    \end{Verbatim}
+
+    
+    또 다른 형태의 \texttt{where} 키워드를 이용한 지역 선언이 있다.
+\texttt{let\ x\ =\ e1\ in\ e}형태의 let식은 그 자체가 식(expression)으로
+전체 let식의 값은 곧 \texttt{e}를 계산한 값과 같으며, 단지
+\texttt{e}에서 활용할 지역변수를 그에 앞서 선했을 따름이다. 식의 계산에
+앞서 보조적인 지역 선언을 하는 let과 대조적으로, 선언(declaration)의
+뒤에서 보조적인 지역 선언을 하는 키워드가 where이다. 같은 내용의 두
+선언을 아래와 같이 하나는 where로 또다른 하나는 let식으로 표현해 보았다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{22}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{circleArea}   \PY{o+ow}{=}  \PY{n}{pi} \PY{o}{*} \PY{n}{r}\PY{o}{\PYZca{}}\PY{l+m+mi}{2} \PY{k+kr}{where} \PY{n}{r} \PY{o+ow}{=} \PY{l+m+mi}{3}
+
+\PY{n+nf}{circleArea\PYZsq{}}  \PY{o+ow}{=}  \PY{k+kr}{let} \PY{n}{r} \PY{o+ow}{=} \PY{l+m+mi}{3} \PY{k+kr}{in} \PY{n}{pi} \PY{o}{*} \PY{n}{r}\PY{o}{\PYZca{}}\PY{l+m+mi}{2}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{23}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{circleArea}
+
+\PY{n+nf}{circleArea\PYZsq{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+28.274333882308138
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+28.274333882308138
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{24}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{pi}  \PY{c+c1}{\PYZhy{}\PYZhy{} 참고로 pi는 표준라이브러리에서 정의해 놓은 변수다}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3.141592653589793
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{25}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{rectArea} \PY{o+ow}{=} \PY{n}{x} \PY{o}{*} \PY{n}{y}
+         \PY{k+kr}{where}     
+           \PY{n}{x} \PY{o+ow}{=} \PY{l+m+mi}{3}   \PY{c+c1}{\PYZhy{}\PYZhy{} 두 개 이상의 지역 변수도 한꺼번에}
+           \PY{n}{y} \PY{o+ow}{=} \PY{l+m+mi}{4}   \PY{c+c1}{\PYZhy{}\PYZhy{} where로 선언 가능 (들여쓰기 필요!)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{26}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{rectArea}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+12
+    \end{Verbatim}
+
+    
+    \hypertarget{uxac04uxb7b5uxd55c-uxd615uxd0dcuxc758-uxd568uxc218-uxc120uxc5b8uxacfc-uxd568uxc218uxc694uxc57duxc2dd}{%
+\subsection{간략한 형태의 함수 선언과
+함수요약식}\label{uxac04uxb7b5uxd55c-uxd615uxd0dcuxc758-uxd568uxc218-uxc120uxc5b8uxacfc-uxd568uxc218uxc694uxc57duxc2dd}}
+
+람다식으로 선언하는 \texttt{f\ =\ \textbackslash{}x\ -\textgreater{}\ e}
+대신 \texttt{f\ x\ =\ e} 형태로도 함수를 선언할 수 있다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{27}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{f2} \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{*} \PY{n}{x}  \PY{c+c1}{\PYZhy{}\PYZhy{} 함수요약식의 파라미터를 등호의 왼쪽으로 보내}
+\PY{n+nf}{f2\PYZsq{}}   \PY{n}{x}  \PY{o+ow}{=} \PY{n}{x} \PY{o}{*} \PY{n}{x}  \PY{c+c1}{\PYZhy{}\PYZhy{} 람다식보다 더 간결한 형태로 똑같은 함수 선언}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{28}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{f2}  \PY{l+m+mi}{9}
 \PY{n+nf}{f2\PYZsq{}} \PY{l+m+mi}{9}
@@ -411,16 +602,16 @@ evaluation)은
 
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
-\prompt{In}{incolor}{18}{\boxspacing}
+\prompt{In}{incolor}{29}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-\PY{n+nf}{f3} \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n+nf}{\PYZbs{}}\PY{n}{y} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{+} \PY{n}{y}
-\PY{n+nf}{f3\PYZsq{}}   \PY{n}{x}  \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{n}{y} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{+} \PY{n}{y}
-\PY{n+nf}{f3\PYZsq{}\PYZsq{}}  \PY{n}{x}     \PY{n}{y}  \PY{o+ow}{=} \PY{n}{x} \PY{o}{+} \PY{n}{y}
+\PY{n+nf}{f3} \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n+nf}{\PYZbs{}}\PY{n}{y} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{+} \PY{n}{y}   \PY{c+c1}{\PYZhy{}\PYZhy{} 두 개 이상 중첩된 람다식으로 선언된 함수를}
+\PY{n+nf}{f3\PYZsq{}}   \PY{n}{x}  \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{n}{y} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{+} \PY{n}{y}   \PY{c+c1}{\PYZhy{}\PYZhy{} 등호 왼쪽으로 가장 바깥의 파라메터를 옮기고}
+\PY{n+nf}{f3\PYZsq{}\PYZsq{}}  \PY{n}{x}     \PY{n}{y}  \PY{o+ow}{=} \PY{n}{x} \PY{o}{+} \PY{n}{y}   \PY{c+c1}{\PYZhy{}\PYZhy{} 또 그 다음 파라메터도 옮겨서 이렇게 선언}
 \end{Verbatim}
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
-\prompt{In}{incolor}{19}{\boxspacing}
+\prompt{In}{incolor}{30}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{f3}   \PY{l+m+mi}{4} \PY{l+m+mi}{5}
 \PY{n+nf}{f3\PYZsq{}}  \PY{l+m+mi}{4} \PY{l+m+mi}{5}
@@ -446,8 +637,437 @@ evaluation)은
     \end{Verbatim}
 
     
+    \noindent 람다식의 구체적 문법에서 함수 적용은 좌결합(left
+associative)이며 하스켈에서도 마찬가지다. 즉, 위의 셀에서 연이은
+함수적용식 \texttt{f3\ 4\ 5}는 \texttt{(f3\ 4)\ 5}와 같은 뜻이다. 그리고
+\texttt{\textbackslash{}x\ -\textgreater{}\ \textbackslash{}y\ -\textgreater{}\ e}는
+\texttt{\textbackslash{}x\ -\textgreater{}(\textbackslash{}y\ -\textgreater{}\ e)}와
+같은 뜻이며, 이처럼 연달아 겹쳐진 함수요약식을 하스켈에서는
+\texttt{\textbackslash{}x\ y\ -\textgreater{}\ e}로 간략화해 작성할 수
+있다.
+
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
-\prompt{In}{incolor}{20}{\boxspacing}
+\prompt{In}{incolor}{31}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{p}{(}\PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n+nf}{\PYZbs{}}\PY{n}{y} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{+} \PY{n}{y} \PY{p}{)} \PY{l+m+mi}{4} \PY{l+m+mi}{5}
+\PY{p}{(}\PY{n+nf}{\PYZbs{}}\PY{n}{x} \PY{o+ow}{\PYZhy{}\PYZgt{}}\PY{p}{(}\PY{n+nf}{\PYZbs{}}\PY{n}{y} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{+} \PY{n}{y}\PY{p}{)}\PY{p}{)} \PY{l+m+mi}{4} \PY{l+m+mi}{5}
+\PY{p}{(}\PY{n+nf}{\PYZbs{}}\PY{n}{x}     \PY{n}{y} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x} \PY{o}{+} \PY{n}{y} \PY{p}{)} \PY{l+m+mi}{4} \PY{l+m+mi}{5}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+9
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+9
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+9
+    \end{Verbatim}
+
+    
+    \noindent 참고로, 다른 문법요소가 추가되지 않은 순수한 람다계산법에서는
+이름, 함수요약, 함수적용의 세 문법요소를 모두 람다식이라고 한다. 한편,
+그 외의 다양한 문법요소를 포함하는 프로그래밍 언어의 소스코드에서
+`람다식'이란 변수(이름)나 함수적용식의 형태가 아닌
+\texttt{\textbackslash{}x\ -\textgreater{}\ e} 형태의 함수요약식만을
+일컫는다.
+
+    \hypertarget{uxd29cuxd50cuxacfc-uxd328uxd134}{%
+\section{튜플과 패턴}\label{uxd29cuxd50cuxacfc-uxd328uxd134}}
+
+하스켈에서는 순서쌍을 가장 익숙한 표기법대로 표현할 수 있으며, 각 요소가
+계산이 완료된 순서쌍은 그 자체로 계산이 완료된 값이다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{32}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{)}                \PY{c+c1}{\PYZhy{}\PYZhy{} 같은 종류의 값으로 이루어진 순서쌍}
+\PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{hello}\PY{l+s}{\PYZdq{}}\PY{p}{,} \PY{l+m+mi}{99}\PY{p}{)}         \PY{c+c1}{\PYZhy{}\PYZhy{} 다른 종류의 값으로 이루어진 순서쌍}
+\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s}{\PYZdq{}}\PY{l+s}{hello}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{99}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZhy{}\PYZhy{} 순서쌍을 요소로 갖는 중첩된 순서쌍}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+(3,4)
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+("hello",99)
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+((3,4),("hello",99))
+    \end{Verbatim}
+
+    
+    \noindent 두 개의 요소로 이루어진 순서쌍을 일반화한 구조가
+튜플(tuple)이며, \(n\)개의 요소로 이루어진 튜플을
+\(n\)튜플(\(n\)-tuple)이라 한다. 즉, \(2\)튜플을 순서쌍(pair)이라고도
+부르는 것이다. 그 이상의 요소로 이루어진 \(3\)튜플, \(4\)튜플 등도
+영어로는 트리플, 쿼드러플 등 다른 이름으로 부르기도 하지만 우리말로는
+그냥 \(n\)튜플로 부르는 것이 보통이다. 참고로, 여닫는 괄호를 빈칸 없이
+붙여 쓰면 아무런 요소를 갖지 않는 빈 튜플을 나타내는데, 이를 특별히
+`유닛'(unit)이라 부르며 실행 결과를 신경쓰지 않는 함수의 계산값으로 주로
+사용된다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{33}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{()}                   \PY{c+c1}{\PYZhy{}\PYZhy{} 0\PYZhy{}tuple (unit)}
+\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{two}\PY{l+s}{\PYZdq{}}\PY{p}{)}            \PY{c+c1}{\PYZhy{}\PYZhy{} 2\PYZhy{}tuple (pair)}
+\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{two}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}          \PY{c+c1}{\PYZhy{}\PYZhy{} 3\PYZhy{}tuple (triple)}
+\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{two}\PY{l+s}{\PYZdq{}}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+s}{\PYZdq{}}\PY{l+s}{four}\PY{l+s}{\PYZdq{}}\PY{p}{)}   \PY{c+c1}{\PYZhy{}\PYZhy{} 4\PYZhy{}tuple (quadruple)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+()
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1,"two")
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1,"two",3)
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+(1,"two",3,"four")
+    \end{Verbatim}
+
+    ~\\[-3ex]
+    그런데, \(1\)튜플(\(1\)-tuple)은 하스켈에 없다. 왜냐하면, 어차피 하나의
+요소만으로 이루어진 튜플을 굳이 만들 필요도 없이 그 요소 자체를 사용하면
+되기 때문이다. 산술식 \texttt{((2\ +\ 3)\ +\ 4)}에서 필요없는 괄호을
+생략해 \texttt{2\ +\ 3\ +\ 4}로 표현할 수 있는 것처럼, 그러니까
+\texttt{(e)}는 1튜플이 아니라 그냥 \texttt{e}에 괄호를 둘렀을 뿐이다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{34}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{p}{(}\PY{l+m+mi}{9}\PY{p}{)}
+\PY{l+m+mi}{9}
+\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{3}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{4}\PY{p}{)}
+\PY{l+m+mi}{2} \PY{o}{+} \PY{l+m+mi}{3} \PY{o}{+} \PY{l+m+mi}{4}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+9
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+9
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+9
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+9
+    \end{Verbatim}
+
+    
+    튜플 중에서도 가장 자주 활용되는 순서쌍의 첫째와 둘째 요소를 선택하는
+함수 \texttt{fst}와 \texttt{snd}를 하스켈 표준라이브러리에서 기본적으로
+제공한다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{35}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{p1} \PY{o+ow}{=} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{)} 
+
+\PY{n+nf}{fst} \PY{n}{p1}
+\PY{n+nf}{snd} \PY{n}{p1}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+    \end{Verbatim}
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{36}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{x1} \PY{o+ow}{=} \PY{n}{fst} \PY{n}{p1}  \PY{c+c1}{\PYZhy{}\PYZhy{} 순서쌍의 요소를 뽑아 하나씩}
+\PY{n+nf}{y1} \PY{o+ow}{=} \PY{n}{snd} \PY{n}{p1}  \PY{c+c1}{\PYZhy{}\PYZhy{} 하나씩 변수들로 선언해 놓고}
+
+\PY{n+nf}{x1} \PY{o}{+} \PY{n}{y1}      \PY{c+c1}{\PYZhy{}\PYZhy{} 필요한 곳에 활용}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+7
+    \end{Verbatim}
+
+    
+    변수 선언을 일반화한 패턴(pattern)으로 순서쌍과 같은 구조의 여러 요소에
+대해 한꺼번에 여러 변수를 선언할 수 있다. 선언의 왼쪽에 순서쌍 패턴, 즉
+변수 대신 순서쌍의 구조를 나타내는 괄호와 쉼표를 표시하고 각 요소들의
+위치에 새로운 변수 이름들을 작성하면 된다. 뒤집어 말하자면 지금까지
+살펴본 선언에서 변수란 구조 전체를 대표하는 가장 단순한 패턴으로 이해할
+수 있다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{37}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{p}{(}\PY{n}{x2}\PY{p}{,}\PY{n}{y2}\PY{p}{)} \PY{o+ow}{=} \PY{n}{p1}  \PY{c+c1}{\PYZhy{}\PYZhy{} 순서쌍 p1의 첫째,둘째 요소가 x2,y2로 선언됨}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{38}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{p1}
+\PY{n+nf}{x1}
+\PY{n+nf}{x2}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+(3,4)
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+    \end{Verbatim}
+
+    
+    \noindent 필요하다면 \texttt{@}기호로 전체 구조를 대표하는 변수도 각각의
+요소에 대한 변수와 함께 한꺼번에 선언 가능하다
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{39}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{p3}\PY{o}{@}\PY{p}{(}\PY{n}{x3}\PY{p}{,}\PY{n}{y3}\PY{p}{)} \PY{o+ow}{=} \PY{n}{p1} \PY{c+c1}{\PYZhy{}\PYZhy{} 순서쌍 p1 전체와 첫째,둘째 요소가 p3와 x3,y3로 선언됨}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{40}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{p1}
+\PY{n+nf}{p3}
+\PY{n+nf}{x3}
+\PY{n+nf}{y3}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+(3,4)
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+(3,4)
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+    \end{Verbatim}
+
+    
+    전역 선언 외에도 함수 파라메터 등 새로운 변수가 선언되는 곳에는
+일반적으로 패턴이 올 수 있다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{41}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{p1}
+\PY{p}{(}\PY{n+nf}{\PYZbs{}}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x}\PY{p}{)} \PY{n}{p1}
+\PY{p}{(}\PY{n+nf}{\PYZbs{}}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{y}\PY{p}{)} \PY{n}{p1}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+(3,4)
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+    \end{Verbatim}
+
+    
+    \noindent 순서쌍의 요소를 선택하는 표준라이브러리 함수 \texttt{fst}와
+\texttt{snd}도 사실은 패턴으로 작성되어 있다. 마찬가지 역할을 하는
+\texttt{myfst}와 \texttt{mysnd}를 다음과 같이 선언하여 활용할 수 있다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{42}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{myfst} \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x}
+\PY{n+nf}{mysnd}    \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{o+ow}{=}  \PY{n}{y}
+
+\PY{n+nf}{myfst} \PY{n}{p1}
+\PY{n+nf}{mysnd} \PY{n}{p1}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+    \end{Verbatim}
+
+    
+    위의 \texttt{myfst} 선언에서 \texttt{y}와 \texttt{mysnd} 선언에서
+\texttt{x}는 쓰이지 않는다. 이렇게 패턴에서 쓰이지 않는 요소를
+와일드카드 패턴(\texttt{\_})으로 표시하면 코드의 가독성을 높일 수 있다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{43}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{myfst} \PY{o+ow}{=} \PY{n+nf}{\PYZbs{}}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{k+kr}{\PYZus{}}\PY{p}{)} \PY{o+ow}{\PYZhy{}\PYZgt{}} \PY{n}{x}  \PY{c+c1}{\PYZhy{}\PYZhy{} 선언되기만 하고 쓰이지 않는 변수 대신}
+\PY{n+nf}{mysnd}    \PY{p}{(}\PY{k+kr}{\PYZus{}}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{o+ow}{=}  \PY{n}{y}  \PY{c+c1}{\PYZhy{}\PYZhy{} 와일드카드 패턴을 사용하면 좋다}
+
+\PY{n+nf}{myfst} \PY{n}{p1}
+\PY{n+nf}{mysnd} \PY{n}{p1}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+4
+    \end{Verbatim}
+
+    
+    \noindent 인자를 무시하고 0만 돌려주는 함수도 와일드카드 패턴으로 선언할
+수 있다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{50}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nf}{f0} \PY{k+kr}{\PYZus{}} \PY{o+ow}{=} \PY{l+m+mi}{0}   \PY{c+c1}{\PYZhy{}\PYZhy{} 패턴 전체를 와일드카드 패턴으로 작성하는 것도 가능하다}
+
+\PY{n+nf}{f0} \PY{l+m+mi}{12}
+\PY{n+nf}{f0} \PY{l+m+mi}{999}
+\end{Verbatim}
+\end{tcolorbox}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+    \end{Verbatim}
+
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+    \end{Verbatim}
+
+    
+    여기서 다룬 튜플에 대한 패턴 외에도 정수 등의 기본타입이나 리스트 및
+다른 사용자 정의 데이터 구조에 대한 패턴도 하스켈에 지원한다. 패턴에
+대한 추가적인 내용은 그러한 내용을 활용하는 예제를 다루면서 자연스럽게
+친숙해지기로 하자. 좀더 차근차근 하스켈의 문법요소를 살펴보고 싶다면
+하스켈 프로그래밍을 주제로 하는 교재\cite{Hutton2016pih2nd}를 참고하라.
+
+    \hypertarget{uxd0c0uxc785uxc788uxb294-uxb78cuxb2e4uxacc4uxc0b0uxbc95uxacfc-uxd558uxc2a4uxcf08}{%
+\section{타입있는 람다계산법과
+하스켈}\label{uxd0c0uxc785uxc788uxb294-uxb78cuxb2e4uxacc4uxc0b0uxbc95uxacfc-uxd558uxc2a4uxcf08}}
+
+지금까지 하스켈 소스코드에서 타입이 단 한 번도 등장하지 않았다. 다만
+에러 메시지에는 타입에 대한 내용이 나오기는 했다. 그렇다고 해서 하스켈이
+실행 중에만 타입을 따지는 동적 타입 언어는 결코 아니며 사실 학계의 연구
+결과를 상당히 적극적으로 반영하여 매우 정교한 정적 타입 시스템이
+돋보이는 언어다. 그럼에도 하스켈 소스코드에서 타입에 대한 정보가
+번잡스럽게 많이 나타나지 않는 까닭은 프로그래머가 타입 정보를 세세하게
+작성하지 않아도 컴파일러가 자동으로 타입을 유추해 주는 기능을 잘
+구현하고 있기 때문이다. 참고로, 타입 유추(type inferene)에 관해 선구적인
+업적을 남긴 대표적인 학자가 바로 앞서 ML의 창시자로 소개한 로빈
+밀너(Robin Milner)로 (그림 \ref{fig:McCarthyMilner}), ML과 Haskell을
+포함한 많은 함수형 언어의 타입 시스템이 그의 연구를 바탕으로 하고 있다.
+여기서는 타입 유추에 대한 내용보다는, 앞서 타입없는 람다계산법을
+하스켈과 관련지어 설명한 것처럼, 타입있는 람다계산법과 하스켈을 관련지어
+설명한다.
+
+람다계산법의 창시자인 알론조 처치는 그의 람다계산법을 논리체계와
+연관짓고자 할 때 타입이 없어서 발생하는 모순(paradox)을 피하고자
+람다계산법에 타입을 추가하였으며 그 이후로도 더욱 다양한 기능의 타입을
+갖추도록 변경된 람다계산법의 연구되었는데, 이런 부류의 람다계산법을
+통틀어 타입있는 람다계산법(typed \(\lambda\)-calculus)라고 부르며 그에
+대비되는 원래 알론조 처치가 맨 처음 창시한 가장 단순한 형태의
+람다계산법을 타입없는 람다계산법(untyped lambda calculus)라고 부른다.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
+\prompt{In}{incolor}{46}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{fu}  \PY{n}{x} \PY{n}{y}  \PY{o+ow}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{x}
 \PY{n+nf}{fc} \PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)} \PY{o+ow}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{x}
@@ -455,7 +1075,7 @@ evaluation)은
 \end{tcolorbox}
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
-\prompt{In}{incolor}{21}{\boxspacing}
+\prompt{In}{incolor}{47}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{fu}  \PY{l+m+mi}{3} \PY{l+m+mi}{7}
 \PY{n+nf}{fc} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}
@@ -475,7 +1095,7 @@ evaluation)은
 
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
-\prompt{In}{incolor}{22}{\boxspacing}
+\prompt{In}{incolor}{48}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
 \PY{n+nf}{p1} \PY{o+ow}{=} \PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}
 \PY{n+nf}{fc} \PY{n}{p1}
@@ -489,12 +1109,19 @@ evaluation)은
 
     
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
-\prompt{In}{incolor}{ }{\boxspacing}
+\prompt{In}{incolor}{49}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
-
+\PY{k+kr}{let} \PY{n}{x} \PY{o+ow}{=} \PY{n}{z} \PY{k+kr}{where} \PY{n}{z} \PY{o+ow}{=} \PY{l+m+mi}{3}
+ \PY{k+kr}{in} \PY{n}{x}
 \end{Verbatim}
 \end{tcolorbox}
 
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+3
+    \end{Verbatim}
+
+    
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
 \prompt{In}{incolor}{ }{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
