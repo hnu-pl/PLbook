@@ -924,8 +924,8 @@ associative)이며 하스켈에서도 마찬가지다. 즉, 위의 셀에서 연
     \end{Verbatim}
 
     
-    전역 선언 외에도 함수 파라메터 등 새로운 변수가 선언되는 곳에는
-일반적으로 패턴이 올 수 있다.
+    전역 선언 외에도 지역 선언이나 함수 파라메터 등 변수가 유효범위에 묶이는
+곳에 일반적으로 패턴이 올 수 있다.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
 \prompt{In}{incolor}{41}{\boxspacing}
@@ -1407,12 +1407,6 @@ False
     \end{Verbatim}
 
     
-    
-    \begin{Verbatim}[commandchars=\\\{\}]
-
-    \end{Verbatim}
-
-    
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
 \prompt{In}{incolor}{56}{\boxspacing}
 \begin{Verbatim}[commandchars=\\\{\}]
@@ -1476,16 +1470,17 @@ False
 파라메터는 항상 한 개이다. 람다계산법에서 \(\lambda x.\lambda y.e\), 즉
 \(\lambda x.(\lambda y.e)\)는 두 개의 인자에 한꺼번에 적용하는 함수가
 아니라, 한 개의 인자 \(e_1\)에 적용하면 결과값으로 함수인
-\(\lambda y.\{x{\,\mapsto}e_1\}e\)가 계산되고, 그렇게 계산된
+\(\lambda y.\{x{\,\mapsto}e_1\}e\)가 계산되고 (\(x\neq y\),
+\(y\notin e_1\)라고 가정), 그렇게 계산된
 \(\lambda y.\{x{\mapsto}e_1\}e\)를 또 한 개의 인자 \(e_2\)에 적용하면
 결과값으로 \(\{y{\,\mapsto}e_2\}(\{x{\,\mapsto}e_1\}e)\)가 계산되는
 함수인 것이다.
 \begin{quote}
     \(((\lambda x.(\lambda y.e))~e_1)~e_2 \longmapsto (\lambda y.\{x{\,\mapsto}e_1\}e)~e_2 \longmapsto \{y{\,\mapsto}e_2\}(\{x{\,\mapsto}e_1\}e)\)
 \end{quote}
-    나중에 나타나는 정수(\texttt{y})에서 먼저 나타나는 정수(\texttt{x})를 뺀
-값(\texttt{y\ -\ x})을 계산하는 비슷한 두 하스켈 함수 \texttt{fu}와
-\texttt{fc}를 비교해 보자.
+    이를 염두에 두고, 나중에 나타나는 정수(\texttt{y})에서 먼저 나타나는
+정수(\texttt{x})를 뺀 값(\texttt{y\ -\ x})을 계산하는 비슷한 두 하스켈
+함수 \texttt{fu}와 \texttt{fc}를 비교해 보자.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
 \prompt{In}{incolor}{59}{\boxspacing}
@@ -1536,7 +1531,6 @@ False
 \PY{c+c1}{\PYZhy{}\PYZhy{} 아래처럼 활용할 수도}
 \PY{n+nf}{sub3} \PY{l+m+mi}{7}  \PY{c+c1}{\PYZhy{}\PYZhy{} 7보다 3작은 수 계산}
 \PY{n+nf}{sub3} \PY{l+m+mi}{5}  \PY{c+c1}{\PYZhy{}\PYZhy{} 5보다 3작은 수 계산}
-\PY{n+nf}{sub3} \PY{l+m+mi}{1}  \PY{c+c1}{\PYZhy{}\PYZhy{} 1보다 3작은 수 계산}
 \end{Verbatim}
 \end{tcolorbox}
 
@@ -1549,12 +1543,6 @@ False
     
     \begin{Verbatim}[commandchars=\\\{\}]
 2
-    \end{Verbatim}
-
-    
-    
-    \begin{Verbatim}[commandchars=\\\{\}]
--2
     \end{Verbatim}
 
     
@@ -1585,22 +1573,23 @@ False
 \end{tcolorbox}
 
     한 요소씩 여러 번에 걸쳐 인자를 적용하는 \texttt{fc}같은 함수를
-커리된(curried) 함수라고 하며, 순서쌍으로 한꺼번에 묶인 인자에 적용하는
+커리된(curried) 함수, 순서쌍으로 한꺼번에 묶인 인자에 적용하는
 \texttt{fu}같은 함수를 커리되지 않은(uncurried) 함수라고 부른다. 이는
-하스켈 커리(Haskell Curry)의 성씨인 커리(Curry)를 따라 이름붙인 용어다.
+하스켈 커리(Haskell Curry)의 성씨인 커리(Curry)를 따라 만들어진 용어다.
 하스켈에서는 의미상 순서쌍이 자연스러운 경우를 제외하면 일반적으로
 커리된 함수 형태의 선언을 장려한다. 람다계산법과 마찬가지로 괄호 등
 함수적용을 나타내는 별도의 기호 없이 인자를 한 번에 하나씩만 넘기는
 함수적용 문법을 하스켈도 따르고 있어 커리된 함수를 활용하기 편리하다.
 
-그런데 커리된 함수를 경우에 따라서는 커리되지 않은 방식으로
-적용한다거나, 반대로 커리되지 않은 함수를 커리된 함수처럼 각각의 요소를
-하나씩 두 번 적용하거나 아니면 순서쌍의 두 요소 중 하나만 적용해
-활용하고 싶은 경우가 생길 수도 있다. 그래서 하스켈 표준라이브러리에서는
-\texttt{fu}함수를 \texttt{fc}처럼 활용할 수 있도록 바꿔주는
-\texttt{curry}와, 또 반대로 \texttt{fc}함수를 \texttt{fu}처럼 활용할 수
-있도록 바꿔주는 \texttt{uncrry}라는 고차함수(higher-order function)을
-제공한다. 고차함수에 대해서는 다음 장에서 다시 설명하기로 하자.
+그런데 커리된 함수를 경우에 따라 커리되지 않은 방식으로 한꺼번에 묶인
+순서쌍에 적용하고 싶거나, 반대로 커리되지 않은 함수를 커리된 함수처럼
+각각의 요소를 하나씩 두 번 적용한다던가 혹은 순서쌍의 두 요소 중 하나만
+적용해 활용하고 싶은 경우가 생길 수도 있다. 그래서 하스켈
+표준라이브러리에서는 \texttt{fu}함수를 \texttt{fc}처럼 활용할 수 있도록
+바꿔주는 \texttt{curry}와, 또 반대로 \texttt{fc}함수를 \texttt{fu}처럼
+활용할 수 있도록 바꿔주는 \texttt{uncrry}라는 고차함수(higher-order
+function)을 제공한다. 고차함수에 대해서는 다음 장에서 다시 설명하기로
+하자.
 
     \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder, top=.75ex]
 \prompt{In}{incolor}{66}{\boxspacing}
@@ -1662,6 +1651,125 @@ uncurry :: forall a b c. (a -> b -> c) -> (a, b) -> c
     \end{Verbatim}
 
     
+    \section*{요점정리}
+
+\begin{itemize}
+\tightlist
+\item
+  게으른 계산법(lazy evaluation)을 따르는 정적 타입 함수형 언어를 주제로
+  연구하는 학계의 표준적인 언어를 만들고자 모인 위원회가 하스켈(Haskell)
+  프로그래밍 언어의 기원이다.
+\item
+  함수형 언어의 역사에서 중요한 세 언어는 LISP, ML, Haskell의 대표적인
+  특징은, LISP은 최초의 함수형 언어, ML은 타입 유추를 지원하는 정적 타입
+  시스템을 갖춘 함수형 언어, Haskell은 게으른 계산법에 따르는 순수
+  함수형 언어라는 점이다.
+\item
+  람다계산법에서 줄임(reduction)은 함수 안쪽의 함수 몸체를 포함하여
+  가능한 모든 맥락(context)에서 핵심적인 계산 규칙을 적용하며, 작은걸음
+  의미구조로 표현했을 때 여러 갈래로 계산과정이 진행가능한 비결정적인
+  의미구조가 되는 것이 자연스럽다.
+\item
+  람다계산법에 기반한 프로그래밍언어의 의미구조에 주로 활용되는
+  값계산(evaluation)은 함수를 계산이 완료된 값으로 보는 등 특정
+  맥락(context)에서만 결정적으로 핵심 계산 규칙을 적용한다.
+\item
+  줄임이 끝나는 표준형(normal form)에 해당하지 않는 함수요약식 등 더
+  많은 형태의 식을 값계산(evaluation)이 끝난 값(value)로 본다.
+\item
+  적극적 값계산(eager evaluation)은 함수 인자의 계산부터, 게으른
+  값계산(lazy evaluation)은 \(\beta\)규칙에 따른 함수 적용부터 우선한다.
+\item
+  하스켈에서 전역 선언은 키워드 없는 등식 형태로 한다. 지역 선언은 식에
+  앞서 보조적인 지역 변수를 선언는 let식이나 선언의 뒤에서 보조적인 지역
+  변수를 선언하는 where 키워드를 활용한다.
+\item
+  람다계산법에서 람다식의 세 가지 문법요소 중 \(\lambda x.e\) 형태의
+  함수적용식만을 프로그래밍언어에서는 `람다식'이라고 부른다.
+\item
+  변수 선언을 일반화한 패턴(pattern)으로 하스켈 데이터 구조의 여러
+  부분을 한꺼번에 여러 개의 변수로 선언할 수 있다.
+\item
+  타입있는 람다계산법은 원래의 람다계산법에 타입을 추가하여 타입을
+  검사할 수 있는 타입규칙을 정의한 부류의 람다계산법을 통칭한다.
+\item
+  가장 기본적인 타입있는 람다계산법인 단순타입 람다계산법(STLC)에서
+  타입은 기본타입 또는 함수타입의 형태를 갖는다.
+\item
+  기본타입의 집합(\(B\)), 기본상수의 집합(\(C\)), 전역
+  타입환경(\(\Delta\))을 설정하고 의미구조에 기본상수의 계산을 다루는
+  \(\delta\)규칙을 정의함으로써 구체적인 버전의 STLC가 하나 정의된다.
+\item
+  하스켈을 타입있는 람다계산법인 STLC와 연관지어 이해하자면, 하스켈에서
+  데이터 타입과 그 생성자 및 관련 연산을 선언이 STLC에서 기본타입 및
+  기본상수수를 설정하고 \(\delta\)규칙을 정의하는 것에 해당하며 전역
+  타입환경 내용의 대부분이 타입 유추에 의해 자동으로 설정될 수 있다.
+\item
+  타입 이론에서 \(e:\tau\)와 비슷하게 하스켈에서는 타입 정보를
+  \texttt{e\ ::\ T} 형태로 표시한다
+\item
+  람다계산법과 마찬가지로 하스켈에서도 함수 파라메터는 항상 한 개이며,
+  한 개씩 여러 번에 걸쳐 인자를 커리된(curried) 함수 또는 한꺼번에
+  튜플로 묶인 인자에 적용하는 않은(uncurried) 함수의 두 가지 다른 형태로
+  결과적으로 같은 계산을 하는 함수를 정의할 수 있다.
+\end{itemize}
+
+\newpage
+
+    \section*{연습문제}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  이 장에서 예시로 든 진리값을 다루는 버전의 STLC에 논리곱을 나타내는
+  기본상수 \(c_\lor\)를 추가해 보라.
+\item
+  위 문제의 논리곱까지 추가된 버전의 STLC에 맞도록 \texttt{[45]}번 셀의
+  하스켈 코드도 수정해 보라.
+\item
+  다음의 타입없는 람다계산법의 람다식을 STLC의 타입규칙에 맞게
+  함수적용식에 타입 표시를 추가한 STLC의 람다식 형태로 바꿔보라. 참고로
+  하나의 타입없는 람다식에 해당하는 STLC 람다식은 딱 하나로 정해져 있지
+  않으며, 타입 표시만 다른 여러 개의 STLC 람다식들로 바꿀 수 있으므므로
+  그 중 적절히 간단한 것으로 하면 된다. 그런데 아래 중 일부는 STLC의
+  타입 규칙에 맞는 람다식으로 바꿀 수 없다. 바꿀 없다고 판단되는 것들은
+  왜 불가능한지도 설명해 보라. STLC의 설정은 단순하게 \(B=\{o\}\),
+  \(C=\{c_o\}\), \(\Delta=\{c_o{\,:\,}o\}\)이며 추가적인
+  \(\delta\)규칙은 없다고 하자.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \((\lambda x.\, x)\,(\lambda x.\, x)\)
+  \item
+    \((\lambda y.\, y ~ (\lambda x.\, x))\)
+  \item
+    \((\lambda y.\, y ~ y)\)
+  \item
+    \((\lambda y.\, (\lambda x.\, x) ~ y)\)
+  \item
+    \((\lambda x.(\lambda y.\, y ~ x))\)
+  \end{itemize}
+\end{enumerate}
+
+    \section*{탐구과제}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  대략 20년 간격으로 나타난 함수형 언어들인 LISP, ML, Haskell이 책에서
+  간략히 소개한 것 외에 또 어떤 공통점 및 차이점이 있는지 조사해 보라.
+\item
+  이 장에서 소개한 모든 맥락에서의 비결정적 줄임(reduction)에 대비되는
+  특정 맥락에서만 계산을 진행하는 줄임 전략인 표준순서(normal order)
+  줄임 및 적용순서(applicative order) 줄임에 대해 알아보고, 이 장에서
+  소개한 값계산 전략인 게으른 값계산 및 적극적 값계산과 비교해 보라.
+\item
+  STLC 말고 다른 타입있는 람다계산법은 어떤 것들이 있는지 알아보라.
+\end{enumerate}
+
 
     % Add a bibliography block to the postdoc
     
