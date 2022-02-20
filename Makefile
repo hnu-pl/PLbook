@@ -1,6 +1,6 @@
 .PHONY: main
 
-TEXFILES:=HelloHaskell.tex ArithExpr.tex
+TEXFILES:=HelloHaskell.tex ArithExpr.tex TODO.tex
 
 main: main.tex sample.bib ${TEXFILES}
 	latexmk -pdf main.tex
