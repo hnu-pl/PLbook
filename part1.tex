@@ -188,17 +188,17 @@ syntax를 처리하기 위해서이다. 즉, 자연언어에서는 grammar라고
 원자적이고 추상적인 어휘에 해당한다.
 
 이해를 돕기 위해 흑돌(\txtbullet)과 백돌(\txtcircle) 두 종류의 기호를 사용하는 형식언어
-$L = \{\, \txtbullet\txtcircle
-      ,\, \txtbullet\txtcircle\txtbullet\txtcircle
-      ,\, \txtbullet\txtcircle\txtbullet\txtcircle\txtbullet\txtcircle
-      ,\, \txtbullet\txtcircle\txtbullet\txtcircle\txtbullet\txtcircle\txtbullet\txtcircle
-      ,\, \txtbullet\txtcircle\txtbullet\txtcircle\txtbullet\txtcircle\txtbullet\txtcircle\txtbullet\txtcircle
+$L = \{\, {\txtbullet\txtcircle}
+      ,\, {\txtbullet\txtcircle}{\txtbullet\txtcircle}
+      ,\, {\txtbullet\txtcircle}{\txtbullet\txtcircle}{\txtbullet\txtcircle}
+      ,\, {\txtbullet\txtcircle}{\txtbullet\txtcircle}{\txtbullet\txtcircle}{\txtbullet\txtcircle}
+      ,\, {\txtbullet\txtcircle}{\txtbullet\txtcircle}{\txtbullet\txtcircle}{\txtbullet\txtcircle}{\txtbullet\txtcircle}
       ,\, \ldots
    \,\}$을 생각해 보라.
 사실 기호의 표기상 그 모양이 바둑의 흑돌과 백돌처럼 보이기도 하기 때문에
-편의상 그냥 `흑돌'과 `백돌'이라 부를 뿐이지 전혀 바둑과 관련된 의미를
-부여하려는 것은 아니다. `꽉찬 동그라미'와 `빈 동그라미' 등으로 다르게
-불러도 $L$의 정의는 젼혀 달라질 것이 없다. (더 나아가,
+편의상 그냥 `흑돌'과 `백돌'이라 부를 뿐 바둑과 관련된 의미를 부여하려는
+것은 아니다. `꽉찬 동그라미'와 `빈 동그라미' 등으로 다르게 불러도
+$L$의 정의는 젼혀 달라질 것이 없다. (더 나아가,
 \txtbullet,\txtcircle 대신 $a$,$b$ 등으로 서로 구분되는
 다른 어떤 두 기호라도 탐구하려는 형식언어의 본질이 달라지지는 않는다.)
 이 언어에서 올바른 (즉, $L$의 원소인) 문자열의 특징을 설명하자면,\vspace{-1ex}
@@ -427,9 +427,8 @@ for tree={fit=tight, l sep-=.7em, l-=.7em}
 실제로 보기를 들어 설명하면 더 확실히 이해하는 데 도움이 될 것이다.
 앞서 언급한 흑돌과 백돌을 기호로 하는 언어 
 $L = \{\, \txtbullet\txtcircle
-      ,\, \txtbullet\txtcircle\txtbullet\txtcircle
-      ,\, \txtbullet\txtcircle\txtbullet\txtcircle\txtbullet\txtcircle
-      ,\, \txtbullet\txtcircle\txtbullet\txtcircle\txtbullet\txtcircle\txtbullet\txtcircle
+      ,\, {\txtbullet\txtcircle}{\txtbullet\txtcircle}
+      ,\, {\txtbullet\txtcircle}{\txtbullet\txtcircle}{\txtbullet\txtcircle}
       ,\, \ldots
    \,\}$을 다시 생각해 보자.
 언어 $L$의 문법 $G$를 정의한다는 말은 $L = \mathcal{L}(G)$를 만족하는 문법 $G$를 찾는
@@ -1471,8 +1470,8 @@ JavaScript 언어의 정규식 등 여러 종류가 있다.
 $r_1\VERT r_2$의 의미는 입력 문자열이 $r_1$이나 $r_2$ 의미에 대응되는
 판별함수 둘 중 어느 것 하나라도 만족하면 참인 함수로 정의된다.
 $r_1\,r_2$의 의미는 입력을 적절히 두 부분으로 잘라 앞부분을 $r_1$의
-판별함수에 뒷부분을 $r_2$의 판별함수에 적용했을 때 그 둘 모두를
-만족하는 경우에 참인 함수로 정의된다. 클레이니 별표 연산으로
+판별함수에 뒷부분을 $r_2$의 판별함수에 적용했을 때 그 둘 다
+만족할 경우에 참인 함수로 정의된다. 클레이니 별표로
 이루어진 정규식은 앞서 \S\ref{sec:regex}에서 설명한 공식
 $r^{*} \equiv \varepsilon\VERT rr^{*}$를 이용해 정의된다.
 
@@ -1535,12 +1534,11 @@ $\llbracket r_1\rrbracket(x_1) \land \llbracket r_2\rrbracket(x_2)$를
 재차 강조하고 싶다. 이 장에서 다루는 정규식과 관련한 더 자세한 이론적
 성질의 증명에 관해서는 계산이론이나 오토마타이론을 다루는
 교재\cite{Sipser2013,Hopcroft2007}를, 그 외의 프로그래밍언어 일반에
-활용되는 논리적 방법론을 소개하는 내용으로는 \citet{PFPL2nd}의 교재를
-참고하라.
+활용되는 논리적 방법론에 대한 소개는 \citet{PFPL2nd}의 교재를 참고하라.
 
 
 \section{동작과정 의미구조}
-동작과정 의미구조(operational semantics)는
+동작과정 의미구조(operational semantics)\cite{Plotkin1981sos}는
 프로그램의 의미를 수학적 구조 등 외부의 대상에 지시함으로써 찾는 것이
 아니라 프로그램이 계산되는 과정 자체를 프로그램의 의미로 삼는 방식의
 의미구조를 말한다. 철학적으로는 의미가 대상에 내재된 것이 아니라 대상들의
@@ -1551,6 +1549,16 @@ $\llbracket r_1\rrbracket(x_1) \land \llbracket r_2\rrbracket(x_2)$를
 사례로서 정규식에 대한 동작과정 의미구조를 어떻게 정의하는지 알아볼
 것이다. 그에 앞서, 의미구조 정의에 활용할 몇 가지 기본 개념과
 언어의 문자열에 대한 미분에 대해 먼저 소개한다.
+
+\begin{figure}\centering
+\includegraphics[trim={0 100pt 0 0},clip,scale=0.66]{ReynoldsPlotkin.jpg}
+\caption{동작방식 의미론의 원조인 고르돈 플롯킨(Gordon D. Plotkin, 우)과
+다형타입 람다계산법(polymorphic $\lambda$-calculus, a.k.a. System-F)을
+고안한 존 레이놀즈(John C. Reynolds, 좌)의 2006년 사진\\
+{\footnotesize(사진 출처:
+\url{https://www.lfcs.inf.ed.ac.uk/events/plotkin-symposium/})}
+}
+\end{figure}
 
 \subsection{언어와 정규식의 미분}
 문자열을 $z=xy$로 아무렇게나 두 부분으로 나눌 때 나올 수 있는
@@ -2017,7 +2025,7 @@ $\varsigma(\varepsilon c^{*}) = c^{*}$로 간소화되는 것이다.
 비결정적 의미구조(nondeterministic semantics)란 하나의 계산식에
 두 가지 이상의 방법으로 규칙이 적용 가능한 경우가 있어 여러 갈래로
 계산이 진행될 가능성이 있는 의미구조를 일컫는다. 우리가 아는
-대부부분의 수학 공식을 그대로 작은걸음 의미구조로 옮긴다면 자연스럽게
+대부분의 수학 공식을 그대로 작은걸음 의미구조로 옮긴다면 자연스럽게
 비결정적 의미구조가 될 것이다. 왜냐하면 큰 계산식에 공식을 적용할 수 있는
 부분이 여러 곳에 있는 경우 어느 한 곳만이 아니라 그 중 어느 곳에든
 적용해 계산을 진행해도 되는 경우가 많기 때문이다. 예컨데,
