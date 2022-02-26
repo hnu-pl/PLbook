@@ -658,14 +658,17 @@ e\in E ~::=~ & c \mid x \mid \lambda x{\,:\,}\tau.\,e \mid e~e
 {\scriptstyle(\textsc{TApp})}
 \frac{~ \Gamma \vdash e:\forall\alpha.\tau ~}{~ \Gamma \vdash e\,@\tau_1 : \{\alpha{\mapsto}\tau_1\}\tau ~}
 \]
+~\\
 의미구조
 $\quad (\lambda x{:}\tau.\,e)\,e_2 \longmapsto \{x{\mapsto}e_2\}e
 \qquad (\Lambda \alpha.\,e)\,\tau \longmapsto \{\alpha{\mapsto}\tau\}e$
-\begin{align*}
-\mathcal{E} ~::=~& \bullet ~|~ \mathcal{E}_\lambda ~|~ \mathcal{E}_\Lambda \\
-\mathcal{E}_\lambda ~::=~& TODO ~|~ TODO \\
-\mathcal{E}_\Lambda ~::=~& TODO ~|~ TODO
-\end{align*}
+\[ \mathcal{E} ~::=~ \bullet
+\mid \lambda x{\,:\,}\tau.\,\mathcal{E} 
+\mid \mathcal{E}~e \mid e~\mathcal{E}
+\mid \Lambda \alpha.\,\mathcal{E} \mid \mathcal{E}\,@\tau
+\qquad
+\inference{e\longmapsto e'}{\mathcal{E}[e]\xmapsto{~_C~}\mathcal{E}[e']}
+\]
 \caption{프랑스의 논리학자인 장-이브 지라르\cite{Girard1972SystemF}는
 	System F라는 이름으로, 미국의 컴퓨터 과학자
 	존 레이놀즈\cite{Reynolds1974PolyLambda}는
