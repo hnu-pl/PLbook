@@ -612,72 +612,60 @@ ML이나 Haskell 같은 함수형 언어에서 가장 자연스럽게 지원되�
 확장한 `다형타입 람다계산법'(polymorphic $\lambda$-calculs, a.k.a. System~F)과
 하스켈을 연관지어 설명하며 매개변수 다형성에 대해 알아본다.
 
-\section{다형타입 람다계산법}
-\label{sec:SystemF}
-\begin{figure}\hspace{.2\textwidth}
-\begin{subfigure}[b]{.3\textwidth}\centering
-\includegraphics{JYGirard.jpg}
-\subcaption{Jean-Yves Girard}
-\end{subfigure}
-\begin{subfigure}[b]{.3\textwidth}\centering
-\includegraphics[trim={10 150 0 20},clip]{JohnCReynolds.jpg}
-\subcaption{John C. Reynolds}
-\end{subfigure}
-\\[1.2ex]
-문법구조\vspace{-4.5ex} \begin{align*}
-\qquad
-t \in B & ~\text{\small(기본타입)} &
-\tau\in T ~::= ~& t ~\mid~ \tau \to \tau
-	   ~\mid~ \alpha ~\mid~ \forall \alpha.\tau
-\\
-c \in C & ~\text{\small(기본상수)} &
-e\in E ~::=~ & c \mid x \mid \lambda x{\,:\,}\tau.\,e \mid e~e
-	  \mid \Lambda \alpha.\,e \mid e\,@\tau
-\end{align*} 타입규칙
-\(\qquad
-\Delta ~::=~ c{\,:\,}\tau,\Delta \mid \bm{\cdot} \qquad\qquad\qquad
-\Gamma ~::=~ \alpha{\,:\,}\star,\Delta \mid x{\,:\,}\tau,\Delta \mid \bm{\cdot}\)
-\[
-{\scriptstyle(\textsc{Con})}
-\frac{~ ~}{~ \Gamma \vdash c:\tau ~}
-({\scriptstyle c{\,:\,}\tau\;\in\,\Delta})
-\qquad\qquad
-{\scriptstyle(\textsc{Var})}
-\frac{~ ~}{~ \Gamma \vdash x:\tau ~}
-({\scriptstyle x{\,:\,}\tau\;\in\,\Gamma})
-\] \vspace*{-.5ex} \[
-{\scriptstyle(\textsc{Abs})}
-\frac{~ x:\tau_2,\Gamma \vdash e:\tau ~}{~ \Gamma \vdash \lambda x{\,:\,}\tau_2.\,e : \tau_2\to\tau ~}
-\qquad
-{\scriptstyle(\textsc{App})}
-\frac{~ \Gamma \vdash e_1:\tau_2\to\tau ~\quad~ \Gamma \vdash e_2:\tau_2 ~}{~ \Gamma \vdash e_1\;e_2 : \tau ~}
-\] \vspace*{-.5ex} \[
-{\scriptstyle(\textsc{TAbs})}
-\frac{~ \alpha{\,:\,}\star,\Gamma \vdash e:\tau ~}{~ \Gamma \vdash \Lambda \alpha.\,e : \forall \alpha.\tau ~}
-\qquad
-{\scriptstyle(\textsc{TApp})}
-\frac{~ \Gamma \vdash e:\forall\alpha.\tau ~}{~ \Gamma \vdash e\,@\tau_1 : \{\alpha{\mapsto}\tau_1\}\tau ~}
-\]
-~\\
-의미구조
-$\quad (\lambda x{:}\tau.\,e)\,e_2 \longmapsto \{x{\mapsto}e_2\}e
-\qquad (\Lambda \alpha.\,e)\,\tau \longmapsto \{\alpha{\mapsto}\tau\}e$
-\[ \mathcal{E} ~::=~ \bullet
-\mid \lambda x{\,:\,}\tau.\,\mathcal{E} 
-\mid \mathcal{E}~e \mid e~\mathcal{E}
-\mid \Lambda \alpha.\,\mathcal{E} \mid \mathcal{E}\,@\tau
-\qquad
-\inference{e\longmapsto e'}{\mathcal{E}[e]\xmapsto{~_C~}\mathcal{E}[e']}
-\]
-\caption{프랑스의 논리학자인 장-이브 지라르\cite{Girard1972SystemF}는
-	System F라는 이름으로, 미국의 컴퓨터 과학자
-	존 레이놀즈\cite{Reynolds1974PolyLambda}는
-	이후 `다형타입 람다계산법'으로 불리게 되는, 알고보니 똑같은
-	타입있는 람다계산법을 독립적으로 1970년대 초반에 고안했다.
-	{\footnotesize(사진 출처: CACM\cite{Wright2010cacm}, 위키미디어 공용)}
-	}
+\section{람다계산법과 재귀}
+\begin{figure}[b]\centering
+\includegraphics[scale=1]{Turing50note.jpg}\\
+{\footnotesize(이미지 출처:
+ \url{https://www.bankofengland.co.uk/banknotes/polymer-50-pound-note})}
+\caption{2021년부터 발행된 영국 50\textsterling{} 지폐 뒷면의
+	앨런 튜링(Alan Turing)\label{fig:Turing50note} }
 \end{figure}
-\lipsum[1-3]
+지금은 영국 고액권 지폐 인물(그림 \ref{fig:Turing50note})인 앨런 튜링에
+관해서는 관련 분야 전공자라면 그가 계산이론(theory of computation)의
+기초를 놓은 튜링기계(Turing machine)을 고안했으며 그의 이름을 딴
+튜링상(A. M. Turing Award)이 컴퓨터 과학 분야의 노벨상에 해당한다는 것을
+알 것이다. 그 외에도 튜링 테스트라는 인공지능과 관련된 아이디어나
+영화로도 만들어진 세계 제 2차 대전 때 독일군 암호해독 기계를 개발한 것은
+대중적으로도 나름 알려져 있다. 그보다 조금 덜 알려진 이야기는 람다계산법을
+창시한 알론조 처치가 튜링기계를 고안한 앨런 튜링의 박사학위 지도교수였다는
+사실이다. 앨런 튜링을 컴퓨터 과학의 아버지라고 비유하기도 하는데 그런 비유의
+연장선에서 알론조 처치를 컴퓨터 과학의 할아버지 정도로 비유할 수 있지 않을까?
+앨런 튜링뿐 아니라, 이 책에서 앞서 정규식의 별표 연산을 도입한
+스티븐 클레이니(그림 \ref{fig:RegexSynSem})나 지시적 의미구조의 원조격인
+두 사람 중 하나인 데이나 스콧(그림 \ref{fig:StracheyScott})의 지도교수도
+알론조 처치다.
+
+\subsection{처치--튜링 명제(Church-Turing thesis)}
+논리로 수학의 토대를 놓으려는 시도에 관한 연구하려는 비슷한 목적으로 고안된,
+처치의 타입없는 람다계산법은 바꿔치기의 개념으로 표현된 함수를 기반으로 하며
+튜링의 튜링기계는 상태를 변화시키는 추상적인 기계를 기반으로 하기므로
+표면적으로는 상당히 다르게 보인다. 그런데 학위과정의 스승과 제자로 만나
+각자의 아이디어를 비교해 보니 똑같은 범위의 `계산'을 다루고 있었다는 것을
+알게 되었다고 한다. 대서양 건너편의 미국과 영국에서 두 천재가 비슷한 시기에
+비슷한 주제를 놓고 상당히 다르게 보이는 도구를 고안했는데 우연찮게 그 표현
+범위가 일치하였고, 이후로도 지금까지 이 범위를 벗어나는 `계산'을 아직 인류는
+발견하지 못했다. 그래서 컴퓨터 혹은 기계로 수행할 수 있는 '계산'이란
+처치와 튜링이 생각한 그 이상의 것은 아마도 없을 것이라 가정하고 '계산'의
+잠정적인 정의를 곧 람다계산법이나 튜링기계가 다룰 수 있는 범위로 보자는
+일종의 경험법칙이 바로 ``처치--튜링 명제''이다.
+다시 말하자면 아무리 좋은 프로그래밍언어나 컴퓨터를 설계하더라도 좀더 편리하고
+빠르게 계산할 수는 있을지언정 람다계산법이나 튜링기계로 못하는 새로운 계산을
+할 수는 없다는 이야기다.
+
+처치--튜링 명제를 받아들인다면 프로그래밍언어를 다음의 두 부류로 분류할 수 있다.
+첫째 부류는 람다계산법이나 튜링기계와 같은 범위의 모든 계산이 표현가능한 
+튜링완전(Turing-complete) 언어이고 둘째 부류는 그보다 적은 범위의 일부 계산만
+표현가능한 튜링완전하지 않은 언어다. 튜링완전 언어는 끝나지 않는 계산 등
+다양한 내용을 표현할 수 있는 일반적인 재귀나 반복을 허용한다. 하스켈을 비롯한
+일반적인 프로그래밍을 위해 설계된 범용(general-purpose) 프로그래밍언는 대부분
+튜링완전하다. 그런데 우리가 흔히 접하는 프로그래밍언어에 비해 문법구조와
+의미구조가 너무나 간단한 처치의 타입없는 람다계산법이 어떻게 모든 계산을
+표현할 수 있는지, 이 책에서 처치--튜링 명제를 처음 접한 독자라면 상당히
+의아할지도 모르겠다. 이 절에서는 타입없는 람다계산법이 충분히 강력하다는
+본보기로 계산이 끝나지 않는 람다식과 일반적인 재귀를 표현할 수 있는
+고정점(fixpoint)에 대해 알아본다.
+
+\input{ParaPoly}
 
 \chapter{TODO}
 TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
