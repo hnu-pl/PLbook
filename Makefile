@@ -1,9 +1,13 @@
-.PHONY: main
+.PHONY: main clean
 
 TEXFILES:=HelloHaskell.tex ArithExpr.tex ParaPoly.tex TODO.tex
 
 main: main.tex sample.bib ${TEXFILES}
 	latexmk -pdf main.tex
+
+clean:
+	rm -f *.aux *.bbl *.blg *.bcf main.toc main.fls main.fdb_latexmk
+
 
 %.tex: %.ipynb
 	sed -i '/"header":/d' $< \
