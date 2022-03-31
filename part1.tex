@@ -1324,7 +1324,7 @@ JavaScript 언어의 정규식 등 여러 종류가 있다.
 \item 정규식의 $\varnothing$, $\varepsilon$, 합집합, 이어붙이기는 마치 자연수에서
       0, 1, 덧셈, 곱셈과 비슷한 면이 있다. $\varnothing$과 $\varepsilon$은
       각각 합집합과 이어붙이기 연산의 항등원이다. 합집합과 이어붙이기 연산
-      모두 결합법칙이 성립하며, 이어붙이의 합집합에 대한 분배법칙이 성립한다.
+      모두 결합법칙이 성립하며, 이어붙이기의 합집합에 대한 분배법칙이 성립한다.
       다만, 곱셈과 달리 이어붙이기에 교환법칙이 성립하지는 않는다.
 \item 실용적인 정규식에는 간결한 정규식 위한 연산을 추가로 제공하는데
       세부사항은 서로 종류가 다른 실용적 정규식마다 조금씩 다를 수 있다. 
@@ -1602,7 +1602,7 @@ $\partial_{}r/\partial x = r'$을
 알기쉽게 요약하여 정리한 논문\cite{Owens09REderivRE}을 참고하라.
 
 \begin{figure}\centering
-언어 $L\subset\Sigma^{*}$의 문자열 $x\in\Sigma$에 대한 미분:~
+언어 $L\subset2^{\Sigma^{*}}$의 문자열 $x\in\Sigma^{*}$에 대한 미분:~
 $x^{-1} L ~=~ \{\,y \mid xy\in L\,\} \qquad ~~ $\\[1.1ex]
 \begin{subfigure}{.2\textwidth}
 \includegraphics[trim={0 50pt 0 0},clip,scale=1.25]{JanuszBrzozowski.jpg}
@@ -1934,7 +1934,7 @@ $(a\VERT b)c^{*}$의 $acc$에 대한 미분을
 \langle(a\VERT b)c^{*}\!,\,acc\rangle \LONGmapsto c^{*}
 }\vspace{-.5ex}
 \]
-위에서 정규식을 간소화도 사람이 판단해서 임의로 진행하는 것이 아니라,
+위에서 정규식의 간소화도 사람이 판단해서 임의로 진행하는 것이 아니라,
 그림\;\ref{sfig:ReDerivBig}에서 $\Longmapsto$를 정의하는 규칙에
 간소화 함수(simplification function) $\varsigma$가 나타나는 곳에서만
 $\varsigma$의 정의(그림\;\ref{fig:Brzozowski})에 따라 정규식을
@@ -2567,7 +2567,7 @@ for tree={inner sep=0, l sep-=.5em, l=0}
 수 있는 관계를 $\lambda x.x \equiv_\alpha \lambda y.y$와 같이 표기하고
 $\alpha$동치($\alpha$-equivalence)라 불렀다.
 니콜라스 드브루인(Nicholaas de Bruijn)은 람다식 문법나무에서 이름이 몇번째로
-가까운 유효범위에 묶여있는지 나타내는 정수값인 드브루인 인덱스(de Bruin index)를
+가까운 유효범위에 묶여있는지 나타내는 정수값인 드브루인 인덱스(de Bruijn index)를
 이름 대신에 표시함으로써 $\alpha$동치인 람다식이 유일무이한 형태로 표기되는
 람다식에 대한 이름없는 표기 방식\cite{deBruijn1972}을 고안하였다. 그러니까 람다식을
 드브루인 인덱스를 활용한 표기로 바꿔봤는데 똑같다면 서로 $\alpha$동치라는 말이다.
