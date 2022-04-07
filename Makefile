@@ -1,6 +1,11 @@
 .PHONY: main clean
 
-TEXFILES:=HelloHaskell.tex ArithExpr.tex ParaPoly.tex TODO.tex
+TEXFILES:=part1.tex part2.tex\
+	  HelloHaskell.tex \
+	  ArithExpr.tex \
+	  ParaPoly.tex \
+	  FunEval.tex \
+	  TODO.tex
 
 main: main.tex sample.bib ${TEXFILES}
 	latexmk -pdf main.tex

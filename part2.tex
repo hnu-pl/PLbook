@@ -1,0 +1,197 @@
+\chapter{람다계산법과 하스켈}
+앞으로 이 책에서는 문법구조, 의미구조 등 프로그래밍언어에 관한
+개념을 직접 하스켈(Haskell) 코드로 작성해 보는 실습과 함께
+조금 더 구체적으로 알아볼 것이다. 하스켈은 람다계산법에 기반한
+순수 함수형 프로그래밍언어로 게으른 값계산(lazy evaluation)에
+따라 실행되며 타입 유추(type inference)를 지원하는 강력한
+정적 타입 시스템을 갖추고 있다. 여기서는 하스켈 컴파일러인
+GHC를 주피터(Jupyter) 환경에서 사용하게 해 주는 IHaskell 커널을
+도커 이미지로 포장한 ihaskell-notebook\footnote{%
+\url{https://github.com/jamesdbrock/ihaskell-notebook}}을 기준이 되는
+실습 환경으로 한다. 운영체제 종류나 GHC 버전에 신경쓸 필요 없이
+ihaskell-notebook 페이지의 안내에 따라 컨테이너 이미지를 구동하면
+미리 설정된 프로그래밍 환경을 사용할 수 있으며,
+도커(Docker)를 통한 컨테이너 활용이 익숙치 않다면 페이지에서
+\includegraphics[scale=.5]{mybinder_badge_logo.png} 배너를 클릭하기만 하면
+(성능이 제한되고 휘발성이긴 하지만) 클라우드에서 곧바로 실행해 볼 수도 있다.
+
+이 장에서는 하스켈 언어의 기원에 대해 간단히 소개한 다음,
+람다계산법과 관련지어 하스켈을 이해하도록 설명한다.
+설명과 곁들인 하스켈 주피터 노트북 환경에서 실행되는 예제를 통해
+하스켈 언어의 기본적인 개념과 문법, 또 앞으로 계속 사용하게 될
+이 프로그래밍 환경과도 친숙해지기로 한다.
+\newpage
+
+\begin{figure}\centering
+\begin{subfigure}[b]{.3\textwidth}\centering
+\includegraphics[trim={70pt 250pt 80pt 110pt},clip,scale=.9]{Schonfinkel.png}
+\caption{Moses Sch\"onfinkel}
+\end{subfigure}
+\begin{subfigure}[b]{.3\textwidth}\centering
+\includegraphics[scale=.8]{HaskellBCurry.jpg}
+\caption{Haskell Curry}
+\end{subfigure}
+%\haskelllogo
+\caption{조합논리(conbinatory logic)의 창시자인
+         모지스 쇤핑클과 이를 체계화한 하스켈 커리
+         {\footnotesize(사진 출처: 위키미디어 공용)} }
+\end{figure}
+
+\section{하스켈 프로그래밍언어의 기원}
+`하스켈'이라는 프로그래밍언어의 이름은 조합논리(combinatory logic)를
+정립한 하스켈 커리의 이름을 따른 것이다. 하스켈이 함수형 프로그래밍언어라고
+이 장의 첫머리에서 앞서 언급했는데, 함수형 언어가 무엇인지 아주 간단히
+이야기자하면 람다계산법에 기반을 둔 프로그래밍언어의 부류라 할 수 있다.
+그렇다면 왜 람다계산법의 창시자인 알론조 처치의 이름을 따라 `알론조'라 부르지
+않았냐면 아마도 이미 선점\cite{Ramsdell1989alonzo}되었기 때문인 것 같다.
+어디까지나 추측이지만 만일 선점되지 않았더라면 하스켈이 아닌 알론조라고
+지었을 가능성도 있을 것 같다. 이왕 주제를 벗어난 김에 흥미로운 일화를 하나
+소개하자면, 알론조 처치의 아들은 (본인의 말에 따르면) 하스켈 커리의 딸과
+사귄 적이 있었다고 한다.\footnote{%
+\url{https://importantshock.wordpress.com/2007/08/21/haskell-curry-yes-i-dated-his-daughter/}}
+
+다시 하스켈의 역사\cite{Hudak2007HistoryHaskell} 이야기로 돌아오면,
+하스켈은 학계의 효율적인 연구 활동을 위해 학계에서 위원회를 구성해 만든 언어다.
+1980년대 후반 즈음에는 게으른 값계산에 따라 실행되는 정적 타입을 갖춘
+함수형 프로그래밍언어에 대하 연구하던 사람들이 각자 자신의 연구를 위해
+비슷한 기능을 가진 학술 연구를 위한 실험용 언어를 중구난방으로 만들고
+있던 상황이었다고 한다. 그래서 비슷한 주제에 관심을 가진 연구자들끼리
+같이 쓸 수 있는 하나의 언어를 정의하면 서로 문법을 다르게 정의한 예제
+코드를 포함한 논문을 읽어야 하는 소통의 부담도 줄이고 구현에 드는 중복된
+노력도 덜 수 있으리라는 희망으로 새로운 언어를 만드는 위원회를 시작한 것이
+그 기원이라고 한다.
+
+사공이 많으면 배가 산으로 간다는 속담처럼 위원회가 만드는 언어는,
+특히나 학계의 위원회라면, 그 위원회가 활동하는 동안에만 연구논문을
+위한 실험적 용도로만 쓰다 이후에 다른 곳에는 아무도 쓰지 않는 것이 보통이며,
+설령 그렇더라도 충분히 의미있는 경우도 있다. 예를 들어 ALGOL이 대표적으로
+학계 위원회의 언어인데, 그 자체로는 업계에서 활발히 도입되지 않았겠지만
+이후의 프로그래밍언어 설계 패러다임을 바꿀 만큼, 특히 GOTO를 버리고
+구조적 프로그래밍을 지원하는 것이 당연시되도록, 지대한 영향을 미쳤다.
+하스켈은 학계의 연구용 언어로서도 성공을 거뒀을 뿐 아니라 업계에서도
+(C++, Java, Python, JavaScript 급의) 주류 개발 언어는 아니지만 여러
+리눅스 배포판에 패키지가 안정적으로 제공되며 최근에는
+블럭체인\cite{Seijas2020Marlowe} 등 다양한 영역에서 활용되고 있다.
+
+\begin{figure}\centering
+\begin{subfigure}{.3\textwidth}\centering
+\includegraphics[trim={200pt 380pt 380pt 175pt},clip,scale=.8]{ShannonMcCarthyFredkinWeizenbaum.jpg}
+\caption{John McCarthy}
+\end{subfigure}
+\qquad\qquad
+\begin{subfigure}{.3\textwidth}\centering
+\includegraphics[trim={0 20pt 0 0},clip,scale=.8]{RobinMilner.jpg}
+\caption{Robin Milner}
+\end{subfigure}
+\caption{LISP의 창시자이자 인공지능의 아버지인 존 매카시,\\
+         ML과 파이계산법($\pi$-calculus)의 창사자인 로빈 밀너\\
+         {\footnotesize(사진 출처: \texttt{media.csail.mit.edu},
+                        위키미디어 공용)}
+	 \label{fig:McCarthyMilner} }
+\end{figure}
+
+더 역사를 거슬러 올라가 보면 존 매카시가 최초의 함수형 언어로 볼 수 있는
+리습(LISP)을 1950년대 말에 만들었고, 로빈 밀너의 주도로 타입 유추를
+지원하는 정적 타입 시스템을 갖추고 있으며 적극적 값계산(eager evaluation)에
+따라 실행되는 함수형 언어인 엠엘(ML)을 1970년대 초반에 만들었다.
+LISP은 Common Lisp, Scheme, Racket, Clojure 등 여러 사투리(dialect)로 나뉘었다.
+ML의 경우는 SML, OCaml, F\#이 대표적인 사투리다. 그리고 그 이후
+적극적 값계산과는 다른 값계산 전략(evaluation strategy)인
+게으른 값계산(lazy evaluation)에 따르는 학계의 표준적 함수형 언어로 기획된
+하스켈(Haskell)이 1980년대 후반부터 만들어지기 시작해서 1990년대 중반 즈음 
+지금에 가까운 정리된 모습을 갖추게 되었다\cite{Hudak2007HistoryHaskell}.
+
+\input{HelloHaskell}
+
+
+\chapter{산술식을 하스켈로 다루기}
+
+\input{ArithExpr}
+
+
+\chapter{매개변수 다형성(Parametric Polymorphism)}
+여러가지 다른 타입의 대상을 같은 형태의 프로그램으로 다룰 수 있도록
+허용하는 경우를 폭넓게 아울러 다형성(polymorphism)을 지원한다고 말한다.
+일반적으로 정적 타입 언어를 대상으로 대한 개념이며, 실행 시간에 타입을
+검사하는 동적 타입 언어는 애초에 정적 타입 언어보다 훨씬 느슨한 기준으로
+프로그램의 실행을 허용하므로 일반적으로 다형성의 지원에 대한 논의에서는
+사실상 논외이다. 같은 식별자의 함수나 연산자를 여러 다른 타입에 대해
+적용하는 오버로딩(overloading)을 `임시변통(ad-hoc) 다형성`이라고도 부른다.
+Simula의 영향을 받아 타입 사이의 포함관계를 나타내는 계층구조를 기반으로
+하는 상당수의 객체지향 언어에서는 상위타입의 변수로 여러 부류의
+하위타입 대상을 아우르며 활용하는 `하위타입(subtype) 다형성' 혹은
+`포함관계(inclusion) 다형성' 지원을 강조한다. 이 장에서 주로 다룰
+`매개변수 다형성'(parameteric polymorphism)은 지난 장의 끝부분에
+소개한 \texttt{Mabye a} 타입과 같이 모든 타입을 대표하는
+타입 매개변수(\texttt{a})에 대해 일관되게 동작하는 데이터 구조 및 함수를
+한번만 선언하여 타입 매개변수를 구체화한 모든 타입에 활용할 수 있음을 말하며,
+ML이나 Haskell 같은 함수형 언어에서 가장 자연스럽게 지원되고 있다.
+이 장에서는 단순타입 람다계산법(STLC)으로부터 타입 매개변수를 다루도록
+확장한 `다형 람다계산법'(polymorphic $\lambda$-calculs, a.k.a. System~F)과
+하스켈을 연관지어 설명하며 매개변수 다형성에 대해 알아본다.
+
+\section{람다계산법과 재귀}
+\begin{figure}[b]\centering
+\includegraphics[scale=1]{Turing50note.jpg}\\
+{\footnotesize(이미지 출처:
+ \url{https://www.bankofengland.co.uk/banknotes/polymer-50-pound-note})}
+\caption{2021년부터 발행된 영국 50\textsterling{} 지폐 뒷면의
+	앨런 튜링(Alan Turing)\label{fig:Turing50note} }
+\end{figure}
+지금은 영국 고액권 지폐 인물(그림 \ref{fig:Turing50note})인 앨런 튜링에
+관해서는 관련 분야 전공자라면 그가 계산이론(theory of computation)의
+기초를 놓은 튜링기계(Turing machine)을 고안했으며 그의 이름을 딴
+튜링상(A. M. Turing Award)이 컴퓨터 과학 분야의 노벨상에 해당한다는 것을
+알 것이다. 그 외에도 튜링 테스트라는 인공지능과 관련된 아이디어나
+영화로도 만들어진 세계 제 2차 대전 때 독일군 암호해독 기계를 개발한 것은
+대중적으로도 나름 알려져 있다. 그보다 조금 덜 알려진 이야기는 람다계산법을
+창시한 알론조 처치가 튜링기계를 고안한 앨런 튜링의 박사학위 지도교수였다는
+사실이다. 앨런 튜링을 컴퓨터 과학의 아버지라고 비유하기도 하는데 그런 비유의
+연장선에서 알론조 처치를 컴퓨터 과학의 할아버지 정도로 비유할 수 있지 않을까?
+앨런 튜링뿐 아니라, 이 책에서 앞서 정규식의 별표 연산을 도입한
+스티븐 클레이니(그림 \ref{fig:RegexSynSem})나 지시적 의미구조의 원조격인
+두 사람 중 하나인 데이나 스콧(그림 \ref{fig:StracheyScott})의 지도교수도
+알론조 처치다.
+
+\subsection{처치--튜링 명제(Church-Turing thesis)}
+논리로 수학의 토대를 놓으려는 시도에 관한 연구하려는 비슷한 목적으로 고안된,
+처치의 타입없는 람다계산법은 바꿔치기의 개념으로 표현된 함수를 기반으로 하며
+튜링의 튜링기계는 상태를 변화시키는 추상적인 기계를 기반으로 하므로
+표면적으로는 상당히 다르게 보인다. 그런데 학위과정의 스승과 제자로 만나
+각자의 아이디어를 비교해 보니 똑같은 범위의 `계산'을 다루고 있었다는 것을
+알게 되었다고 한다. 대서양 건너편의 미국과 영국에서 두 천재가 비슷한 시기에
+비슷한 주제를 놓고 상당히 다르게 보이는 도구를 고안했는데 우연찮게 그 표현
+범위가 일치하였고, 이후로도 지금까지 이 범위를 벗어나는 `계산'을 아직 인류는
+발견하지 못했다. 그래서 컴퓨터 혹은 기계로 수행할 수 있는 '계산'이란
+처치와 튜링이 생각한 그 이상의 것은 아마도 없을 것이라 가정하고 '계산'의
+잠정적인 정의를 곧 람다계산법이나 튜링기계가 다룰 수 있는 범위로 보자는
+일종의 경험법칙이 바로 ``처치--튜링 명제''이다.
+다시 말하자면 아무리 좋은 프로그래밍언어나 컴퓨터를 설계하더라도 좀더 편리하고
+빠르게 계산할 수는 있을지언정 람다계산법이나 튜링기계로 못하는 새로운 계산을
+할 수는 없다는 이야기다.
+
+처치--튜링 명제를 받아들인다면 프로그래밍언어를 다음의 두 부류로 분류할 수 있다.
+첫째 부류는 람다계산법이나 튜링기계와 같은 범위의 모든 계산이 표현가능한 
+튜링완전(Turing-complete) 언어이고 둘째 부류는 그보다 적은 범위의 일부 계산만
+표현가능한 튜링완전하지 않은 언어다. 튜링완전 언어는 끝나지 않는 계산 등
+다양한 내용을 표현할 수 있는 일반적인 재귀나 반복을 허용한다. 하스켈을 비롯한
+일반적인 프로그래밍을 위해 설계된 범용(general-purpose) 프로그래밍언는 대부분
+튜링완전하다. 그런데 우리가 흔히 접하는 프로그래밍언어에 비해 문법구조와
+의미구조가 너무나 간단한 처치의 타입없는 람다계산법이 어떻게 모든 계산을
+표현할 수 있는지, 이 책에서 처치--튜링 명제를 처음 접한 독자라면 상당히
+의아할지도 모르겠다. 이 절에서는 타입없는 람다계산법이 충분히 강력하다는
+본보기로 계산이 끝나지 않는 람다식과 일반적인 재귀를 표현할 수 있는
+고정점(fixpoint)에 대해 알아본다.
+
+\input{ParaPoly}
+
+\chapter{함수에 대한 값계산}
+TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+
+
+
+\[
+\frac{~~}{~\sigma,x \Longmapsto \sigma(x) ~}
+\qquad
+\frac{~~}{~\sigma,x \Longmapsto \sigma(x) ~}
+\]
