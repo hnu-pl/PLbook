@@ -104,12 +104,12 @@ ML의 경우는 SML, OCaml, F\#이 대표적인 사투리다. 그리고 그 이�
 \input{HelloHaskell}
 
 
-\chapter{산술식을 하스켈로 다루기}
+\chapter{산술식을 하스켈로 다루기}\label{chap:ArithExpr}
 
 \input{ArithExpr}
 
 
-\chapter{매개변수 다형성(Parametric Polymorphism)}
+\chapter{매개변수 다형성(Parametric Polymorphism)}\label{chap:ParaPoly}
 여러가지 다른 타입의 대상을 같은 형태의 프로그램으로 다룰 수 있도록
 허용하는 경우를 폭넓게 아울러 다형성(polymorphism)을 지원한다고 말한다.
 일반적으로 정적 타입 언어를 대상으로 대한 개념이며, 실행 시간에 타입을
@@ -185,13 +185,36 @@ ML이나 Haskell 같은 함수형 언어에서 가장 자연스럽게 지원되�
 
 \input{ParaPoly}
 
-\chapter{함수에 대한 값계산}
-TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
-
-
-
-\[
-\frac{~~}{~\sigma,x \Longmapsto \sigma(x) ~}
+\chapter{함수에 대한 값계산}\label{chap:FunEval}
+TODO TODO TODO TODO
+\newpage
+\begin{figure}
+\begin{align*}
+& &
+e\in\texttt{Expr} ::=~& e ~\mid~ \lambda x.e ~\mid~ e\;e
+\\[1.5ex]
+\texttt{Val} \;\subset~ &
+	\texttt{Expr}\times \texttt{Env} &
+v\in\texttt{Val} ~::=~& \langle\,\sigma,\,\lambda x.e\,\rangle
+\\
+\texttt{Env} \,~=~&
+	\texttt{Expr} \xrightarrow{~\text{\scriptsize fin}~} \texttt{Val} &
+\sigma\in\texttt{Env} ~::=~& \{\,x_1{\mapsto}v_1,\,\ldots,\,x_k{\mapsto}v_k\,\}
+\\[1.5ex]
+\cdot\Longmapsto\cdot \subset~& \texttt{Expr}\times\texttt{Val}
+\end{align*}
+\vspace*{-3em}
+\[\qquad\qquad\qquad\qquad\qquad\qquad
+\frac{~~}{~ \sigma,x \Longmapsto \sigma(x) ~}
 \qquad
-\frac{~~}{~\sigma,x \Longmapsto \sigma(x) ~}
+\frac{~~}{~ \sigma,\lambda x.e \Longmapsto \langle\sigma,\lambda x.e\rangle ~}
 \]
+\[
+\frac{~ \sigma,e_1 \Longmapsto \langle\sigma_1,\lambda x.e\rangle
+~\quad~ \sigma,e_2 \Longmapsto v_2 
+~\quad~ \{x{\mapsto}v_2\}\sigma_1,e \Longmapsto v
+   ~}{~ \sigma,e_1\,e_2 \Longmapsto v ~}
+\]
+\caption{TODO \label{fig:bigStepCVB} }
+\end{figure}
+\input{FunEval}
