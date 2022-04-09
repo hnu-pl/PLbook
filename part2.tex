@@ -185,9 +185,63 @@ ML이나 Haskell 같은 함수형 언어에서 가장 자연스럽게 지원되�
 
 \input{ParaPoly}
 
+
 \chapter{함수에 대한 값계산}\label{chap:FunEval}
-TODO TODO TODO TODO
+\ref{chap:ArithExpr}장에서는 산술식에 대한 작은걸음 및 큰걸음
+동작과정 의미구조에 대해 알아보았다. 대부분 범용 프로그래밍 언어는
+산술식과 함께 함수도 지원한므로 함수를 포함하는 언어를
+다루는 원리에 대해 이해할 필요가 있다. 람다계산법은 함수를 포함하는
+가장 단순한 문법구조로 이루어진 프로그래밍 언어로 볼 수 있다. 
+이번 장에서는 람다계산법이다. 의 값계산(evaluation)에
+대한 의미구조를 정의하고 이를 하스켈로 옮겨 구현해 보며
+프로그래밍 언어에서 함수를 다루는 원리를 알아본다.
 \newpage
+앞서 타입없는 람다계산법의 줄임(reduction)을 규정하는
+비결정적 작은걸음 의미구조(\ref{sec:UTLChaskell}절의 그림\;\ref{fig:UTLC})를
+소개한 바 있다. 이를 ($\eta$규칙은 제외하고) 맥락적 의미구조의 형태로 옮기면
+다음과 같다.
+\begin{quote}
+문법구조\qquad
+$e ~::=~ x \;\mid\; \lambda x.e \;\mid\; e~e$
+
+비결정적 줄임의 맥락적 의미구조 \quad
+$(\lambda x.e)\;e_2 \xmapsto{~_B~} \{x{\mapsto}e_2\}e$\\[1.25ex]
+$\mathcal{E}
+	~ ::= ~  \bullet
+	\;\mid\; \lambda x.\mathcal{E}
+	\;\mid\; \mathcal{E}~e
+	\;\mid\; e~\mathcal{E}
+\qquad\qquad
+\inference{e\xmapsto{~_B~}e'}{\mathcal{E}[e]\xmapsto{~_C~}\mathcal{E}[e']}$
+\end{quote}
+위 의미구조에서 값계산 맥락(evaluation context)의 정의만 다음과 같이 바꾸면
+\begin{quote}
+$\mathcal{E} ~::=~ \bullet \;\mid\; \mathcal{E}~e$
+\end{quote}
+함수 적용을 우선시하는 `적용 먼저 값계산'(call-by-name evaluation)의 맥락적
+의미구조가 된다. 맥락의 정의에서 $\lambda x.\mathcal{E}$가 제외되었으므로
+함수요약식의 함수 몸체 부분의 맥락에서는 더 이상 계산이 진행되지 않는다.
+또한, $e~\mathcal{E}$도 제외되었으므로 함수적용식에서 오른쪽에 있는
+인자 부분의 맥락에서 계산이 진행되지 않는다. 따라서 함수적용식의 왼쪽이
+함수요약식인 경우, 즉 $\beta$줄식($\beta$-redex)인 경우,
+선택의 여지 없이 $\beta$줄임으로 계산을 진행하도록 결정된다.
+적용 먼저 값계산에서 더 이상 계산이 진행되지 않는 값(value)은
+$v ::= x \mid \lambda x.e \mid x~e$의 형태다.
+
+인자의 계산을 우선시하는 `인자 먼저 값계산'(call-by-value evaluation)의
+경우에는 인자가 값으로 계산된 다음에 $\beta$줄임이 진행되어야 하므로
+값계산 맥락 뿐만 아니라 핵심 규칙인 $\beta$규칙도 다음과 같이 더 제한된
+형태로 바꿔야 한다.
+\begin{quote}
+$\mathcal{E} ~::=~ \bullet \;\mid\; \mathcal{E}~e \;\mid\; v~\mathcal{E}
+\qquad\qquad\qquad~
+(\lambda x.e)\;v_2 \xmapsto{~_B~} \{x{\mapsto}v_2\}e$
+\end{quote}
+인자 먼저 값계산에서 값(value)은 $v ::= x \mid \lambda x.e \mid x~v$의 형태다.
+열린식을 제외하고 닫힌식만 고려한다면, 람다계산법에 대한
+적용 먼저 값계산이든 인자 먼저 값계산이든 값(value)은 모두
+함수요약식($\lambda x.e$)의 형태이다.
+
 \begin{figure}
 \begin{align*}
 & &
@@ -215,6 +269,8 @@ v\in\texttt{Val} ~::=~& \langle\,\sigma,\,\lambda x.e\,\rangle
 ~\quad~ \{x{\mapsto}v_2\}\sigma_1,e \Longmapsto v
    ~}{~ \sigma,e_1\,e_2 \Longmapsto v ~}
 \]
-\caption{TODO \label{fig:bigStepCVB} }
+\caption{타입없는 람다계산법의 적극적 값계산(eager evaluation, a.k.a.\\
+	call-by-value evaluation)을 규정하는 큰걸음 의미구조
+	\label{fig:bigStepCVB} }
 \end{figure}
 \input{FunEval}
