@@ -196,6 +196,8 @@ ML이나 Haskell 같은 함수형 언어에서 가장 자연스럽게 지원되�
 대한 의미구조를 정의하고 이를 하스켈로 옮겨 구현해 보며
 프로그래밍 언어에서 함수를 다루는 원리를 알아본다.
 \newpage
+
+\section{줄임(reduction)과 값계산(evaluation)의 맥락적 의미구조}
 앞서 타입없는 람다계산법의 줄임(reduction)을 규정하는
 비결정적 작은걸음 의미구조(\ref{sec:UTLChaskell}절의 그림\;\ref{fig:UTLC})를
 소개한 바 있다. 이를 ($\eta$규칙은 제외하고) 맥락적 의미구조의 형태로 옮기면
@@ -225,22 +227,44 @@ $\mathcal{E} ~::=~ \bullet \;\mid\; \mathcal{E}~e$
 인자 부분의 맥락에서 계산이 진행되지 않는다. 따라서 함수적용식의 왼쪽이
 함수요약식인 경우, 즉 $\beta$줄식($\beta$-redex)인 경우,
 선택의 여지 없이 $\beta$줄임으로 계산을 진행하도록 결정된다.
-적용 먼저 값계산에서 더 이상 계산이 진행되지 않는 값(value)은
-$v ::= x \mid \lambda x.e \mid x~e$의 형태다.
-
-인자의 계산을 우선시하는 `인자 먼저 값계산'(call-by-value evaluation)의
-경우에는 인자가 값으로 계산된 다음에 $\beta$줄임이 진행되어야 하므로
-값계산 맥락 뿐만 아니라 핵심 규칙인 $\beta$규칙도 다음과 같이 더 제한된
-형태로 바꿔야 한다.
+적용 먼저 값계산에서 더 이상 계산이 진행되지 않는 값의 형태($v$)는
+다음과 같다.
+\begin{quote}
+$v ~::=~ n \;\mid\; \lambda x.e$\\
+$n ~::=~ x \;\mid\; n~e$
+\end{quote}
+함수에 적용되는 인자의 계산을 우선시하는
+`인자 먼저 값계산'(call-by-value evaluation)의 경우에는
+인자까 먼저 값으로 계산된 다음 $\beta$줄임이 진행되어야 하므로
+값계산 맥락뿐만 아니라 $\beta$규칙도 다음과 같이 바꿔야 한다.
 \begin{quote}
 $\mathcal{E} ~::=~ \bullet \;\mid\; \mathcal{E}~e \;\mid\; v~\mathcal{E}
 \qquad\qquad\qquad~
 (\lambda x.e)\;v_2 \xmapsto{~_B~} \{x{\mapsto}v_2\}e$
 \end{quote}
-인자 먼저 값계산에서 값(value)은 $v ::= x \mid \lambda x.e \mid x~v$의 형태다.
-열린식을 제외하고 닫힌식만 고려한다면, 람다계산법에 대한
-적용 먼저 값계산이든 인자 먼저 값계산이든 값(value)은 모두
-함수요약식($\lambda x.e$)의 형태이다.
+인자 먼저 값계산에서 값의 형태($v$)는 다음과 같다.
+\begin{quote}
+$v ~::=~ n \;\mid\; \lambda x.e$\\
+$n ~::=~ x \;\mid\; n~v$
+\end{quote}
+열린식을 제외한 닫힌식만 고려한다면, 타입없는 람다계산법에서
+적용 먼저 값계산이든 인자 먼저 값계산이든 값(value)은
+함수요약식($\lambda x.e$)의 형태만 가능하다.
+
+인자 먼저 값계산을 `적극적 값계산'이라고도 한다.
+적용 먼저(call-by-name) 값계산과 대비되는 문맥에서는 
+인자 먼저(call-by-value) 값계산,
+게으른 값계산(lazy evaluation)과 대비되는 문맥에서는
+적극적 값계산(eager evaluation)으로 부르곤 한다.
+
+\section{값계산 환경을 활용한 큰걸음 의미구조}
+값계산 환경(evaluation environment)
+TODO TOOD
+
+실행 환경(execution environment)
+TODO TODO
+
+\lipsum[1-2]
 
 \begin{figure}
 \begin{align*}
@@ -248,29 +272,107 @@ $\mathcal{E} ~::=~ \bullet \;\mid\; \mathcal{E}~e \;\mid\; v~\mathcal{E}
 e\in\texttt{Expr} ::=~& e ~\mid~ \lambda x.e ~\mid~ e\;e
 \\[1.5ex]
 \texttt{Val} \;\subset~ &
-	\texttt{Expr}\times \texttt{Env} &
+	\texttt{Env}\times\texttt{Expr} &
 v\in\texttt{Val} ~::=~& \langle\,\sigma,\,\lambda x.e\,\rangle
 \\
 \texttt{Env} \,~=~&
-	\texttt{Expr} \xrightarrow{~\text{\scriptsize fin}~} \texttt{Val} &
+	\texttt{Nm} \xrightarrow{~\text{\scriptsize fin}~} \texttt{Val} &
 \sigma\in\texttt{Env} ~::=~& \{\,x_1{\mapsto}v_1,\,\ldots,\,x_k{\mapsto}v_k\,\}
 \\[1.5ex]
-\cdot\Longmapsto\cdot \subset~& \texttt{Expr}\times\texttt{Val}
+\cdot\stackrel{\!\!_\textrm{cbv}}{\Longmapsto}\cdot \subset~&
+	(\texttt{Env}\times\texttt{Expr}) \times \texttt{Val}
 \end{align*}
-\vspace*{-3em}
-\[\qquad\qquad\qquad\qquad\qquad\qquad
-\frac{~~}{~ \sigma,x \Longmapsto \sigma(x) ~}
-\qquad
-\frac{~~}{~ \sigma,\lambda x.e \Longmapsto \langle\sigma,\lambda x.e\rangle ~}
+\vspace*{-2em}
+\[
+\frac{~~}{~ \langle\sigma,x\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} \sigma(x) ~}
+\qquad\qquad
+\frac{~~}{~ \sigma,\lambda x.e \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} \langle\sigma,\lambda x.e\rangle ~}
 \]
 \[
-\frac{~ \sigma,e_1 \Longmapsto \langle\sigma_1,\lambda x.e\rangle
-~\quad~ \sigma,e_2 \Longmapsto v_2 
-~\quad~ \{x{\mapsto}v_2\}\sigma_1,e \Longmapsto v
-   ~}{~ \sigma,e_1\,e_2 \Longmapsto v ~}
+\frac{~ \langle\sigma,e_1\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} \langle\sigma_1,\lambda x.e\rangle
+~\quad~ \langle\sigma,e_2\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} v_2 
+~\quad~ \langle\{x{\mapsto}v_2\}\sigma_1,e\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} v
+   ~}{~ \langle\sigma,e_1\,e_2\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} v ~}
 \]
-\caption{타입없는 람다계산법의 적극적 값계산(eager evaluation, a.k.a.\\
-	call-by-value evaluation)을 규정하는 큰걸음 의미구조
+\caption{타입없는 람다계산법의 인자 먼저 값계산(call-by-value evaluation)을
+	규정하는 큰걸음 의미구조
 	\label{fig:bigStepCVB} }
 \end{figure}
+
+\begin{figure}
+\begin{align*}
+& &
+e\in\texttt{Expr} ::=~& e ~\mid~ \lambda x.e ~\mid~ e\;e
+\\[1.5ex]
+\texttt{Val} \;\subset~ &
+	\texttt{Env}\times \texttt{Expr} &
+v\in\texttt{Val} ~::=~& \langle\,\sigma,\,\lambda x.e\,\rangle
+\\
+\texttt{Env} \,~=~&
+	\texttt{Nm} \xrightarrow{~\text{\scriptsize fin}~} \texttt{Expr} &
+\sigma\in\texttt{Env} ~::=~& \{\,x_1{\mapsto}e_1,\,\ldots,\,x_k{\mapsto}e_k\,\}
+\\[1.5ex]
+\cdot\stackrel{\!\!_\textrm{cbv}}{\Longmapsto}\cdot \subset~&
+	(\texttt{Env}\times\texttt{Expr}) \times \texttt{Val}
+\end{align*}
+\vspace{-1ex}
+\[
+\frac{~  \sigma(x) \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} v ~}{~ \langle\sigma,x\rangle \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} v ~}
+\qquad
+\frac{~~}{~ \langle\sigma,\lambda x.e\rangle \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} \langle\sigma,\lambda x.e\rangle ~}
+\]
+\[
+\frac{~ \langle\sigma,e_1\rangle \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} \langle\sigma_1,\lambda x.e\rangle
+~\quad~ \langle\{x{\mapsto}\langle\sigma,e_2\rangle\}\sigma_1,e\rangle \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} v
+   ~}{~ \langle\sigma,e_1\,e_2\rangle \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} v ~}
+\]
+\caption{타입없는 람다계산법의 적용 먼저 값계산(call-by-name evaluation)을
+	규정하는 큰걸음 의미구조
+	\label{fig:bigStepCVB} }
+\end{figure}
+
+\lipsum[1-2]
+
+\section{값계산 환경을 활용한 작은걸음 의미구조}
+TODO TODO TODO
+% https://matt.might.net/articles/cek-machines/
+\begin{align}
+\langle\sigma,x\rangle;\kappa
+	&\longmapsto
+\sigma(x);\kappa
+\\
+\langle\sigma,e_1~e_2\rangle;\kappa
+	&\longmapsto
+\langle\sigma,e_1\rangle;\langle\sigma,\bullet~e_2\rangle,\kappa
+\\
+\langle\sigma_1,\lambda x.e\rangle;\langle\sigma,\bullet~e_2\rangle,\kappa
+	&\longmapsto
+\langle\sigma,e_2\rangle;\langle\sigma_1,(\lambda x.e)\,\bullet\rangle,\kappa
+\\
+v_2;\langle\sigma_1,(\lambda x.e)\,\bullet\rangle,\kappa
+	&\longmapsto
+\langle\{x{\mapsto}v_2\}\sigma_1,e\rangle;\kappa
+\end{align}
+
+TODO TODO
+
+\begin{align}
+\langle\sigma,x\rangle;\kappa
+	&\longmapsto
+\sigma(x);\kappa
+\\
+\langle\sigma,e_1~e_2\rangle;\kappa
+	&\longmapsto
+\langle\sigma,e_1\rangle;\langle\sigma,\bullet~e_2\rangle,\kappa
+\\
+\langle\sigma_1,\lambda x.e\rangle;\langle\sigma,\bullet~e_2\rangle,\kappa
+	&\longmapsto
+\langle\{x{\mapsto}\langle\sigma,e_2\rangle\}\sigma_1,e\rangle;\kappa
+\end{align}
+
+
+\lipsum[1-2]
+
+
+
 \input{FunEval}
