@@ -258,13 +258,59 @@ $n ~::=~ x \;\mid\; n~v$
 적극적 값계산(eager evaluation)으로 부르곤 한다.
 
 \section{값계산 환경을 활용한 큰걸음 의미구조}
-값계산 환경(evaluation environment)
-TODO TOOD
+람다계산법의 값계산(evaluation)에 대한 맥락적 작은걸음 의미구조는
+람다계산법의 줄인(reduction)에 대한 맥락적 작은걸음 의미구조와 관련해
+공통점과 차이점이 잘 드러나기 때문에 값계산과 줄임을 같은 관점에서
+연관지어 이해할 수 있다는 장점이 있다. 하지만 이렇게 매번 함수 적용을
+할 때마다 함수 몸체에서 파라메터 이름을 인자로 치환(substitution)하는
+방식을 곧이곧대로 프로그래밍언어의 구현으로 옮긴다면 효율적이지 못한
+경우가 많다. 예컨대, 조건식과 산술식이 첨가된 다음과 같은 람다식의
+값계산 과정을 살펴보자.
+\begin{align*}
+& (\lambda x.\lambda y.
+	\textbf{if}~x<y
+	~\textbf{then}~x+x+x+x
+	~\textbf{else}~y+y+y+y)~1~2 \\
+\text{\scriptsize($x{\mapsto}1$ 5군데)}~\longmapsto~
+& (\lambda y.
+	\textbf{if}~1<y
+	~\textbf{then}~1+1+1+1
+	~\textbf{else}~y+y+y+y)~2 \\
+\text{\scriptsize($y{\mapsto}2$ 5군데)}~\longmapsto~
+& \textbf{if}~1<2
+	~\textbf{then}~1+1+1+1
+	~\textbf{else}~2+2+2+2 \\ \longmapsto~
+& 1+1+1+1 \longmapsto~\cdots~\longmapsto~ 4
+\end{align*}
+위 계산 과정의 첫째와 둘째 작은걸음에서 $x$를 1로 다섯 군데에서 치환하고
+$y$를 2로 다섯 군데에서 치환한다. $x$를 바꿔친 1은 그 이후의 계산 과정에서
+실제로 다섯 군데 모두 결과값을 계산하는 데 활용되지만, $y$를 바꿔친 2는
+조건식에서 $1<2$를 계산하는 단 한 군데 말고는 활용되지 않는다.
+즉, $y+y+y+y$를 $2+2+2+2$로 바꿔쓴 작업은 낭비였다는 말이다.
 
-실행 환경(execution environment)
-TODO TODO
+매번 함수 적용 때마다 식에 나타나는 파라메터 이름을 실제로 바꿔치는 대신
+지금까지 치환했어야 할 내용을 한데 모아 놓은 목록을 만들어
+$\{ x{\mapsto}1,\,y{\mapsto}2 \}$와 같이 정리해 두고 필요한 곳에서만
+참조하여 활용하면 불필요한 치환을 피할 수 있게 되므로 더 효율적일 것이다.
+즉, 값계산 과정의 진행에 필요한 $x<y$에서 $y$가 어떤 값인지 딱 한 번만
+찾아보면 되므로, 앞서 살펴본 치환 기반의 작은걸음 계산 과정에서
+$y+y+y+y$를 $2+2+2+2$로 바꿔쓰는 불필요한 작업을 하지 않아도 된다. 
+이렇게 치환 기반의 의미구조에서 치환했어야 할 내용을 차곡차곡 정리해
+한데 모아 놓은 것을 `값계산 환경'(evaluation environment) 또는
+`실행 환경'(execution environment)이라고도 하는데, 혼동의 여지가 없는
+경우에는 줄여서 그냥 `환경'(environment)이라고 부르기도 한다. 지금부터는
+값계산 환경을 활용한 큰걸음 의미구조에 대해 좀더 구체적으로 알아보기로 하자.
 
-\lipsum[1-2]
+값계산 환경을 활용한 의미구조에서는 식에 나타나는 이름에 대응되는 값을
+환경에서 참조하는 방식으로 계산이 진행되므로 환경($\sigma$)과
+그 환경에서 계산할 식($e$)을 항상 짝지워 계산한다. 즉,
+큰걸음 관계($\Longmapsto$)의 왼항이 환경과 식의 순서쌍인
+$\langle\sigma,e\rangle\Longmapsto v$와 같이 계산한다는 말이다.
+그렇다면 오른항의 계산이 끝난 값 $v$의 형태는 어떠해야 할까?
+닫힌식의 값계산만을 고려한다면 타입없는 람다계산법에서 계산이 끝난 것으로
+보는 가능한 값은 $\lambda x.e$ 형태의 함수요약식이다. 그런데 값계산 환경을
+활용하는 의미구조에서는 TODO TODO
+
 
 \begin{figure}
 \begin{align*}
@@ -312,12 +358,15 @@ v\in\texttt{Val} ~::=~& \langle\,\sigma,\,\lambda x.e\,\rangle
 	\texttt{Nm} \xrightarrow{~\text{\scriptsize fin}~} \texttt{Expr} &
 \sigma\in\texttt{Env} ~::=~& \{\,x_1{\mapsto}e_1,\,\ldots,\,x_k{\mapsto}e_k\,\}
 \\[1.5ex]
-\cdot\stackrel{\!\!_\textrm{cbv}}{\Longmapsto}\cdot \subset~&
+\cdot\stackrel{\!\!_\textrm{cbn}}{\Longmapsto}\cdot \subset~&
 	(\texttt{Env}\times\texttt{Expr}) \times \texttt{Val}
 \end{align*}
-\vspace{-1ex}
+\vspace*{-3ex}
 \[
-\frac{~  \sigma(x) \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} v ~}{~ \langle\sigma,x\rangle \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} v ~}
+\frac{~ \sigma(x) \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} e
+	\quad
+	e \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} v
+   ~}{~ \langle\sigma,x\rangle \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} v ~}
 \qquad
 \frac{~~}{~ \langle\sigma,\lambda x.e\rangle \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} \langle\sigma,\lambda x.e\rangle ~}
 \]
@@ -328,7 +377,7 @@ v\in\texttt{Val} ~::=~& \langle\,\sigma,\,\lambda x.e\,\rangle
 \]
 \caption{타입없는 람다계산법의 적용 먼저 값계산(call-by-name evaluation)을
 	규정하는 큰걸음 의미구조
-	\label{fig:bigStepCVB} }
+	\label{fig:bigStepCVN} }
 \end{figure}
 
 \lipsum[1-2]
