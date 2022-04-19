@@ -421,7 +421,7 @@ v\in\texttt{Val} ~::=~& \langle\,\lambda x.e,\,\sigma\,\rangle
 	\label{fig:bigStepCBN} }
 \end{figure}
 
-타입없는 람다계산법에 대한 인저 먼자 값계산과 적용 면저 값계산의
+타입없는 람다계산법에 대한 인저 먼자 값계산과 적용 먼저 값계산의
 큰걸음 의미구조가 그림 \ref{fig:bigStepCBV}와 \ref{fig:bigStepCBN}에
 나타나 있는데 그 차이점을 중심으로 살펴보자다. 인자 먼저(call-by-value)
 값계산 환경에서는 이름에 항상 계산이 끝마친 상태의 값에 대응되므로
@@ -439,47 +439,5 @@ v\in\texttt{Val} ~::=~& \langle\,\lambda x.e,\,\sigma\,\rangle
 클로저($\langle e_2,\sigma\rangle$)에 대응시켜
 적용하는 함수값의 환경($\sigma_1$)을 확장한 환경
 ($\{x{\mapsto}\langle e_2,\sigma\}\sigma_1$)에서 함수 몸체($e$)를 계산한다.
-
-\section{값계산 환경을 활용한 작은걸음 의미구조}
-TODO TODO TODO
-% https://matt.might.net/articles/cek-machines/
-\begin{align}
-\langle\sigma,x\rangle;\kappa
-	&\longmapsto
-\sigma(x);\kappa
-\\
-\langle\sigma,e_1~e_2\rangle;\kappa
-	&\longmapsto
-\langle\sigma,e_1\rangle;\langle\sigma,\bullet~e_2\rangle,\kappa
-\\
-\langle\sigma_1,\lambda x.e\rangle;\langle\sigma,\bullet~e_2\rangle,\kappa
-	&\longmapsto
-\langle\sigma,e_2\rangle;\langle\sigma_1,(\lambda x.e)\,\bullet\rangle,\kappa
-\\
-v_2;\langle\sigma_1,(\lambda x.e)\,\bullet\rangle,\kappa
-	&\longmapsto
-\langle\{x{\mapsto}v_2\}\sigma_1,e\rangle;\kappa
-\end{align}
-
-TODO TODO
-
-\begin{align}
-\langle\sigma,x\rangle;\kappa
-	&\longmapsto
-\sigma(x);\kappa
-\\
-\langle\sigma,e_1~e_2\rangle;\kappa
-	&\longmapsto
-\langle\sigma,e_1\rangle;\langle\sigma,\bullet~e_2\rangle,\kappa
-\\
-\langle\sigma_1,\lambda x.e\rangle;\langle\sigma,\bullet~e_2\rangle,\kappa
-	&\longmapsto
-\langle\{x{\mapsto}\langle\sigma,e_2\rangle\}\sigma_1,e\rangle;\kappa
-\end{align}
-
-
-\lipsum[1-2]
-
-
 
 \input{FunEval}
