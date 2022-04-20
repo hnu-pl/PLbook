@@ -186,7 +186,8 @@ ML이나 Haskell 같은 함수형 언어에서 가장 자연스럽게 지원되�
 \input{ParaPoly}
 
 
-\chapter{함수에 대한 값계산}\label{chap:FunEval}
+\chapter{함수에 대한 값계산}
+\label{chap:FunEval}
 \ref{chap:ArithExpr}장에서는 산술식에 대한 작은걸음 및 큰걸음
 동작과정 의미구조에 대해 알아보았다. 대부분 범용 프로그래밍 언어는
 산술식과 함께 함수도 지원한므로 함수를 포함하는 언어를
@@ -198,6 +199,7 @@ ML이나 Haskell 같은 함수형 언어에서 가장 자연스럽게 지원되�
 \newpage
 
 \section{줄임(reduction)과 값계산(evaluation)의 맥락적 의미구조}
+\label{sec:evalSmallStep}
 앞서 타입없는 람다계산법의 줄임(reduction)을 규정하는
 비결정적 작은걸음 의미구조(\ref{sec:UTLChaskell}절의 그림\;\ref{fig:UTLC})를
 소개한 바 있다. 이를 ($\eta$규칙은 제외하고) 맥락적 의미구조의 형태로 옮기면
@@ -277,6 +279,7 @@ n ~::=~ x \;\mid\; n~v          &\quad\text{(neutrals)}
 적극적 값계산(eager evaluation)으로 부르곤 한다.
 
 \section{값계산 환경을 활용한 큰걸음 의미구조}
+\label{sec:evalBigStep}
 람다계산법의 값계산(evaluation)에 대한 맥락적 작은걸음 의미구조는
 람다계산법의 줄인(reduction)에 대한 맥락적 작은걸음 의미구조와 관련해
 공통점과 차이점이 잘 드러나기 때문에 값계산과 줄임을 같은 관점에서
@@ -441,3 +444,4 @@ v\in\texttt{Val} ~::=~& \langle\,\lambda x.e,\,\sigma\,\rangle
 ($\{x{\mapsto}\langle e_2,\sigma\}\sigma_1$)에서 함수 몸체($e$)를 계산한다.
 
 \input{FunEval}
+
