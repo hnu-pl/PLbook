@@ -246,7 +246,7 @@ n ~::=~ x \;\mid\; n~e          &\quad\text{(neutrals)}
 \end{quote}
 함수에 적용되는 인자의 계산을 우선시하는
 `인자 먼저 값계산'(call-by-value evaluation)의 경우에는
-인자까 먼저 값으로 계산된 다음 $\beta$줄임이 진행되어야 하므로
+인자가 먼저 값으로 계산된 다음 $\beta$줄임이 진행되어야 하므로
 값계산 맥락뿐만 아니라 $\beta$규칙도 다음과 같이 바꿔야 한다.
 \begin{quote}
 $\mathcal{E} ~::=~ \bullet \;\mid\; \mathcal{E}~e \;\mid\; v~\mathcal{E}
@@ -444,4 +444,9 @@ v\in\texttt{Val} ~::=~& \langle\,\lambda x.e,\,\sigma\,\rangle
 ($\{x{\mapsto}\langle e_2,\sigma\}\sigma_1$)에서 함수 몸체($e$)를 계산한다.
 
 \input{FunEval}
+
+
+\chapter{타입 TODO}
+
+\lipsum
 
