@@ -325,22 +325,22 @@ $y+y+y+y$를 $2+2+2+2$로 바꿔쓰는 불필요한 작업을 하지 않아도 �
 
 값계산 환경을 활용한 의미구조에서는 식에 나타나는 이름에 대응되는 값을
 환경에서 참조하는 방식으로 계산이 진행되므로 식($e$)와 그 식을 계산하며
-참조할 환경($\sigma$)을 항상 짝지어 계산을 진행한다. 즉,
+참조할 환경($\rho$)을 항상 짝지어 계산을 진행한다. 즉,
 큰걸음 관계($\Longmapsto$)의 왼항에 식과 환경의 순서쌍이 오도록
-$\langle e,\sigma\rangle\Longmapsto v$와 같이 계산한다는 말이다.
+$\langle e,\rho\rangle\Longmapsto v$와 같이 계산한다는 말이다.
 그렇다면 오른항에 오는 값 $v$의 형태는 어떠해야 할까? 환경을 활용하는
 의미구조에서는 보통 닫힌식의 값계산만을 고려하므로, 타입없는 람다계산법에서
 계산이 끝난 것으로 보는 값은 $\lambda x.e$ 형태의 함수요약식 뿐이다.
 그런데 값계산 환경을 활용하는 의미구조에서는 함께 순서쌍을 이루어야
-하므로 값의 형태는 $\langle\lambda x.e,\sigma\rangle$가 된다. 단,
+하므로 값의 형태는 $\langle\lambda x.e,\rho\rangle$가 된다. 단,
 이 때 $\lambda x.e$에 나타나는 묶이지 않은 모든 자유이름
-$x'\in \mathrm{fv}(\lambda x.e)$를 환경으로부터 $\sigma(x')$와
-같이 참조할 수 있어야 한다. 환경 $\sigma$를 함수로 본다면
+$x'\in \mathrm{fv}(\lambda x.e)$를 환경으로부터 $\rho(x')$와
+같이 참조할 수 있어야 한다. 환경 $\rho$를 함수로 본다면
 그 정의역(domain)에 $\lambda x.e$의 자유이름이 모두 포함되어야 한다는 말이다.
 
 일반적으로 식($e$)에 자유변수가 나타날 수 있어 단독으로 놓고 보면 열린식이지만
-환경($\sigma$)의 정의역이 이를 모두 덮는 경우 전체 순서쌍을 놓고 보면
-마치 닫힌식 같다는 의미에서 그러한 $\langle e,\sigma\rangle$를
+환경($\rho$)의 정의역이 이를 모두 덮는 경우 전체 순서쌍을 놓고 보면
+마치 닫힌식 같다는 의미에서 그러한 $\langle e,\rho\rangle$를
 `클로저'(closure)라 일컫는다.
 참고로, 자바스크립트 등의 언어에서도 중첩된 함수 활용에서 발생하는 현상을
 설명하려 클로저의 개념을 동원하기도 한다.\footnote{%
@@ -355,12 +355,12 @@ e\in\texttt{Expr} ::=~& e ~\mid~ \lambda x.e ~\mid~ e\;e
 \\[1.5ex]
 \texttt{Val} \;\subset~ &
 	\texttt{Expr}\times\texttt{Env} &
-v\in\texttt{Val} ~::=~& \langle\,\lambda x.e,\,\sigma\,\rangle
-\quad \text{\footnotesize(\,단, $\mathrm{fv}(\lambda x.e)\subset\mathrm{dom}(\sigma)$\,)}
+v\in\texttt{Val} ~::=~& \langle\,\lambda x.e,\,\rho\,\rangle
+\quad \text{\footnotesize(\,단, $\mathrm{fv}(\lambda x.e)\subset\mathrm{dom}(\rho)$\,)}
 \\
 \texttt{Env} \,~=~&
-	\texttt{Nm} \xrightarrow{~\text{\scriptsize fin}~} \texttt{Val} &
-\sigma\in\texttt{Env} ~::=~& \{\,x_1{\mapsto}v_1,\,\ldots,\,x_k{\mapsto}v_k\,\}
+	\texttt{Nm} \xrightharpoonup{\,_\textrm{fin}\,} \texttt{Val} &
+\rho\in\texttt{Env} ~::=~& \{\,x_1{\mapsto}v_1,\,\ldots,\,x_k{\mapsto}v_k\,\}
 \\[1.5ex]
 \cdot\stackrel{\!\!_\textrm{cbv}}{\Longmapsto}\cdot \subset~&
 	(\texttt{Expr}\times\texttt{Env}) \times \texttt{Val}
@@ -368,15 +368,15 @@ v\in\texttt{Val} ~::=~& \langle\,\lambda x.e,\,\sigma\,\rangle
 \vspace*{-2em}
 \[
 \inference[($x$)]{}{
- \langle x,\sigma\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} \sigma(x) }
+ \langle x,\rho\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} \rho(x) }
 \qquad\qquad
-\inference[($\lambda$)]{}{\langle\lambda x.e,\sigma\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} \langle\lambda x.e,\sigma\rangle}
+\inference[($\lambda$)]{}{\langle\lambda x.e,\rho\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} \langle\lambda x.e,\rho\rangle}
 \]
 \[
-\inference[($@$)]{\langle e_1,\sigma\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} \langle \lambda x.e,\sigma_1\rangle
-& \langle e_2,\sigma\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} v_2 
-& \langle e,\{x{\mapsto}v_2\}\sigma_1\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} v
-   }{\langle e_1\;e_2,\sigma\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} v}
+\inference[($@$)]{\langle e_1,\rho\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} \langle \lambda x.e,\rho_1\rangle
+& \langle e_2,\rho\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} v_2 
+& \langle e,\{x{\mapsto}v_2\}\rho_1\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} v
+   }{\langle e_1\;e_2,\rho\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} v}
 \]
 \caption{타입없는 람다계산법의 인자 먼저 값계산(call-by-value evaluation)을
 	규정하는 큰걸음 의미구조
@@ -390,33 +390,33 @@ e\in\texttt{Expr} ::=~& e ~\mid~ \lambda x.e ~\mid~ e\;e
 \\[1.5ex]
 \texttt{Val} \;\subset~ &
 	\texttt{Expr}\times \texttt{Env} &
-v\in\texttt{Val} ~::=~& \langle\,\lambda x.e,\,\sigma\,\rangle
-\quad \text{\footnotesize(\,단, $\mathrm{fv}(\lambda x.e)\subset\mathrm{dom}(\sigma)$\,)}
+v\in\texttt{Val} ~::=~& \langle\,\lambda x.e,\,\rho\,\rangle
+\quad \text{\footnotesize(\,단, $\mathrm{fv}(\lambda x.e)\subset\mathrm{dom}(\rho)$\,)}
 \\
 \texttt{Env} \,~=~&
-	\texttt{Nm} \xrightarrow{~\text{\scriptsize fin}~} \texttt{Expr}\times\texttt{Env} &
-\sigma\in\texttt{Env} ~::=~& \{\,x_1{\mapsto}\langle e_1,\sigma_1\rangle,\,\ldots,\,x_k{\mapsto}\langle e_k,\sigma_k\rangle\,\}
+	\texttt{Nm} \xrightharpoonup{\,_\textrm{fin}\,} \texttt{Expr}\times\texttt{Env} &
+\rho\in\texttt{Env} ~::=~& \{\,x_1{\mapsto}\langle e_1,\rho_1\rangle,\,\ldots,\,x_k{\mapsto}\langle e_k,\rho_k\rangle\,\}
 \\[1.5ex]
 \cdot\stackrel{\!\!_\textrm{cbn}}{\Longmapsto}\cdot \subset~&
 	(\texttt{Expr}\times\texttt{Env}) \times \texttt{Val}
 \end{align*}
 \vspace*{-3ex}
 \[
-\inference[($x$)]{\sigma(x) \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} v}{
-	\langle x,\sigma\rangle \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} v}
+\inference[($x$)]{\rho(x) \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} v}{
+	\langle x,\rho\rangle \stackrel{\!\!_\textrm{cbn}}{\Longmapsto} v}
 \qquad
 \inference[($\lambda$)]{}{
-	\langle\lambda x.e,\sigma\rangle
+	\langle\lambda x.e,\rho\rangle
 	\stackrel{\!\!_\textrm{cbn}}{\Longmapsto}
-	\langle\lambda x.e,\sigma\rangle }
+	\langle\lambda x.e,\rho\rangle }
 \]
 \[
 \inference[($@$)]{
-	\langle e_1,\sigma\rangle \stackrel{\!\!_\textrm{cbn}}{\Longmapsto}
-	\langle\lambda x.e,\sigma_1\rangle &
-	\langle e,\{x{\mapsto}\langle e_2,\sigma\rangle\}\sigma_1\rangle
+	\langle e_1,\rho\rangle \stackrel{\!\!_\textrm{cbn}}{\Longmapsto}
+	\langle\lambda x.e,\rho_1\rangle &
+	\langle e,\{x{\mapsto}\langle e_2,\rho\rangle\}\rho_1\rangle
 	\stackrel{\!\!_\textrm{cbn}}{\Longmapsto} v}{
-	\langle e_1\;e_2,\sigma\rangle
+	\langle e_1\;e_2,\rho\rangle
 	\stackrel{\!\!_\textrm{cbn}}{\Longmapsto} v}
 \]
 \caption{타입없는 람다계산법의 적용 먼저 값계산(call-by-name evaluation)을
@@ -428,20 +428,20 @@ v\in\texttt{Val} ~::=~& \langle\,\lambda x.e,\,\sigma\,\rangle
 큰걸음 의미구조가 그림 \ref{fig:bigStepCBV}와 \ref{fig:bigStepCBN}에
 나타나 있는데 그 차이점을 중심으로 살펴보자. 인자 먼저(call-by-value)
 값계산 환경에서는 이름에 항상 계산이 끝마친 상태의 값에 대응되므로
-이름에 대한 값계산 규칙($x$)에서 환경의 내용을 참조한 $\sigma(x)$가
+이름에 대한 값계산 규칙($x$)에서 환경의 내용을 참조한 $\rho(x)$가
 그대로 결과값이 된다. 반면, 적용 먼저(call-by-name) 값계산 환경에서는 
 이름에 값이 아닌 형태의 환경과 람다식의 순서쌍이 대응될 수도 있다.
-따라서 이름에 대한 값계산 규칙($x$)에서 환경의 내용을 참조한 $\sigma(x)$가
-아직 계산이 끝나지 않았을지도 모르므로 $\sigma(x)$를 큰걸음으로
+따라서 이름에 대한 값계산 규칙($x$)에서 환경의 내용을 참조한 $\rho(x)$가
+아직 계산이 끝나지 않았을지도 모르므로 $\rho(x)$를 큰걸음으로
 진행해 보아야 한다. 함수요약식에 대한 값계산 규칙($\lambda$)은 인자 먼저든
 적용 먼저든 차이점이 없다. 함수적용식에 대한 값계산 규칙($@$)에는
 각 값계산 전략의 특징이 잘 드러난다. 인자 먼저(call-by-value) 값계산
-규칙에서는 인자를 값으로 계산하는 과정($\langle e_2,\sigma\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} v_2$)이 나타나는 반면,
+규칙에서는 인자를 값으로 계산하는 과정($\langle e_2,\rho\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} v_2$)이 나타나는 반면,
 적용 먼저(call-by-value) 값계산 규칙에서는 그런 과정 없이
 함수 파라메터($x$)에 인자식($e_2$) 그대로의
-클로저($\langle e_2,\sigma\rangle$)에 대응시켜
-적용하는 함수값의 환경($\sigma_1$)을 확장한 환경
-($\{x{\mapsto}\langle e_2,\sigma\}\sigma_1$)에서 함수 몸체($e$)를 계산한다.
+클로저($\langle e_2,\rho\rangle$)에 대응시켜
+적용하는 함수값의 환경($\rho_1$)을 확장한 환경
+($\{x{\mapsto}\langle e_2,\rho\}\rho_1$)에서 함수 몸체($e$)를 계산한다.
 
 \input{FunEval}
 
