@@ -351,7 +351,7 @@ $x'\in \mathrm{fv}(\lambda x.e)$를 환경으로부터 $\rho(x')$와
 \begin{figure}
 \begin{align*}
 & &
-e\in\texttt{Expr} ::=~& e ~\mid~ \lambda x.e ~\mid~ e\;e
+e\in\texttt{Expr} ::=~& x ~\mid~ \lambda x.e ~\mid~ e\;e
 \\[1.5ex]
 \texttt{Val} \;\subset~ &
 	\texttt{Expr}\times\texttt{Env} &
@@ -386,7 +386,7 @@ v\in\texttt{Val} ~::=~& \langle\,\lambda x.e,\,\rho\,\rangle
 \begin{figure}
 \begin{align*}
 & &
-e\in\texttt{Expr} ::=~& e ~\mid~ \lambda x.e ~\mid~ e\;e
+e\in\texttt{Expr} ::=~& x ~\mid~ \lambda x.e ~\mid~ e\;e
 \\[1.5ex]
 \texttt{Val} \;\subset~ &
 	\texttt{Expr}\times \texttt{Env} &
