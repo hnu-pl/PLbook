@@ -6,6 +6,7 @@ TEXFILES:=part1.tex part2.tex\
 	  ParaPoly.tex \
 	  FunEval.tex \
 	  FunArithEval.tex \
+	  Parser.tex \
 	  TODO.tex
 
 main: main.tex sample.bib ${TEXFILES}
