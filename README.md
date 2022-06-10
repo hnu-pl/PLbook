@@ -1,3 +1,4 @@
+![PDF build](https://github.com/hnu-pl/PLbook/blob/main/.github/workflows/makefile.yml/badge.svg)
 # PLbook
 문서 빌드 환경 구성은 아래 유틸리티를 설치하고 LaTeX이 적당히 깔려있어야 ...
 ```
