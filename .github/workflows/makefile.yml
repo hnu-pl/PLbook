@@ -15,5 +15,5 @@ jobs:
       - name: Compile LaTeX document
         uses: dante-ev/latex-action@latest
         with:
-          extra_system_packages: jupyter-nbconvert gawk inkscape biber
-          entrypoint: make
+          extra_system_packages: make jupyter-nbconvert gawk inkscape biber
+          entrypoint: /usr/bin/make
