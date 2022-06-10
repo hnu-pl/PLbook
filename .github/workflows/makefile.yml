@@ -11,11 +11,8 @@ jobs:
     runs-on: bullseye
     steps:
     - uses: actions/checkout@v3
-    - uses: xu-cheng/texlive-action/full@v1
       with:
         run: |
-          apk add make jupyter-nbconvert gawk inkscape latexmk biber
-          make    
-      
-    - name: Run clean
-      run: make clean
+          apt-get update -q -y
+          apt-get install make jupyter-nbconvert gawk inkscape latexmk biber texlive texlive-lang-korean texlive-latex-extra texlive-fonts-extra texlive-bibtex-extra texlive-science
+          make
