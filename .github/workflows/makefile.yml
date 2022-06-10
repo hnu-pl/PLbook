@@ -15,4 +15,5 @@ jobs:
       - name: Compile LaTeX document
         uses: dante-ev/latex-action@latest
         with:
+          extra_system_packages: jupyter-nbconvert gawk inkscape biber
           root_file: main.tex
