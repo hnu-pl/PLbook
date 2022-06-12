@@ -1,7 +1,3 @@
 [![Build LaTeX document](https://github.com/hnu-pl/PLbook/actions/workflows/makefile.yml/badge.svg)](https://github.com/hnu-pl/PLbook/actions/workflows/makefile.yml)
 # PLbook
-문서 빌드 환경 구성은 아래 유틸리티를 설치하고 LaTeX이 적당히 깔려있어야 ...
-```
-sudo apt-get install make jupyter-nbconvert gawk inkscape latexmk biber
-sudo apt-get install texlive texlive-lang-korean texlive-latex-extra texlive-fonts-extra texlive-bibtex-extra texlive-science
-```
+문서 빌드 환경 구성은 위의 배너를 클릭하면 링크되는 워크플로우 참조.
