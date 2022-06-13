@@ -7,6 +7,7 @@ TEXFILES:=part1.tex part2.tex part3.tex \
 	  FunEval.tex \
 	  FunArithEval.tex \
 	  Parser.tex \
+	  FACT.tex \
 	  TODO.tex
 
 main: main.tex sample.bib ${TEXFILES}
