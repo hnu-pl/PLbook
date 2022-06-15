@@ -1,7 +1,7 @@
 .PHONY: main clean
 
-TEXFILES:=part1.tex part2.tex part3.tex \
-	  HelloHaskell.tex \
+TEXFILES=part1.tex part2.tex part3.tex ${NBTEXFILES}
+NBTEXFILES:= HelloHaskell.tex \
 	  ArithExpr.tex \
 	  ParaPoly.tex \
 	  FunEval.tex \
@@ -14,7 +14,8 @@ main: main.tex sample.bib ${TEXFILES}
 	latexmk -pdf main.tex
 
 clean:
-	rm -f *.aux *.bbl *.blg *.bcf main.toc main.fls main.fdb_latexmk
+	rm -f *.aux *.bbl *.blg *.bcf main.toc main.fls main.fdb_latexmk ${NBTEXFILES}
+	rm -rf *_files/
 
 
 %.tex: %.ipynb
