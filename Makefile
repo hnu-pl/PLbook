@@ -8,6 +8,7 @@ NBTEXFILES:= HelloHaskell.tex \
 	  FunArithEval.tex \
 	  Parser.tex \
 	  FACT.tex \
+	  TyInf.tex \
 	  TODO.tex
 
 main: main.tex sample.bib ${TEXFILES}
