@@ -9,6 +9,7 @@ NBTEXFILES:= HelloHaskell.tex \
 	  Parser.tex \
 	  FACT.tex \
 	  TyInf.tex \
+	  TyInfMore.tex \
 	  TODO.tex
 
 main: main.tex sample.bib ${TEXFILES}
