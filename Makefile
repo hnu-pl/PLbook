@@ -10,7 +10,7 @@ NBTEXFILES:= HelloHaskell.tex \
 	  FACT.tex \
 	  TyInf.tex \
 	  TyInfMore.tex \
-	  TODO.tex
+	  HWsample.tex
 
 main: main.tex sample.bib ${TEXFILES}
 	latexmk -pdf main.tex
