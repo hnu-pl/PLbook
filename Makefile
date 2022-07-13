@@ -1,6 +1,6 @@
 .PHONY: main clean
 
-TEXFILES=part1.tex part2.tex part3.tex ${NBTEXFILES}
+TEXFILES=part1.tex part2.tex part3.tex partA.tex ${NBTEXFILES}
 NBTEXFILES:= HelloHaskell.tex \
 	  ArithExpr.tex \
 	  ParaPoly.tex \
