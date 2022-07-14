@@ -964,10 +964,9 @@ $2\mathop{\texttt{\char`^}} 2\mathop{\texttt{\char`^}}3 $는
 $2\mathop{\texttt{\char`^}}(2\mathop{\texttt{\char`^}}3)$와 같은 의미다.
 그리고 기본적인 연산자 우선순위 및 결합성과 달리 순서를 명시적으로
 강제하기 위한 괄호(parenthesis) 또한 구체적문법에 포함되곤 한다.
-요약문법은 이미 구체적문법으로 모호함 없이 분석된 바를 요약한 구조만을
-다루므로 일차원적 구조의 처리와 관련된 모호성을 신경쓸 필요가 없다.
-따라서 요약문법에는 연산자 우선순위나 결합성을 고려할 필요가 없으며
-괄호와 같이 우선순위를 명시적으로 강제하는 요소도 나타나지 않는다.
+요약문법은 이미 구체적문법으로 모호함 없이 분석된 바를 요약한 구조만을 다루므로,
+일차원적 구조에서 고려해야 하는 연산자 우선순위나 결합성을 따질 필요가 없으며
+괄호와 같이 우선순위를 명시적으로 강제하는 요소도 불필요하다.
 이제 사칙연산(\texttt{+}, \texttt{-}, \texttt{*}, \texttt{/})과
 거듭제곱(\texttt{\char`^})을 포함한 산술식에 대한 구체적문법과
 요약문법의 표기에 대해 알아보자.
@@ -2741,9 +2740,9 @@ $e\Longmapsto v$일 때 $v:\tau$임을 기대한다는 말이다.
 나타날지는 실행 시간에 동적 타입으로 확인가능한 경우도 있다. 그리고
 조금 더 동적 타입에 가까운 요소로는 소위 리플렉션(reflection)이라 불리는,
 프로그램 실행 중에 새로이 타입을 구성하는 기능을 제공하는 정적 타입 기반의
-언어들도 있다. 이런 내용은 보통 컴퓨터 관련 전공 교육과정에서 객체지향에
-대한 이론을 다루거나 다른 주제를 다루면서도 실습용으로 객체지향 언어를
-사용하며 접할 기회들도 있을 것이므로 더 이상의 자세한 설명은 생략한다.
+언어들도 있다. 이런 내용은 컴퓨터 관련 전공 교육과정에서 객체지향에
+대한 이론을 다루거나 객체지향 언어로 실습하며 접할 기회들도 있을 것이므로
+더 이상의 자세한 설명은 생략한다.
 
 정적 타입을 기반으로 동적 타입의 요소를 가미하는 정도가 아닌,
 동적 타입 언어로 작성하듯 프로그래밍할 수 있으면서 필요에 따라서
@@ -2758,9 +2757,9 @@ $e\Longmapsto v$일 때 $v:\tau$임을 기대한다는 말이다.
 부분을 찾아 오류를 검출하는 기능을 도입하지는 않았었다. 최근 들어
 업계에서도 인기가 높아지는 점진적(gradual) 타입\cite{Jeremy2006gradual}을
 표방하는 언어 시스템은 정적 타입 검사로 실행 전에 오류를 검출할 수
-있으면서도, 기존에 동적 타입 언어로 작성된 코드를 정적 타입의 틀에 맞춰
-일괄적으로 변환하지 않고도 거의 그대로 활용할 수 있도록 원하는 부분에
-필요한 만큼만 정적 타입을 점진적으로 적용할 수 있게 설계되어 있다.
+있으면서도, 기존에 동적 타입 언어로 작성된 코드를 거의 그대로 활용하며
+원하는 부분에 필요한 만큼만 정적 타입을 점진적으로 적용할 수 있도록
+설계되어 있다.
 
 \subsection{요약된 의미로서의 타입}\label{sec:TypeAsAbsSem}
 어떤 프로그래밍언어에 다음 기본 함수가 제공된다고 하자 (단, $\Sigma=\{a,b\}$).
@@ -2821,23 +2820,6 @@ $ \llbracket\,f(e_1,\ldots,e_k)\,\rrbracket
 \end{align*}
 }
 
-\begin{figure}
-\begin{align*}
-\llbracket\,\texttt{plus}\,\rrbracket_t =~& \mathbb{N}\times\mathbb{N} \to \mathbb{N} \\
-\llbracket\,\texttt{slen}\,\rrbracket_t =~& \Sigma^{*} \to \mathbb{N} \\
-\llbracket\,n\,\rrbracket_t =~& \mathbb{N} \qquad (n\in\mathbb{N}) \\
-\llbracket\,x\,\rrbracket_t =~& \Sigma^{*} \qquad (x\in\Sigma^{*}) \\
-\llbracket\,(e_1,\ldots,e_k)\,\rrbracket_t =~& 
-    \llbracket e_1\rrbracket_t\times\cdots\times\llbracket e_k\rrbracket_t \\
-\llbracket\,f(e_1,\ldots,e_k)\,\rrbracket_t =~& \!\!\!\!
-    \begin{cases}
-     B & \llbracket\,f\,\rrbracket_t = \llbracket(e_1,\cdots,e_k)\rrbracket_t \to B\\
-     \{\,\} & \text{otherwise}
-    \end{cases}
-\end{align*}
-\caption{요약된 의미로서의 타입을 나타내는 지시적 의미구조\label{fig:AbsSemType}}
-\end{figure}
-
 이번에는 같은 언어에 때한 다른 의미구조($\llbracket\,\cdot\,\rrbracket_t$)를
 그림\;\ref{fig:AbsSemType}와 같이 정의해 보자. 가장 기본적인 값인 자연수와
 문자열의 의미를 정확히 그 하나의 값으로만 이루어진 집합으로 좁히는
@@ -2872,7 +2854,26 @@ $\llbracket\texttt{plus}(\texttt{slen}(ab),\texttt{slen}(bba))\rrbracket \subset
 일반적으로 구체적인 의미구조로 정확히 풀이된 의미는 요약된 의미구조로
 어림잡아 계산된 포괄적인 의미의 부분집합이 될 것이다
 (즉, $\llbracket e\rrbracket \subset \llbracket e\rrbracket_t$).
- 
+
+\begin{figure}
+\begin{align*}
+\llbracket\,\texttt{plus}\,\rrbracket_t =~& \mathbb{N}\times\mathbb{N} \to \mathbb{N} \\
+\llbracket\,\texttt{slen}\,\rrbracket_t =~& \Sigma^{*} \to \mathbb{N} \\
+\llbracket\,n\,\rrbracket_t =~& \mathbb{N} \qquad (n\in\mathbb{N}) \\
+\llbracket\,x\,\rrbracket_t =~& \Sigma^{*} \qquad (x\in\Sigma^{*}) \\
+\llbracket\,(e_1,\ldots,e_k)\,\rrbracket_t =~& 
+    \llbracket e_1\rrbracket_t\times\cdots\times\llbracket e_k\rrbracket_t \\
+\llbracket\,f(e_1,\ldots,e_k)\,\rrbracket_t =~& \!\!\!\!
+    \begin{cases}
+     B & \llbracket\,f\,\rrbracket_t = \llbracket(e_1,\cdots,e_k)\rrbracket_t \to B\\
+     \{\,\} & \text{otherwise}
+    \end{cases}
+\end{align*}
+\caption{요약된 의미로서의 타입을 나타내는 지시적 의미구조\label{fig:AbsSemType}}
+\end{figure}
+
+
+
 방금전의 요약된 의미구조 $\llbracket\cdot\rrbracket_t$에 따른 풀이 과정은,
 타입 검사 과정에서 함수에 넘어가는 인자들의 타입과 함수 파라메터의 타입이
 일치하는지 확인되면 해당 함수 호출식의 타입은 결과적으로 함수의 리턴 타입으로
@@ -2880,6 +2881,8 @@ $\llbracket\texttt{plus}(\texttt{slen}(ab),\texttt{slen}(bba))\rrbracket \subset
 정적 타입 시스템은 요약된 의미구조를 구현하고 있다고 볼 수 있으며, 그런
 의미에서 정적 타입 시스템을 프로그래밍언어의 정적 의미구조(static semantics)라
 부르기도 한다.
+
+\newpage
 
 \section*{요점정리}
 \begin{itemize}
