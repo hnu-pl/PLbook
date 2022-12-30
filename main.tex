@@ -41,6 +41,14 @@
 \usepackage{lipsum}
 \usepackage[utf8]{inputenc}
 
+% TOC spacing after section
+\makeatletter
+\renewcommand{\l@section}{\@dottedtocline{1}{0.0em}{2.2em}}
+\renewcommand{\l@subsection}{\@dottedtocline{2}{2.0em}{2.5em}}
+\renewcommand{\l@subsubsection}{\@dottedtocline{3}{4.0em}{3.6em}}
+\makeatother
+
+
 %%%%%%%% BEGIN: Jupyter generated LaTeX header %%%%%%%%
     \usepackage[breakable]{tcolorbox}
     \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
