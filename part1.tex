@@ -16,8 +16,9 @@ justice를 뜻하는 정의(正義)와 definition을 뜻하는 정의(定義)는
 상당히 다른 의미로 전용된 전문용어다.
 
 반대로 같은 영어 단어를 분야에 따라 우리말로 다르게 옮기는 경우도 있다.
-앞으로 이 책에서 자주 접하게 될 용어인 syntax를 우리말로 옮겨보라고
-했을 때 주로 `문법'으로 옮긴다면 컴퓨터 관련 전공자로,
+앞으로 이 책에서 자주 접하게 될 용어인
+syntax를 우리말로 옮겨보라고 했을 때 주로
+`문법'으로 옮긴다면 컴퓨터 관련 전공자로,
 일관되게 `구문(론)' 혹은 `통사(론)'으로 옮기되 절대로 `문법`으로
 옮기지는 않는다면 언어학 등 어문계열 관련 전공자로 판단할 수 있을 것이다.
 컴퓨터과학의 프로그래밍언어 분야에서는 언어학에서부터 쓰던 전문용어를
@@ -26,7 +27,12 @@ justice를 뜻하는 정의(正義)와 definition을 뜻하는 정의(定義)는
 
 
 \section{Syntax와 Grammar를 우리말로 옮기면?}
-
+\index{syntax|see{문법}}%
+\index{syntax|see{구문}}%
+\index{grammar|see{문법}}%
+\index{구문|see{syntax}}%
+\index{문법|see{syntax}}%
+\index{문법|see{grammar}}%
 2009년에 출판된 영한사전\cite{OxEKdict}에서 syntax와 grammar를 찾아보면 다음과 같다.
 \begin{quote}
     \textbf{syntax} 명사[U] \vspace{-1ex}
@@ -82,12 +88,19 @@ syntax를 처리하기 위해서이다. 즉, 자연언어에서는 grammar라고
 분명히 밝힐 필요가 있다고 생각되는 경우에는 영문 용어와 병기하도록 하겠다.
 
 \section{자연언어, 인공언어, 형식언어}
-
+\index{자연언어|see{natural language}}
+\index{natural language|see{자연언어}}
+\index{언어!자연언어|see{natural language}}
+\index{language!natural language|see{자연언어}}
 자연언어(natural/ordinary language)는 사람들끼리 의사소통을 위해 누가 만들었는지도 모르게
 자연스럽게 생겨난 언어를 일컫는다. 한국어, 영어 등과 같은 대다수의 음성언어가
 자연언어에 속한다. 또한 비음성언어 중에 자연언어로는 농아인들 사이에서 의사소통을
 위해 생겨난 수어(sign language)가 있다.
 
+\index{인공언어|see{artificial language}}
+\index{언어!인공언어|see{artificial language}}
+\index{artificial language|see{인공언어}}
+\index{language!artificial language|see{인공언어}}
 인위적으로 만들어진 인공언어(artificial/constructed/invented/planned language)는
 자연언어와 대비되는 개념이다. 대표적인 예로는 특정 문화 및 국적에 덜 종속적인
 국제어를 표방하는 에스페란토(Esperanto)를 들 수 있다. 또한 톨킨 세계관에서
@@ -95,6 +108,10 @@ syntax를 처리하기 위해서이다. 즉, 자연언어에서는 grammar라고
 언어 등과 같이 예술작품 안 가상의 세계에 더 생생한 설정을 불어넣기 위해 만들어져
 창작 의도가 실생활에 활용할 목적과는 동떨어진 가공의 언어들도 인공언어로 분류할 수 있다.
 
+\index{형식언어|see{formal language}}
+\index{언어!형식언어|see{formal language}}
+\index{formal language|see{형식언어}}
+\index{language!formal language|see{형식언어}}
 형식논리, 형식언어, 계산이론, 프로그래밍언어 등의 분야에서 주로 다루는
 형식언어(formal language)란 어떤 언어에 속하는 문장의 구성 방법이나
 구성된 문장에 부여되는 의미를 정확한 논리적/수학적 규칙에 따라 모호함 없이
@@ -178,6 +195,8 @@ syntax를 처리하기 위해서이다. 즉, 자연언어에서는 grammar라고
 
 \section{형식언어이론에서 Syntax와 Grammar의 관계}
 \label{sec:FormalLangSG}
+\index{형식언어이론|see{formal language theory}}
+\index{formal language theory|see{형식언어이론}}
 형식언어이론(formal language theory, FLT)은 문장(정확히는 문자열)의 생김새(syntax)만을
 대상으로 하며 그 뜻(semantics)은 생각하지 않는다. 형식언어이론에서 `언어'란 단순히
 문자열(string)의 집합으로 정의된다. 문자열은 언어마다 미리 정해놓은 유한한 종류의
@@ -236,7 +255,7 @@ $L$의 고유한 성질인 syntax를 표현하는 방식의 하나인 grammar를
 요점정리 후에 이어지는 다음 장에서 이어가기로 하자.
 
 \section*{요점정리}
-\begin{itemize}
+\begin{itemize}[itemsep=0pt]
     \item 프로그래밍언어란 좁은 의미에서는 기계(컴퓨터)에서 실행할 것을
     염두에 두고 만들어진 형식언어의 일종이지만 넓은 의미에서는 형식언어를
     모두 아우르는 개념이다.
@@ -258,7 +277,8 @@ $L$의 고유한 성질인 syntax를 표현하는 방식의 하나인 grammar를
 
 
 \chapter{형식언어이론}
-
+\index{형식언어이론}
+\index{formal language theory}
 형식언어이론에서는 어휘를 원자적 기호(symbol)로 추상화하여 의미를 부여하지 않으며,
 기호의 나열로 이루어진 문자열(string)의 모양새(syntax)만을 기준으로 원하는 문자열을
 골라 모아놓은 집합을 `언어'(language)로 규정한다. 문법(grammar)은 어떤 언어에 속하는
@@ -280,16 +300,31 @@ $L$의 고유한 성질인 syntax를 표현하는 방식의 하나인 grammar를
 
 \section{형식언어의 문법에 따른 문자열 생성}
 \label{sec:GenGrammar}
+\index{문법}
+\index{grammar}
+\index{형식문법|see{formal grammar}}
+\index{formal grammar|see{형식문법}}
 형식언어의 문법(grammar)을 형식언어를 다룬다는 점을 강조하여 형식문법(formal grammar)이라
 부르기도 한다. 형식언어이론에서 형식문법을 작성하는 표준적인 방식은 문자열을
-만들어 나가는 과정을 안내하는 생성 규칙을 작성하며 이러한 방식로 문법을
-표현한 것을 생성문법(generative grammar)이라고 한다. 형식언어의 문법
-$G = \langle\, \Sigma, N, S, R \,\rangle$의 네 가지 요소는 다음과 같다.\vspace{-1ex}
+만들어 나가는 과정을 안내하는 생성규칙을 작성하며 이러한 방식로 문법을
+표현한 것을
+\index{생성문법|see{generative grammar}}%
+\index{generative grammar|see{생성문법}}%
+생성문법(generative grammar)이라고 한다. 형식언어의 문법
+$G = \langle\, \Sigma, N, S, R \,\rangle$의 네 가지 요소는 다음과 같다.\vspace{-1ex}%
+\index{단말 기호|see{terminal symbol}}%
+\index{terminal symbol|see{단말 기호}}%
+\index{비단말 기호|see{nonterminal symbol}}%
+\index{nonterminal symbol|see{비단말 기호}}%
+\index{시작 기호|see{start symbol}}%
+\index{start symbol|see{시작 기호}}%
+\index{생성규칙|see{production rule}}%
+\index{production rule|see{생성규칙}}%
 \begin{itemize}\tightlist
     \item[$\Sigma$]: 생성된 문자열에 나타나는 단말 기호(terminal symbol)의 집합
     \item[$N$]: 생성 과정에 추가로 나타나는 비단말 기호(nonterminal symbol)의 집합
     \item[$S$]: 생성의 시작을 나타내는 시작 기호(start symbol) (단, $S\in N$)
-    \item[$R$]: 생성 규칙(production rule)의 집합.
+    \item[$R$]: 생성규칙(production rule)의 집합.
 \end{itemize}
 
 여기서 문법에 대해 구체적으로 소개하기 전에 형식언어란 문자열의 집합이며
@@ -305,7 +340,7 @@ $G = \langle\, \Sigma, N, S, R \,\rangle$의 네 가지 요소는 다음과 같�
 다른 기호를 말한다. 형식문법에서는 비단말 기호 중 하나를 시작 기호로
 정해 놓아야 하므로 비단말 기호의 집합 $N$은 공집합일 수 없다. 시작 기호는
 생성할 전체 문자열을 대표하는 기호로, 하나의 시작 기호($S$)로부터 문법의
-생성 규칙에 따라 단계적으로 생성 과정을 거쳐 최종적으로는 단말 기호만으로
+생성규칙에 따라 단계적으로 생성 과정을 거쳐 최종적으로는 단말 기호만으로
 이루어진 문자열이 만들어지게 된다. 생성 과정의 중간 단계에서는 비단말 기호만으로
 이루어지거나 비단말과 단말 기호가 함께 나타나는 확장된 문자열의 개념이 필요하다.
 문자열을 구성하는 바탕이 되는 기호의 집합을 알파벳(alphabet)이라 부른다.
@@ -316,20 +351,20 @@ $x$가 단말 기호를 알파벳으로 삼는 문자열이고
 $\alpha$가 단말과 비단말 모두를 알파벳으로 삼는 문자열이라는
 설명 대신 $x\in\Sigma^{*}$이고 $\alpha\in(\Sigma\cup N)^{*}$라고 쓰면 된다.
 
-문법에서 가장 핵심적인 내용은 $\alpha\to\beta$ 형태의 생성 규칙(production rule)이다.
+문법에서 가장 핵심적인 내용은 $\alpha\to\beta$ 형태의 생성규칙(production rule)이다.
 여기서 $\alpha$와 $\beta$는  $\Sigma\cup N$을 알파벳으로 하는 확장된 문자열인데,
 단, $\alpha$는 길이 0인 빈문자열($\varepsilon$으로 표기)이 아니어야 한다
 (즉, $\lvert\alpha\rvert>0$ 혹은 $\alpha\neq\varepsilon$).
 시작 기호 하나로 이루어진 확장된 문자열 $S$로부터 시작해, 매 단계마다
-문자열의 일부분(혹은 전체)가 화살표 왼쪽($\alpha$)과 일치하는 생성 규칙
+문자열의 일부분(혹은 전체)가 화살표 왼쪽($\alpha$)과 일치하는 생성규칙
 하나를 $R$에서 찾아 화살표 오른쪽($\beta$)의 내용으로 치환해 나가는 과정을
-반복한다. 여러 생성 규칙의 화살표 왼쪽이 일치하는 경우에는 어떤 것을 선택해도 된다.
+반복한다. 여러 생성규칙의 화살표 왼쪽이 일치하는 경우에는 어떤 것을 선택해도 된다.
 치환 결과로 나온 문자열 $x$가 비단말 없이 단말 기호로만 이루졌다면
 성공적으로 문자열을 유도(deriviation)한 것이며
 $S\xRightarrow[\,G]{} \cdots \xRightarrow[\,G]{} x$ (단, $x\in\Sigma^{*}$)와 같이 표현한다.
-만일 화살표의 왼쪽이 일치하는 생성 규칙을 $R$에서 찾을 수 없다면
+만일 화살표의 왼쪽이 일치하는 생성규칙을 $R$에서 찾을 수 없다면
 최종 문자열 유도에 실패한 상황으로 생성 과정을 더 이상 진행할 수 없게 된다.
-이렇게 문법 $G$의 생성 규칙에 따라 생성 가능한 모든 최종 문자열의 집합을
+이렇게 문법 $G$의 생성규칙에 따라 생성 가능한 모든 최종 문자열의 집합을
 $\mathcal{L}(G)$로 표기한다.
 
 \begin{figure}\centering
@@ -513,7 +548,7 @@ for tree={fit=tight, l sep-=.8em, l-=.8em}
 \caption{모호한 문법 $G'$에 따른 같은 문자열에 대한 두 문법나무
          \label{fig:ambG}}
 \end{figure}
-문법 $G'$의 생성 규칙은 $G_1$과 $G_2$의 생성 규칙을 모두 포함하며
+문법 $G'$의 생성규칙은 $G_1$과 $G_2$의 생성규칙을 모두 포함하며
 추가로 $G'$의 시작 기호에서 $G_1$의 시작 기호로 가는 규칙
 ($S'\to S_1$)과 $G_2$의 시작 기호로 가는 ($S'\to S_2$)으로
 구성된다. 즉, $G'$에 따라 문자열 생성을 시작하면 $G_1$처럼 하든지
@@ -700,14 +735,14 @@ for tree={fit=tight, l sep-=.5em, inner sep=0, l=0}
 
 
 \section*{요점정리}
-\begin{itemize}
+\begin{itemize}[itemsep=0pt]
     \item 형식언어이론에서 언어란 문자열의 집합으로 정의된다.
     \item 형식언어의 문법 $G=\langle\Sigma,N,S,R\rangle$은
     최종 문자열을 구성하는 단말 기호의 집합($\Sigma$),
     생성 도중에만 나타나는 비단말 기호의 집합($N$),
     생성 과정의 처음을 나타내는 시작 기호($S$),
-    생성 규칙의 집합($R$)의 네 요소로 정의된다.
-    \item 문법의 핵심적인 요소인 $\alpha\to\beta$의 형태의 생성 규칙에 따라
+    생성규칙의 집합($R$)의 네 요소로 정의된다.
+    \item 문법의 핵심적인 요소인 $\alpha\to\beta$의 형태의 생성규칙에 따라
     화살표 왼쪽에 나타나는 확장된 문자열($\alpha$)을 오른쪽에 나타나는
     확장된 문자열($\beta$)로 치환해 나가는 과정을 단말 기호로만 이루어진
     문자열이 생성되기까지 반복한다.
@@ -1294,7 +1329,7 @@ JavaScript 언어의 정규식 등 여러 종류가 있다.
 위에서 예시로 든 정규식 등 다양한 정규식을 작성하며 직접 실험해 보라.
 
 \section*{요점정리}
-\begin{itemize}
+\begin{itemize}[itemsep=0pt]
 \item 프로그래밍언어의 렉서(lexer)는 일차원적으로 나열된 문자열로부터
       어휘를 끊어내고 그 종류를 구분한 토큰열을 만들어낸다.
 \item 프로그래밍언어의 파서(parser)는 일차원적으로 나열된
@@ -1337,7 +1372,7 @@ JavaScript 언어의 정규식 등 여러 종류가 있다.
 \end{enumerate}
 
 \section*{탐구과제}
-\begin{enumerate}
+\begin{enumerate}[itemsep=0pt]
  \item 정규식의 문법을 확장한 EBNF에 대해 알아보라.
        참고로, 다양한 EBNF에는 표기 방식이 있으며 BNF와 약간 다른
        표기 방식을 택하는 경우도 있는데, 그림\;\ref{fig:EBNF}는
@@ -2284,7 +2319,7 @@ $\{\text{밥}\ge n+2\}
 수행되는지에만 집중하여 표현된 공리적 의미구조를 정의하는 것도 가능하다.
 
 \section*{요점정리}
-\begin{itemize}
+\begin{itemize}[itemsep=0pt]
  \item 지시적 의미구조(denotational semantics)는 프로그램 $e$의 의미를
        수학적 구조 $\llbracket e\rrbracket$에 대응시킴으로써 정의한다.
        예를 들면 정규식의 지시적 의미구조를 문자열의 `집합'인 언어에
@@ -2345,14 +2380,14 @@ $\{\text{밥}\ge n+2\}
 \end{itemize}
 
 \section*{연습문제}
-\begin{enumerate}
+\begin{enumerate}[itemsep=0pt]
  \item 덧셈과 곱셈을 포함하는 계산식에 대한
        큰걸음 의미구조와 작은걸음 의미구조를 정의해 보라.
  \item 앞의 문제에서 정의한 의미구조가 결정적인지 비결정적인지 따져보라.
 \end{enumerate}
 
 \section*{탐구과제}
-\begin{enumerate}
+\begin{enumerate}[itemsep=0pt]
  \item 그림\;\ref{fig:RegexDenoSem}를 곧이곧대로 프로그램으로 옮길 경우
        함수의 계산이 끝나지 않는 경우가 발생할 수 있다.
        어떤 경우에 그런지 분석해 보고, 끝나지 않는 계산을 피하려면
@@ -2530,7 +2565,8 @@ int f(int n) { return (n + 1) * n / 2; }
 \begin{subfigure}{.25\textwidth}
 \includegraphics[scale=1]{AlonzoChurch.jpg}
 \includegraphics[trim={140pt 360pt 80pt 12pt},clip,scale=1]{deBruijn.jpg}
-\end{subfigure}
+\\[-9em]
+\end{subfigure}%
 \begin{subfigure}{.6\textwidth}\small
 람다식의 문법구조
 {\large\[e ~::=~ x ~\mid~ \lambda x.e ~\mid~ e\;e\]}
@@ -2885,7 +2921,7 @@ $\llbracket\texttt{plus}(\texttt{slen}(ab),\texttt{slen}(bba))\rrbracket \subset
 \newpage
 
 \section*{요점정리}
-\begin{itemize}
+\begin{itemize}[itemsep=0pt]
  \item 프로그램에서 이름의 본질은 어떻게 불리냐가 아니라 이름이
        어떤 유효범위에 묶여있는지(name binding)의 구조에 있다.
  \item 이름의 유효범위를 고려하지 않고 소스코드에서 문자열을 치환하듯

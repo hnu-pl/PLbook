@@ -122,7 +122,9 @@
 
     % Colors for the hyperref package
     \definecolor{urlcolor}{rgb}{0,.145,.698}
-    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    %\definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    % for paper printing darker link color
+    \definecolor{linkcolor}{rgb}{.11,0.11,0.11}
     \definecolor{citecolor}{rgb}{.12,.54,.11}
 
     % ANSI colors
@@ -409,6 +411,7 @@
     \hypersetup{
       breaklinks=true,  % so long urls are correctly broken across lines
       colorlinks=true,
+      hyperindex=true,
       urlcolor=urlcolor,
       linkcolor=linkcolor,
       citecolor=citecolor,
@@ -443,6 +446,11 @@
 \title{프로그래밍언어론}
 \author{안기영 \and 손범준}
 %\date{2022-??-??}
+
+\newcommand{\seeonly}[2]{\ #1}
+\renewcommand{\see}[2]{#1, #2}
+\makeindex
+\usepackage[columns=2, font=footnotesize, indentunit=1em]{idxlayout}
 
 \begin{document}
 
@@ -501,6 +509,8 @@
 \part{참고문헌 및 부록}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \include{partA}
+
+\printindex
 
 \end{document}
 
