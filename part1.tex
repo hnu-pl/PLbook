@@ -535,7 +535,7 @@ $L = \{\, \txtbullet\txtcircle
 
 \index{문법나무!파스트리}%
 \index{문법나무!유도나무}%
-\index{문법나무!구체적 문법나무}%
+\index{문법나무!구체적문범나무}%
 \index{syntax tree!parse tree}
 \index{syntax tree!derivation tree}
 \index{syntax tree!concrete syntax tree}
@@ -543,18 +543,20 @@ $L = \{\, \txtbullet\txtcircle
 \index{parse tree|see{파스트리}}%
 \index{유도나무|see{derivation tree}}%
 \index{derivation tree|see{유도나무}}%
-\index{구체적 문법나무|see{concrete syntax tree}}
-\index{concrete syntax tree|see{구체적 문법나무}}
+\index{구체적문범나무|see{concrete syntax tree}}
+\index{concrete syntax tree|see{구체적문범나무}}
 참고로 프로그래밍언어에서 다루는 문법나무는 두 종류가 있다.
 지금까지 다룬 그림\;\ref{fig:OneLangTwoGrammar}에 나타난 종류의 문법나무를
 유도나무(derivation tree), 파스트리(parse tree), 또는
-구체적 문법나무(concrete syntax tree) 등으로 부른다.
+구체적문범나무(concrete syntax tree) 등으로 부른다.
 이와 상대되는 또 다른 종류의 문법나무는
 추상/요약 문법나무(abstract syntax tree)인데
 이에 대해서는 다음 장(\ref{sec:LexParse}절)에서 다루기로 한다.
 
 \section{문법과 언어의 모호성}
 \label{sec:ambiguous}
+\index{모호한|see{ambiguous}}%
+\index{ambiguous|see{모호한}}%
 앞절에서 예시로 살펴본 형식언어의 문법은 문맥자유문법(context-free grammar, CFG)이며
 문맥자유문법으로 표현할 수 있는 형식언어를 문맥자유언어(context-free language, CFL)로
 분류한다. 이 절에서는 문맥자유문법과 문맥자유언어의 `모호성'이라는 개념에 대해 알아본다.
@@ -618,7 +620,10 @@ for tree={fit=tight, l sep-=.8em, l-=.8em}
 구성된다. 즉, $G'$에 따라 문자열 생성을 시작하면 $G_1$처럼 하든지
 $G_2$처럼 하든지 둘 다 가능하다는 말이다. 그래서 문법 $G'$에
 따라 \txtbullet\txtcircle\txtbullet\txtcircle를 생성하는 문법나무는
-아래와 같이 두 가지가 가능하다. 따라서 $G'$는 모호한 문법이다.
+아래와 같이 두 가지가 가능하다. 따라서 $G'$는
+\index{모호한!모호한 문법}%
+\index{ambiguous!ambiguous grammar}%
+모호한 문법이다.
 
 
 지금까지 언어
@@ -633,8 +638,10 @@ $L = \{\, \txtbullet\txtcircle
 한편, 언어 자체가 태생적으로 모호해서 아무리 노력해도 모호하지 않은 문법을
 작성할 수 없는, 즉 어떤 언어 $L$에 대해 $L = \mathcal{L}(G)$를 만족하는
 모호하지 않은 문법 $G$가 존재하지 않는 경우도 있다. 그런 언어는
-(태생적으로, inherently) 모호하다고 말한다. 다음은 잘 알려진 모호한
-(문맥자유)언어의 사례이다.
+(태생적으로, inherently) 모호하다고 말한다. 다음은 잘 알려진
+\index{모호한!모호한 언어}%
+\index{ambiguous!ambiguous language}%
+모호한 (문맥자유)언어의 사례이다.
 \[L_a = \{a^ib^jc^k \mid i=j ~\text{또는}~ j=k ~\text{($i,j,k$는 양의 정수) }\}\]
 참고로 $a^i$는 기호 $a$가 $i$번 반복해 나열된 문자열을 말한다.
 예컨대, $a^3 = aaa$이며 $a^3b^2c^2 = aaabbcc\,$이다.
@@ -706,7 +713,10 @@ Type-3\!\!\!\!\!\!&(정규)    &\!\!\!\!\!\!문법:& $A\to a$, $A\to bB$
 \end{figure}
 \noindent
 촘스키는 문법에서 생성규칙의 형태를 얼마나 제약하는가를 기준으로 형식문법을
-네 계층으로 분류하였는데\cite{Chomsky56}, 이를 촘스키 계층(Chomsky hierarchy)이라고
+네 계층으로 분류하였는데\cite{Chomsky56}, 이를
+\index{촘스키 계층|see{Chomsky hierarchy}}%
+\index{Chomsky hierarchy|see{촘스키 계층}}%
+촘스키 계층(Chomsky hierarchy)이라고
 한다 (그림\;\ref{fig:ChomskyHierarchyGrammar}).
 촘스키 계층의 문법은 Type-0부터 Type-3까지의 번호가 들어간 이름으로도,
 또 그 특성을 드러낸 이름으로도 불린다. 이를테면 ``Type-3 문법''과
@@ -718,6 +728,14 @@ Type-2는 Type-1의 일부분, Type-3은 Type-2의 일부분이다. 즉,
 모든 정규문법은 문맥자유문법이기도 하고, 모든 문맥자유문법은 문맥의존문법이기도 하며,
 모든 문맥의존문법은 무제약문법이기도 하다.
 
+\index{무제약문법|see{unrestricted grammar}}%
+\index{unrestricted grammar|see{무제약문법}}%
+\index{촘스키 계층!무제약문법}%
+\index{Chomsky hierarchy!unrestricted grammar}%
+\index{재귀열거언어|see{recursively enumerable language}}%
+\index{recursively enumerable language|see{재귀열거언어}}%
+\index{촘스키 계층!재귀열거언어}%
+\index{Chomsky hierarchy!recursively enumerable language}%
 무제약문법(unrestricted grammar)은 생성규칙의 형태에 아무런 제약 없이
 화살표의 왼쪽과 오른쪽에 아무런 확장된 문자열이나 다 쓸 수 있다. 예를 들면
 $bABa \to aBbaAb$ 같은 복잡한 규칙도 허용된다. 그러니까 문자열의 생성 과정에서
@@ -725,6 +743,10 @@ $bABa \to aBbaAb$ 같은 복잡한 규칙도 허용된다. 그러니까 문자�
 무제약문법으로 표현가능한 언어의 범주를
 `재귀열거언어'(recursively enumerable language)라 한다.
 
+\index{문맥의존문법|see{context-sensitive grammar}}%
+\index{context-sensitive grammar|see{문맥의존문법}}%
+\index{촘스키 계층!문맥의존문법}%
+\index{Chomsky hierarchy!context-sensitive grammar}%
 문맥의존문법(context-sensitive grammar, CSG)은 화살표 왼쪽에서 비단말 기호 하나만을
 치환하며 생성해 나가는 규칙만 허용한다. $\alpha A\beta\to\alpha\gamma\beta$ 형태의
 규칙은 $\alpha$와 $\beta$ 사이에 나타나는 비단말 기호 $A$를 $\gamma$로 치환하라는 뜻이다.
@@ -732,6 +754,10 @@ $bABa \to aBbaAb$ 같은 복잡한 규칙도 허용된다. 그러니까 문자�
 $A$를 $\gamma$로 치환할 수 없다. 문맥의존문법으로 표현가능한 언어의 범주를
 `문맥의존언어'(context-sensitive language, CSL)라 한다.
 
+\index{문맥자유문법|see{context-free grammar}}%
+\index{context-free grammar|see{문맥자유문법}}%
+\index{촘스키 계층!문맥자유문법}%
+\index{Chomsky hierarchy!context-free grammar}%
 문맥자유문법(context-free grammar, CFG)은 문맥의존문법의 생성규칙 형태인
 $\alpha A\beta\to\alpha\gamma\beta$에서 $\alpha$와 $\beta$ 모두 길이 0인
 빈 문자열이라는 (즉, $\alpha=\beta=\varepsilon$) 추가적인 제약이 있는 셈이다.
@@ -739,6 +765,10 @@ $\alpha A\beta\to\alpha\gamma\beta$에서 $\alpha$와 $\beta$ 모두 길이 0인
 관계없이 $A$를 어디서나 $\gamma$로 치환할 수 있다. 문맥자유문법으로 표현가능한
 언어의 범주를 `문맥자유언어'(context-free language, CFL)라 한다.
 
+\index{정규문법|see{regular grammar}}%
+\index{regular grammar|see{정규문법}}%
+\index{촘스키 계층!정규문법}%
+\index{Chomsky hierarchy!regular grammar}%
 정규문법(regular grammar)은 문맥자유문법의 생성규칙 형태인 $A\to\gamma$에서
 화살표 오른쪽 $\gamma$의 형태를 단말 기호 하나($a$) 또는
 단말과 비단말 기호 하나씩($bB$)으로 추가적으로 제한한 것이다.
@@ -860,7 +890,12 @@ $\displaystyle
 프로그래밍언어의 설명서는 어휘구조(lexical structure)라는 항목이
 등장하며, 어휘가 모여 어떻게 구문구조(syntax)를 이루는지에 대한
 설명도 이어진다. 그렇게 `-구조'를 붙여 우리말로 옮기는 것과 일관되게
-프로그래밍언어의 겉모양과 속뜻에 해당하는 용어를 문법구조(syntax)와
+프로그래밍언어의 겉모양과 속뜻에 해당하는 용어를
+\index{문법구조|see{syntax}}%
+\index{syntax|see{문법구조}}%
+문법구조(syntax)와
+\index{의미구조|see{semantics}}%
+\index{semantics|see{의미구조}}%
 의미구조(semantics)로 옮기기도 한다. 이 장에서는 프로그래밍언어의
 문법구조와 관련된 개념과 용어를 소개한다.
 
@@ -879,20 +914,44 @@ syntax는 같은 영어 단어라도 다른 맥락에서 쓰이는 조금 다른
 \section{어휘 및 구문 분석}
 \label{sec:LexParse}
 프로그래밍언어의 설명서\cite{Swift5Ref,CSharp6Draft,JavaSE8spec,Haskell2010}에서
-흔히 어휘구조(lexical structure)라는 항목 하에 글자들이 모여 어떤 종류의
+흔히
+\index{어휘구조|see{lexical structure}}%
+\index{lexical structure|see{여휘구조}}%
+어휘구조(lexical structure)라는 항목 하에 글자들이 모여 어떤 종류의
 어휘를 이루는지, 그러니까 리터럴(literal), 식별자(identifier), 연산자(operator),
 키워드/예약어(keyword/reserved word), 주석(comment) 등이 되는지 설명한다.
+\index{구문구조|see{syntax}}%
+\index{syntax|see{구문구조}}%
 그런 어휘가 모여 어떻게 구문구조(syntax)를 이루는지를 다루는 내용은
 어휘구조에 비해 더 복잡하므로 식(expression), 문(statement), 블럭(block) 등의
 요소별로 별도의 항목으로 나누어 설명하는 것이 일반적이다.
 
 프로그래밍언어의 소스코드는 일차원적으로 나열된 문자열로 작성되어 있다.
-이렇게 한줄로 이어진 문자열로부터 어휘분석(lexical analysis) 단계를 거치면
+이렇게 한줄로 이어진 문자열로부터
+\index{어쉬분석|see{lexical analysis}}%
+\index{lexical analysis|see{어휘분석}}%
+어휘분석(lexical analysis) 단계를 거치면
 하나 혹은 그 이상의 글자들로 이루어진 어휘(lexeme)를 각각 끊어냄으로써
-어휘구조를 인식하고, 각각 어떤 종류의 어휘인지 구별된 토큰(token)의
-나열인 토큰열을 얻는다. 토큰열로부터 문법분석(syntax analysis) 단계를
-거치면 구문구조를 인식하며 구체적문법나무(concrete syntax tree)를 구성하고,
-그 핵심만을 요약한 추상문법나무(abstract syntax tree, AST)를 얻는다.
+어휘구조를 인식하고, 각각 어떤 종류의 어휘인지 구별된
+\index{토큰|see{token}}%
+\index{token|see{token}}%
+토큰(token)의
+나열인 토큰열을 얻는다. 토큰열로부터
+\index{문법분석|see{syntax analysis}}%
+\index{syntax analysis|see{문법분석}}%
+문법분석(syntax analysis) 단계를
+거치면 구문구조를 인식하며
+\index{구체적문범나무}
+\index{concrete syntax tree}
+구체적문범나무(concrete syntax tree)를 구성하고,
+그 핵심만을 요약한
+\index{추상문법나무|see{abstract syntax tree}}%
+\index{abstract syntax tree|see{추상문법나무}}%
+\index{문법나무!추상문법나무}%
+\index{syntax tree!abstract syntax tree}%
+\index{AST|see{abstract syntax tree}}%
+\index{AST|see{추상문법나무}}%
+추상문법나무(abstract syntax tree, AST)를 얻는다.
 그림\;\ref{fig:LexParse}에는 뺄셈, 곱셈, 거듭제곱 연산을 포함한
 산술식(arithmetic expression)을 예시로 어휘분석 및 구문분석 과정에서
 나타나는 네 가지 데이터 구조들인 문자열, 토큰열, 구체적문법나무,
@@ -1009,23 +1068,46 @@ for tree={inner sep=0, l sep+=1em, l=0}
 5, 10, 6 등은 정수 리터럴(integer literal),
 \texttt{*}, \texttt{-}, \texttt{\textbf{\char`^}} 등은 연산자,
 열고 닫는 괄호 등의 토큰으로 구분됨을 색상으로 표시하였다.
-결과로 토큰열을 얻으므로 어휘분석을 토큰화(tokenization)라고도 한다.
-프로그래밍언어 분야에서는 어휘분석(lexical analysis)을 줄여
+결과로 토큰열을 얻으므로 어휘분석을
+\index{토큰화|see{tokenization}}%
+\index{tokenization|see{토큰화}}%
+토큰화(tokenization)라고도 한다.
+프로그래밍언어 분야에서는
+\index{어휘분석}%
+\index{lexical analysis}%
+어휘분석(lexical analysis)을 줄여
 렉싱(lexing)이라 부르는 경우가 많다. 따라서 어휘분석을 수행하는
 프로그램인 어휘분석기(lexical analyzer)를 토크나이저(tokenizer)라고도 하며,
-프로그래밍언어의 경우 렉서(lexer)라 부르는 경우가 많다.
+프로그래밍언어의 경우
+\index{렉서|see{lexer}}%
+\index{lexer|see{렉서}}%
+렉서(lexer)라 부르는 경우가 많다.
 
+\index{구문분석}%
+\index{syntax analysis}%
 구문분석(syntax analysis)은 언어학 및 컴퓨터 관련 분야에서
 파싱(parsing)이라고도 한다. 참고로 파싱(parsing)의 어원이 되는 동사
 parse는 품사(parts of speech)를 뜻하는 라틴어에서 유래했다\cite{MWdict}.
 즉, parse란 문장을 구성하는 각 부분이 문법적으로 어떤 부류에
 속하는지 인식해 문장의 구조를 분석한다는 뜻으로 이해할 수 있다.
 구문분석을 수행하는 프로그램인 구문분석기(syntax analyzer)를
-컴퓨터 관련 분야에서 파서(parser)라 부르는 경우가 많다.
+컴퓨터 관련 분야에서
+\index{파서|see{parser}}%
+\index{parser|see{파서}}%
+파서(parser)라 부르는 경우가 많다.
 프로그래밍언어의 파서는 토큰열(그림\;\ref{sfig:tokseq})로부터
-구체적문법나무(그림\;\ref{sfig:CST})를 구성하고 이를 요약한
+\index{구체적문범나무}%
+\index{concrete syntax tree}%
+구체적문범나무(그림\;\ref{sfig:CST})를 구성하고 이를 요약한
+\index{추상문법나무}%
+\index{abstract syntax tree}%
 추상문법나무(그림\;\ref{sfig:AST})를 만들어낸다. `추상문법나무'는
 프로그래밍언어의 의미를 다루기 위한 핵심적 부분만을 요약하고 있으므로
+\index{문법나무!요약문법나무}%
+\index{syntax tree!abstract syntax tree}%
+\index{요약문법나무|see{abstract syntax tree}}%
+\index{abstract syntax tree|see{요약문법나무}}%
+\index{AST|see{요약문법나무}}%
 `요약문법나무'로도 옮긴다. 또한 구체적문법나무(concrete syntax tree)와
 요약문법나무(abstract syntax tree)대신 파스나무(parse tree)와
 문법나무(syntax tree)로도 일컫는다. 파서(parser)의 최종 결과물은
@@ -1033,8 +1115,19 @@ parse는 품사(parts of speech)를 뜻하는 라틴어에서 유래했다\cite{
 
 정리하면, 프로그래밍언어의 문법(syntax)을 두 단계로 구분해 생각할 수 있다.
 첫째는 토큰열로부터 구체적문법나무를 구성하기 위한
+\index{문법!구체적문법}%
+\index{syntax!concrete syntax}%
+\index{구체적문법|see{concrete syntax}}%
+\index{concrete syntax|see{구체적문법}}%
 구체적문법(concrete syntax), 둘째는 요약문법나무의 구조를
-나타내는 요약문법(abstract syntax)이다. 물론 요약문법을
+나타내는
+\index{문법!요약문법}%
+\index{syntax!abstract syntax}%
+\index{요약문법|see{concrete syntax}}%
+\index{추상문법|see{concrete syntax}}%
+\index{concrete syntax|see{요약문법}}%
+\index{concrete syntax|see{추상문법}}%
+요약문법(abstract syntax)이다. 물론 요약문법을
 추상문법이라고도 옮긴다. 이제부터 이 책에서는 `추상-'보다는 `요약-'이 붙은
 용어를 사용하기로 한다. 이어지는 절(\ref{sec:GrammarNotation}절)에서는
 구체적문법과 요약문법의 표기방법에 대해 대해 먼저 알아보고,
@@ -1086,6 +1179,10 @@ $E \to E ~\texttt{+}~ T$, $E \to E ~\texttt{-}~ T$, $E \to T$를
 비단말은 대문자 단말은 소문자 한 글자씩만으로 표시한다.
 프로그래밍언어 분야에 선구적 업적을 남긴
 두 컴퓨터 과학자(그림\;\ref{fig:BackusNaur})의 이름을 딴
+\index{배커스--나우르 형식|see{Backus--Naur Form}}%
+\index{Backus--Naur Form|see{배커스--나우르 형식}}%
+\index{BNF|see{Backus--Naur Form}}%
+\index{BNF|see{배커스--나우르 형식}}%
 배커스--나우르 형식(Backus--Naur Form, BNF)은 프로그래밍언어의
 구체적문법을 정의하는 등의 실용적인 활용을 염두에 두고 만들어졌다.
 BNF는 알아보기 쉬운 단어로 비단말을 표현하거나 여러 글자로 된 단말의
@@ -1180,6 +1277,8 @@ e\in E ~
          \label{fig:AbsSyn}}
 \end{figure}
 
+\index{구체적문법}
+\index{concrete syntax}
 산술식의 구체적문법(그림\;\ref{fig:BNF})에서 주목할 점은 이 절의
 앞부분에서 언급한 연산자의 우선순위와 결합성이 드러난다는 것이다.
 먼저 BNF 표현을 기준으로 연산자 우선순위를 어떻게 표현되어 있는지 알아보자.
@@ -1203,6 +1302,8 @@ $E \to E ~\texttt{+}~ T \mid  E ~\texttt{-}~ T \mid \cdots$를 보면
 우결합임이 문법규칙에 드러난다.
 
 그림\;\ref{fig:AbsSyn}은 사칙연산과 거듭제곱을 포함한 산술식의
+\index{요약문법}
+\index{abstract syntax}
 요약문법 표현 세 가지를 나란히 비교하고 있다. 요약문법은 실제
 프로그래밍언어의 구현에 활용하기 위한 용도도 있으므로 이를
 프로그램에서 활용할 수 있는 데이터 구조로 정의한다. 특히
@@ -1234,7 +1335,10 @@ $::=$ 기호 및 수학의 집합 관련 기호 등을 활용한 추상문법 �
 
 \section{정규식}
 \label{sec:regex}
-정규언어는 생성규칙 형태의 정규문법보다는 정규식으로 표현하는 것이
+정규언어는 생성규칙 형태의 정규문법보다는
+\index{정규식|see{regular expression}}%
+\index{regular expression|see{정규식}}%
+정규식(regular expression)으로 표현하는 것이
 일반적이다. 왜냐하면 정규언어를 활용하며 구체적문법나무나 요약문법나무를
 얻고자 하는 경우는 드물기 때문이다. 프로그래밍언어의 어휘분석 단계에서
 인식한 어휘 혹은 토큰은 그 다음 구문분석 단계에서 더 이상 쪼개지지 않는
@@ -1284,7 +1388,10 @@ r \in \mathcal{R}
 
 앞절에서 이론적인 맥락에서와 실용적인 활용을 염두에 둔 두 가지 형태의
 문맥자유언어에 대한 구체적문법의 표기법(그림\;\ref{fig:BNF})을 살펴보았다.
-마찬가지로 정규언어에 대한 정규(표현)식(regular expression, regex)도
+마찬가지로 정규언어에 대한
+\index{정규표현식|see{정규식}}
+\index{regex|see{regular expression}}
+정규(표현)식(regular expression, regex)도
 이론적 형태와 실용적 형태가 조금 다르다. 여기서는 이론적인 형태의
 정규식을 주로 알아보자. 정규식도 (넓은 의미에서) 일종의 프로그래밍언어이므로
 그림\;\ref{fig:RegexSynSem}와 같이 그 문법구조와 의미구조를 정리해 볼 수 있다.
@@ -1494,6 +1601,10 @@ JavaScript 언어의 정규식 등 여러 종류가 있다.
 \newpage
 
 \section{지시적 의미구조}
+\index{의미구조!지시적 의미구조}%
+\index{semantics!denotational semantics}%
+\index{지시적 의미구조|see{denotational semantics}}%
+\index{denotational semantics|see{지시적 의미구조}}%
 지시적 의미구조(denotational semantics)는 프로그램의 의미를 수학적 구조에
 대응시키는 방식으로 정의한 의미구조를 일컫는다. 앞서 \ref{sec:regex}절에서
 각각의 정규식을 언어, 즉 문자열의 `집합'에 대응시킴으로써 정의한 
@@ -1636,6 +1747,10 @@ $\llbracket r_1\rrbracket(x_1) \land \llbracket r_2\rrbracket(x_2)$를
 
 
 \section{동작과정 의미구조}
+\index{의미구조!동작과정 의미구조}%
+\index{semantics!operational semantics}%
+\index{동작과정 의미구조|see{operational semantics}}%
+\index{denotational semantics|see{동작과정 의미구조}}%
 동작과정 의미구조(operational semantics)\cite{Plotkin1981sos}는
 프로그램의 의미를 수학적 구조 등 외부의 대상에 지시함으로써 찾는 것이
 아니라 프로그램이 계산되는 과정 자체를 프로그램의 의미로 삼는 방식의
@@ -1801,8 +1916,18 @@ $\nu(r_2)=\varnothing$이으로 그냥 $(\partial r_1/\partial a)r_2$와 같다.
 그림\;\ref{fig:ReDerivBigSmallSem}에는 프로그램으로 옮겨 작성하기에
 더 적합한 정규식 미분의 동작과정 의미구조 두 가지를 정의해 놓았다.
 첫째는 정규식의 미분을 공식을 가능한 한 계속해 적용한 최종 결과와
-관련짓는 큰걸음(big-step) 의미구조이며, 둘째는 정규식의 미분을 기호
-하나씩만 미분한 바로 다음 계산 과정과 관련짓는 작은걸음(small-step)
+관련짓는
+\index{의미구조!동작과정 의미구조!큰걸음 의미구조}%
+\index{semantics!operational semantics!big-step semantics}%
+\index{큰걸음 의미구조|see{big-step semantics}}%
+\index{big-step semantics|see{큰걸음 의미구조}}%
+큰걸음(big-step) 의미구조이며, 둘째는 정규식의 미분을 기호
+하나씩만 미분한 바로 다음 계산 과정과 관련짓는
+\index{의미구조!동작과정 의미구조!작은걸음  의미구조}%
+\index{semantics!operational semantics!small-step semantics}%
+\index{작은걸음 의미구조|see{small-step semantics}}%
+\index{small-step semantics|see{작은걸음 의미구조}}%
+작은걸음(small-step)
 의미구조이다.
 
 \begin{figure}\centering
@@ -1915,7 +2040,10 @@ $E$와 결과값의 집합 $V$에 대한 이항관계 $e \Longmapsto v$로 정�
 $e'\longmapsto e''$인 $k+2$번째 단계의 식 $e''$로
 한 단계 더 계산과정이 진행될 수도 있다.
 
-동작과정 의미구조의 이항관계는 보통 추론규칙의 형태로 정의된다.
+동작과정 의미구조의 이항관계는 보통
+\index{추론규칙|see{inference rule}}%
+\index{inference rule|see{추론규칙}}%
+추론규칙(inference rule)의 형태로 정의된다.
 추론규칙이란 형식논리(formal logic)를 다루는 증명 체계(proof system)의
 증명 과정에 활용하도록 정의한 규칙을 말하며, 이런 형식논리의 증명 체계를
 본따 프로그래밍언어의 문법구조(syntax)를 따라 분석하며 의미를 다루는 방식이
@@ -2119,6 +2247,8 @@ $\varsigma(\varepsilon c^{*}) = c^{*}$로 간소화되는 것이다.
 해당하는 정상종료 형태의 식에 도달할 수 있어야 한다는 말이다.
 
 \subsection{비결정적 (작은걸음) 의미구조와 합류성}
+\index{비결정적 의미구조|see{nondeterministic semantics}}%
+\index{nondeterministic semantics|see{비결정적 의미구조}}%
 비결정적 의미구조(nondeterministic semantics)란 하나의 계산식에
 두 가지 이상의 방법으로 규칙이 적용 가능한 경우가 있어 여러 갈래로
 계산이 진행될 가능성이 있는 의미구조를 일컫는다. 우리가 아는
@@ -2186,6 +2316,8 @@ $(\varepsilon\VERT \varnothing)(\varnothing\VERT \varepsilon)$을
 \end{quote}
 이와 같이 여러 갈래로 계산이 진행되는 비결정적인 의미구조라도
 정상 종료되는 결과값에 와서는 하나로 합류하는 성질을
+\index{합류성|see{confluence}}%
+\index{confluence|see{합류성}}%
 합류성(confluence)이라고 한다. 다시 말하자면, 수학에서 상당수의
 대수적 계산식은 합류성을 갖도록 정의된 경우가 많다는 것이다.
 작은걸음 의미구조가 비결정적이더라도 합류성을 만족한다면,
@@ -2242,6 +2374,10 @@ $\cdot\!\longmapsto\!\cdot \subset R_{\partial}\times R_{\partial}$를
 원래의 정규식 $r\in \mathcal{R}$로 하면 된다.
 
 \section{공리적 의미구조}
+\index{의미구조!공리적 의미구조}%
+\index{semantics!axiomatic semantics}%
+\index{공리적 의미구조|see{axiomatic semantics}}%
+\index{axiomatic semantics|see{공리적 의미구조}}%
 공리적 의미구조(axiomatic semantics)에 대해서는 이 책에서는 많이 다루지
 않으므로 간략히 개념만 설명하고 넘어가겠다. 그렇다고 해서 중요하지 않은
 프로그래밍언어의 의미구조 표현 방식이라는 뜻은 아니다. 어떤 관점에서는
@@ -2501,6 +2637,8 @@ $\{\text{밥}\ge n+2\}
 좋고 구현과 관련한 활용에도 유용한지 소개하려 한다.
 
 \subsection{이름의 유효범위(scope)와 납치(catpure)}
+\index{이름의 유효범위|see{scope}}%
+\index{scope|see{이름의 유효범위}}%
 그림\;\ref{fig:samefun}에는 C/C++ 언어로 1부터 n까지의 합을 계산하는 함수를
 처음에는 단순한 반복문으로 작성(그림\;\ref{sfig:samefun1})하고, 이를 여러모로
 수정해 보았다. 반복문 정도의 기초적인 프로그램 요소 정도에만 익숙하더라도
@@ -2586,8 +2724,16 @@ int f(int n) { return (n + 1) * n / 2; }
 아마도 설명하려 들 것이다. 그런데 설명하려고 잠깐 고민하기 전부터
 기초적인 프로그래밍이라도 직접 해본 사람이라면, 이미 이건 함수의 내용을
 따지기 전에 뭔가 달라졌다고 직감했을 것이다. 이런 직감을 전문용어를
-동원해 설명하자면 변수의 이름을 바꿔치기(substitution) 혹은 치환하면서
-원래 함수에서 이름이 유효범위에 묶여있던 (name binding) 구조까지도 의도치
+동원해 설명하자면 변수의 이름을
+\index{바꿔치기|see{substitution}}%
+\index{치환|see{substitution}}%
+\index{substitution|see{바꿔치기}}%
+\index{substitution|see{치환}}%
+바꿔치기(substitution) 혹은 치환하면서
+원래 함수에서
+\index{이름의 유효범위 묶음|see{name binding}}%
+\index{name binding|see{이름의 유효범위 묶음}}%
+이름이 유효범위에 묶여있던 (name binding) 구조까지도 의도치
 않게 바꿔버린 것이다. 그림\;\ref{sfig:samefun2}에서는 변수 \texttt{y}를 선언하고
 사용하는 모든 곳에서 새로운 이름 \texttt{z}로 바꿔치더라도 이름이 유효범위에
 묶여있는 구조는 변하지 않았다. 하지만 그림\;\ref{sfig:samefun3}에서 \texttt{y}를
@@ -2617,6 +2763,8 @@ int f(int n) { return (n + 1) * n / 2; }
 방식으로는 이름 납치가 발생할 위험성이 있다. 그래서 기존에 작성했던 소스코드의
 구조개선을 돕는 리팩토링(refactoring) 도구 등의 프로그래밍언어 소스코드의
 문법구조를 따라 안전하게 일괄적으로 치환하는 기능이 필요한 도구에는
+\index{납치없는 바꿔치기|see{capture avoiding substitution}}%
+\index{capture avoiding substitution|see{납치없는 바꿔치기}}%
 ``납치없는 바꿔치기''(capture avoiding substitution)를 구현해야
 한다. 예를 들면 방금 살펴본 그림\;\ref{sfig:samefun4}에서는 \texttt{n-100}을
 함수 안으로 옮겨오기 전에 이름 납치의 가능성을 인지하고 함수 파라메터 이름을
@@ -2625,6 +2773,8 @@ int f(int n) { return (n + 1) * n / 2; }
 않도록 하면서 말이다.
 
 \subsection{이름의 유효범위 묶음(name binding)을 포함한 문법구조의 같음}
+\index{이름의 유효범위 묶음}%
+\index{name binding}%
 \begin{figure}\centering
 \begin{subfigure}{.25\textwidth}
 \includegraphics[scale=1]{AlonzoChurch.jpg}
@@ -2665,12 +2815,21 @@ for tree={inner sep=0, l sep-=.5em, l=0}
 함수 이름 $f$를 항상 작성하는 친숙한 표기 방식은 함수의 본질만 담은
 최소한의 표기는 아니다. 이러한 관점에서 알론조 처치(Alonzo Church)는
 함수 $f(x) = x+x$를 이름짓지 않고 $\lambda x.x+x$와 같이 표기하는
+\index{람다계산법|see{$\lambda$-calculus}}%
+\index{$\lambda$-calculus|see{람다계산법}}%
 람다계산법($\lambda$-calculus)을 1930년대 초에 창안\cite{Church1932}하였으며
 매개변수의 이름만 바꾸면 (단, 바꾸면서 납치가 일어나지 않게) 똑같아질
 수 있는 관계를 $\lambda x.x \equiv_\alpha \lambda y.y$와 같이 표기하고
+\index{람다계산법!$\alpha$동치}%
+\index{$\lambda$-calculus!$\alpha$-equivalence}%
+\index{$\alpha$동치|see{$\alpha$-equivalence}}%
+\index{$\alpha$-equivalence|see{$\alpha$동치}}%
 $\alpha$동치($\alpha$-equivalence)라 불렀다.
 니콜라스 드브루인(Nicholaas de Bruijn)은 람다식 문법나무에서 이름이 몇번째로
-가까운 유효범위에 묶여있는지 나타내는 정수값인 드브루인 인덱스(de Bruijn index)를
+가까운 유효범위에 묶여있는지 나타내는 정수값인
+\index{드브루인 인덱스|see{de Bruijn index}}%
+\index{de Bruijn index|see{드브루인 인덱스}}%
+드브루인 인덱스(de Bruijn index)를
 이름 대신에 표시함으로써 $\alpha$동치인 람다식이 유일무이한 형태로 표기되는
 람다식에 대한 이름없는 표기 방식\cite{deBruijn1972}을 고안하였다. 그러니까 람다식을
 드브루인 인덱스를 활용한 표기로 바꿔봤는데 똑같다면 서로 $\alpha$동치라는 말이다.
@@ -2694,17 +2853,34 @@ $\lambda f.\cdots$로 가야 하기 때문이다.
 드브루인 인덱스로 옮길 수 없다. 왜냐하면 이런 경우 $x$는 어디에도 묶이지
 않고 자유롭기(free) 때문이다. 또한 $\lambda x.\,y\;x$의 경우도 
 $\lambda~y~1$ 정도까지만 이름을 드브루인 인덱스로 변환할 수 있다.
-왜냐하면 $\lambda x.\,y\;x$에서 $x$는 묶인이름(bound name)이지만
-$y$는 자유이름(free name)이기 때문이다. 람다식에 자유이름이 있으면
+왜냐하면 $\lambda x.\,y\;x$에서 $x$는
+\index{묶인이름|see{bound name}}%
+\index{bound name|see{묶인이름}}%
+묶인이름(bound name)이지만
+$y$는
+\index{자유이름|see{free name}}%
+\index{free name|see{자유이름}}%
+자유이름(free name)이기 때문이다. 람다식에 자유이름이 있으면
 열려있다(open)고 하고 자유이름이 없으면 닫혀있다(closed)고 한다.
 보통 컴파일러의 의미분석 단계 작업의 하나로 분류되는
+\index{유효범위 분석|see{scope analysis}}%
+\index{scope analysis|see{유효범위 분석}}%
 유효범위 분석(scope analysis)을 이런 관점에서 단순화해서 설명하면,
 분석 대상이 되는 프로그램이 자유변수가 없는 닫힌 프로그램이면 통과시키고
 자유변수를 포함하는 열린 프로그램이면 거부하며 오류를 내는 작업으로 볼 수 있다.
 
 \subsection{요약문법나무 + 이름의 유효범위 묶음 = 요약묶음나무}
+\index{요약문법나무}%
+\index{abstract syntax tree}%
+\index{AST}%
 요약문법나무(abstract syntax tree, AST)에
+\index{이름의 유효멈위 묶음}
+\index{name binding}
 이름의 유효범위 묶음(name binding)까지 표현된 구조를
+\index{요약묶음나무|see{abstract binding tree}}%
+\index{abstract binding tree|see{요약묶음나무}}%
+\index{ABT|see{abstract binding tree}}%
+\index{ABT|see{요약묶음나무}}%
 요약묶음나무(abstract binding tree, ABT)라 한다 \cite{PFPL2nd}.
 람다계산법(그림\;\ref{fig:ChurchDeBruijn})에서 $\lambda$와 같이
 이름을 유효범위에 묶어주는 요소를 바인더(binder)라
@@ -2783,6 +2959,8 @@ $\alpha$동치($\alpha$-equivalence) 등과 같은
 미리 구현해 제공하거나 손쉽게 구현할 수 있는 기능을 마련하고 있다.
 
 \section{프로그래밍언어의 타입}
+\index{타입|see{type}}%
+\index{type|see{타입}}%
 대부분의 프로그래밍언어에는 정수, 부동소수점 수, 문자 등의
 기본 타입(basic type) 혹은 원시 타입(primitive type)이 제공되며,
 순서쌍, 구조체, 리스트, 배열 등 여러개의 자료를 하나로 묶는
@@ -2794,7 +2972,12 @@ $\alpha$동치($\alpha$-equivalence) 등과 같은
 
 \subsection{정적 타입과 동적 타입}\label{ssec:StaticDynamicTy}
 타입은 실행 전의 프로그램식이나 계산의 진행 과정에 있는 계신식
-또는 계산의 결과값을 분류하는 유형이다. 정적(static) 타입은 실행 전에
+또는 계산의 결과값을 분류하는 유형이다.
+\index{정적 타입|see{static type}}%
+\index{static type|see{정적 타입}}%
+\index{타입!정적 타입}%
+\index{type!static type}%
+정적(static) 타입은 실행 전에
 계산식을 미리 분류하는 개념으로, 실행 중에도 그 성질이 유지될 것을
 기대하며 최종적으로 어떤 종류의 값으로 계산될지도 가늠해 볼 수 있다.
 동작과정 의미구조의 관점에서 표현해 보면 다음과 같다. 실행 전에 $e:\tau$,
@@ -2804,12 +2987,19 @@ $e_1:\tau,\;e_2:\tau,\;\cdots$임을 기대하며 큰걸음으로
 $e\Longmapsto v$일 때 $v:\tau$임을 기대한다는 말이다.
 이렇게 정적 타입을 기반으로 한 언어에서 대표적으로 만족되기를
 기대하는 실행 과정에서 타입이 유지되는 성질을
+\index{타입보존|see{type preservation}}%
+\index{type preservation|see{타입보존}}%
 `타입보존'(type perservation)이라고 한다. 또한 잘 설계된 정적
 타입 언어에서는 모든 구성 요소가 타입으로 잘 분류되는 (well-typed)
 프로그램은 계산 도중에 비정상 종료되지 않고 원활히 진행(progress)되는
 성질을 만족할 것도 기대한다. 정리하면, 이상적인 정적 타입 언어는
 타입으로 잘 분류되는 프로그램이 실행 전에 분류된 타입대로 성질을 유지하며
-원활히 계산이 진행되도록 타입 시스템이 안전성(safety 또는 soundness)을
+원활히 계산이 진행되도록 타입 시스템이
+\index{안전성|see{safety}}%
+\index{안전성|see{soundness}}%
+\index{safety|see{안전성}}%
+\index{soundness|see{안전성}}%
+안전성(safety 또는 soundness)을
 보장하는 것을 추구한다. 실행 효율의 측면에서도 정적 타입 언어는
 유리하다. 프로그램식이나 변수의 타입이 실행 중에 보존된다는 성질을
 기대할 수 있으므로, 예를 들어 실행 전에 정수 타입으로 분류된 변수는
@@ -2818,7 +3008,12 @@ $e\Longmapsto v$일 때 $v:\tau$임을 기대한다는 말이다.
 정수를 처리에 필요한 만큼만의 메모리를 배정하고 정수 타입에
 최적화된 처리를 할 수 있기 때문이다.
 
-그에 상대되는 개념인 동적(dynamic) 타입은, 더 이상 계산할 필요 없이
+그에 상대되는 개념인 
+\index{동적 타입|see{dynamic type}}%
+\index{dynamic type|see{동적 타입}}%
+\index{타입!동적 타입}%
+\index{type!dynamic type}%
+동적(dynamic) 타입은, 더 이상 계산할 필요 없이
 자명한 기본타입의 리터럴 등 일부 프로그램의 요소를 제외하고는,
 일반적으로 실행 전의 프로그램식을 미리 분류하지 않고 실행하여 계산된
 결과값에 대해서만 어떤 타입인지 확인하여 그 다음 계산 진행 과정에
@@ -2828,6 +3023,8 @@ $e\Longmapsto v$일 때 $v:\tau$임을 기대한다는 말이다.
 발생하게 되는 것이다. 동적 언어는 이렇게 미리 오류를 검출하기 어렵고
 실행 시간에 뒤늦게 오류가 드러나는 단점을 감수하고서라도 프로그래머가
 표현하고자 하는 모든 정상적으로 계산 가능한 프로그램은 다 수용하겠다는
+\index{완전성!see{completeness}}%
+\index{completeness|see{완전성}}%
 `완전성'(completeness)을 추구한다고 볼 수도 있다. 정적 타입 언어에서는
 안전성을 추구하다 보니 실제로 실행해 보면 문제 없이 동작하는
 일부 프로그램이 타입 시스템의 규칙에 부합하지 않는다는 이유로
@@ -2848,14 +3045,29 @@ $e\Longmapsto v$일 때 $v:\tau$임을 기대한다는 말이다.
 동적 타입 언어로 작성하듯 프로그래밍할 수 있으면서 필요에 따라서
 정적 타입의 기능을 일부 활용한다거나, 정적 타입 언어에서처럼
 더 많은 타입 정보를 명세함으로써 더 원활한 동적 타입 언어의 활용을
-꾀하는 등의 여러 가지 다양한 방식을 아울러 하이브리드(hybrid) 타입이라
-부른다. 예를 들면 소위 소프트(soft) 타입\cite{Cartwright2004soft}을
+꾀하는 등의 여러 가지 다양한 방식을 아울러
+\index{hybrid type|see{하이브리드 타입}}%
+\index{하이브리드 타입|see{hybrid type}}%
+\index{타입!하이브리드 타입}
+\index{type!hybrid type}
+하이브리드(hybrid) 타입이라
+부른다. 예를 들면 소위
+\index{soft type|see{소프트 타입}}%
+\index{소프트 타입|see{soft type}}%
+\index{타입!하이브리드 타입!소프트 타입}%
+\index{type!hybrid type!soft type}%
+소프트(soft) 타입\cite{Cartwright2004soft}을
 표방하는 언어 시스템은 추가적인 타입 정보를 동적 언어에 제공함으로써
 실행 성능 향상을 도모하거나 실행 오류가 발생했을 때 추가적인 타입 정보를
 함께 활용함으로써 더 나은 오류 처리를 도모하기는 하지만, 정적 타입의
 가장 핵심적인 기능이자 장점인 실행 전에 프로그램에서 아귀가 맞지 않는
 부분을 찾아 오류를 검출하는 기능을 도입하지는 않았었다. 최근 들어
-업계에서도 인기가 높아지는 점진적(gradual) 타입\cite{Jeremy2006gradual}을
+업계에서도 인기가 높아지는 
+\index{gradual type|see{점진적 타입}}%
+\index{점진적 타입|see{gradual type}}%
+\index{타입!하이브리드 타입!점진적 타입}%
+\index{type!hybrid type!gradual type}%
+점진적(gradual) 타입\cite{Jeremy2006gradual}을
 표방하는 언어 시스템은 정적 타입 검사로 실행 전에 오류를 검출할 수
 있으면서도, 기존에 동적 타입 언어로 작성된 코드를 거의 그대로 활용하며
 원하는 부분에 필요한 만큼만 정적 타입을 점진적으로 적용할 수 있도록
