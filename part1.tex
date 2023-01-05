@@ -68,6 +68,9 @@ syntax를 우리말로 옮겨보라고 했을 때 주로
     \item 일의성, 일관성/통일성보다 친숙성을 우선시한 번역
 \end{enumerate}
 
+\index{syntax}%
+\index{grammar}%
+\index{문법}%
 자연언어를 다루는 언어학에서는 syntax를 grammar의 일부분으로 인식하는 경우가
 대부분이지만, 프로그래밍언어 특성상 grammar를 활용하는 경우는 대부분
 syntax를 처리하기 위해서이다. 즉, 자연언어에서는 grammar라고 하면 syntax를
@@ -88,10 +91,10 @@ syntax를 처리하기 위해서이다. 즉, 자연언어에서는 grammar라고
 분명히 밝힐 필요가 있다고 생각되는 경우에는 영문 용어와 병기하도록 하겠다.
 
 \section{자연언어, 인공언어, 형식언어}
-\index{자연언어|see{natural language}}
-\index{natural language|see{자연언어}}
-\index{언어!자연언어|see{natural language}}
-\index{language!natural language|see{자연언어}}
+\index{자연언어|see{natural language}}%
+\index{natural language|see{자연언어}}%
+\index{언어!자연언어|see{natural language}}%
+\index{language!natural language|see{자연언어}}%
 자연언어(natural/ordinary language)는 사람들끼리 의사소통을 위해 누가 만들었는지도 모르게
 자연스럽게 생겨난 언어를 일컫는다. 한국어, 영어 등과 같은 대다수의 음성언어가
 자연언어에 속한다. 또한 비음성언어 중에 자연언어로는 농아인들 사이에서 의사소통을
@@ -153,6 +156,8 @@ syntax를 처리하기 위해서이다. 즉, 자연언어에서는 grammar라고
 
 \section{자연언어와 프로그래밍언에서 Syntax의 비중}
 \label{sec:NatProgSyn}
+\index{syntax}%
+\index{구문}%
 언어학에서 음성 기반의 자연언어를 다룰 때는
 작은 단위부터 큰 맥락까지 아래와 같이 다섯 같은 단계로 나눠 설명한다고 한다.
 \begin{enumerate}\tightlist
@@ -176,6 +181,8 @@ syntax를 처리하기 위해서이다. 즉, 자연언어에서는 grammar라고
 언어학에서 syntax는 grammar가 다루는 영역 중의 하나이므로
 둘을 같은 우리말 용어로 옮겨 놓는다면 대단히 혼란스러울 것이다.
 
+\index{syntax}
+\index{문법}
 음성에 기반하지 않는 형식언어에서 음운론은 애초부터 논외이다.
 프로그래밍언어 문법(syntax)의 대부분은 형식언어를 분류한 촘스키 계층
 중에서 문맥자유언어(context-free language, CFL)에 해당한다.
@@ -195,13 +202,27 @@ syntax를 처리하기 위해서이다. 즉, 자연언어에서는 grammar라고
 
 \section{형식언어이론에서 Syntax와 Grammar의 관계}
 \label{sec:FormalLangSG}
-\index{형식언어이론|see{formal language theory}}
-\index{formal language theory|see{형식언어이론}}
+\index{syntax}%
+\index{grammar}%
+\index{형식언어!syntax}%
+\index{형식언어!grammar}%
+\index{formal language!syntax}%
+\index{formal language!grammar}%
+\index{형식언어이론|see{formal language theory}}%
+\index{formal language theory|see{형식언어이론}}%
 형식언어이론(formal language theory, FLT)은 문장(정확히는 문자열)의 생김새(syntax)만을
-대상으로 하며 그 뜻(semantics)은 생각하지 않는다. 형식언어이론에서 `언어'란 단순히
+대상으로 하며 그 뜻(semantics)은 생각하지 않는다. 형식언어이론에서
+\index{언어|see{language}}%
+\index{language|see{언어}}%
+`언어'(language)란 단순히
+\index{string|see{문자열}}%
+\index{문자열|see{string}}%
 문자열(string)의 집합으로 정의된다. 문자열은 언어마다 미리 정해놓은 유한한 종류의
 기호(symbol)를 한줄로 유한한 개수만큼 늘어놓아 만들어지며, 늘어놓은 기호의 개수가
-바로 문자열의 길이가 된다. 형식언어에서 기호는 자연언어의 어휘(lexeme)에 대응되는 부분이다.
+바로 문자열의 길이가 된다. 형식언어에서 기호는 자연언어의
+\index{어휘|see{lexeme}}%
+\index{lexeme|see{어휘}}%
+어휘(lexeme)에 대응되는 부분이다.
 자연언어의 어휘는 의미의 최소단위인 형태소로 이루어지는 반면,
 형식언어의 기호는 더 이상 쪼개지지 않고 의미가 부여되지 않는
 원자적이고 추상적인 어휘에 해당한다.
@@ -300,16 +321,18 @@ $L$의 고유한 성질인 syntax를 표현하는 방식의 하나인 grammar를
 
 \section{형식언어의 문법에 따른 문자열 생성}
 \label{sec:GenGrammar}
-\index{문법}
-\index{grammar}
-\index{형식문법|see{formal grammar}}
-\index{formal grammar|see{형식문법}}
+\index{문법}%
+\index{grammar}%
+\index{형식문법|see{formal grammar}}%
+\index{formal grammar|see{형식문법}}%
 형식언어의 문법(grammar)을 형식언어를 다룬다는 점을 강조하여 형식문법(formal grammar)이라
 부르기도 한다. 형식언어이론에서 형식문법을 작성하는 표준적인 방식은 문자열을
 만들어 나가는 과정을 안내하는 생성규칙을 작성하며 이러한 방식로 문법을
 표현한 것을
 \index{생성문법|see{generative grammar}}%
 \index{generative grammar|see{생성문법}}%
+\index{형식문법!생성문법}%
+\index{formal grammar!generative grammar}%
 생성문법(generative grammar)이라고 한다. 형식언어의 문법
 $G = \langle\, \Sigma, N, S, R \,\rangle$의 네 가지 요소는 다음과 같다.\vspace{-1ex}%
 \index{단말 기호|see{terminal symbol}}%
@@ -320,6 +343,14 @@ $G = \langle\, \Sigma, N, S, R \,\rangle$의 네 가지 요소는 다음과 같�
 \index{start symbol|see{시작 기호}}%
 \index{생성규칙|see{production rule}}%
 \index{production rule|see{생성규칙}}%
+\index{형식문법!생성문법!단말 기호}%
+\index{형식문법!생성문법!비단말 기호}%
+\index{형식문법!생성문법!시작 기호}%
+\index{형식문법!생성문법!생성규칙}%
+\index{formal grammar!generative grammar!terminal symbol}%
+\index{formal grammar!generative grammar!nonterminal symbol}%
+\index{formal grammar!generative grammar!start symbol}%
+\index{formal grammar!generative grammar!production rule}%
 \begin{itemize}\tightlist
     \item[$\Sigma$]: 생성된 문자열에 나타나는 단말 기호(terminal symbol)의 집합
     \item[$N$]: 생성 과정에 추가로 나타나는 비단말 기호(nonterminal symbol)의 집합
@@ -327,6 +358,8 @@ $G = \langle\, \Sigma, N, S, R \,\rangle$의 네 가지 요소는 다음과 같�
     \item[$R$]: 생성규칙(production rule)의 집합.
 \end{itemize}
 
+\index{symbol|see{기호}}
+\index{기호|see{symbol}}
 여기서 문법에 대해 구체적으로 소개하기 전에 형식언어란 문자열의 집합이며
 문자열은 추상적인 어휘에 해당하는 `기호'로 이루어진다고 언급했는데,
 그때 말한 기호가 바로 단말 기호에 해당한다.
@@ -342,8 +375,18 @@ $G = \langle\, \Sigma, N, S, R \,\rangle$의 네 가지 요소는 다음과 같�
 생성할 전체 문자열을 대표하는 기호로, 하나의 시작 기호($S$)로부터 문법의
 생성규칙에 따라 단계적으로 생성 과정을 거쳐 최종적으로는 단말 기호만으로
 이루어진 문자열이 만들어지게 된다. 생성 과정의 중간 단계에서는 비단말 기호만으로
-이루어지거나 비단말과 단말 기호가 함께 나타나는 확장된 문자열의 개념이 필요하다.
-문자열을 구성하는 바탕이 되는 기호의 집합을 알파벳(alphabet)이라 부른다.
+이루어지거나 비단말과 단말 기호가 함께 나타나는
+\index{확장된 문자열|see{intermediate string}}%
+\index{intermediate string|see{확장된 문자열}}%
+\index{문자열!확장된 문자열}%
+\index{string!intermediate string}%
+확장된 문자열(intermediate string)의 개념이 필요하다.
+문자열을 구성하는 바탕이 되는 기호의 집합을
+\index{알파벳|see{alphabet}}%
+\index{alphabet|see{알파벳}}%
+\index{형식언어!알파벳}%
+\index{formal language!alphabet}%
+알파벳(alphabet)이라 부른다.
 최종 문자열의 알파벳은 단말 기호 집합($\Sigma$)이며 확장된 문자열의 알파벳은
 단말과 비단말 기호의 합집합($\Sigma\cup N$)이다. 참고로 알파벳이 $X$인
 모든 문자열의 집합을 $X^{*}$라 표기한다. 이를테면
@@ -351,7 +394,10 @@ $x$가 단말 기호를 알파벳으로 삼는 문자열이고
 $\alpha$가 단말과 비단말 모두를 알파벳으로 삼는 문자열이라는
 설명 대신 $x\in\Sigma^{*}$이고 $\alpha\in(\Sigma\cup N)^{*}$라고 쓰면 된다.
 
-문법에서 가장 핵심적인 내용은 $\alpha\to\beta$ 형태의 생성규칙(production rule)이다.
+문법에서 가장 핵심적인 내용은 $\alpha\to\beta$ 형태의
+\index{생성규칙}%
+\index{production rule}%
+생성규칙(production rule)이다.
 여기서 $\alpha$와 $\beta$는  $\Sigma\cup N$을 알파벳으로 하는 확장된 문자열인데,
 단, $\alpha$는 길이 0인 빈문자열($\varepsilon$으로 표기)이 아니어야 한다
 (즉, $\lvert\alpha\rvert>0$ 혹은 $\alpha\neq\varepsilon$).
@@ -360,7 +406,10 @@ $\alpha$가 단말과 비단말 모두를 알파벳으로 삼는 문자열이라
 하나를 $R$에서 찾아 화살표 오른쪽($\beta$)의 내용으로 치환해 나가는 과정을
 반복한다. 여러 생성규칙의 화살표 왼쪽이 일치하는 경우에는 어떤 것을 선택해도 된다.
 치환 결과로 나온 문자열 $x$가 비단말 없이 단말 기호로만 이루졌다면
-성공적으로 문자열을 유도(deriviation)한 것이며
+성공적으로 문자열을
+\index{유도|see{derivation}}%
+\index{derivation|see{유도}}%
+유도(deriviation)한 것이며
 $S\xRightarrow[\,G]{} \cdots \xRightarrow[\,G]{} x$ (단, $x\in\Sigma^{*}$)와 같이 표현한다.
 만일 화살표의 왼쪽이 일치하는 생성규칙을 $R$에서 찾을 수 없다면
 최종 문자열 유도에 실패한 상황으로 생성 과정을 더 이상 진행할 수 없게 된다.
@@ -478,9 +527,24 @@ $L = \{\, \txtbullet\txtcircle
 생성 과정에서는 매 단계마다 중간 과정에 중복된 정보의 표시가 많다. 예를 들면
 그림\;\ref{fig:OneLangTwoGrammar}의 $G_1$에 따른 유도 과정의 첫 단계에서
 생성된 가장 왼쪽의 \textbullet가 이후 단계에서 반복적으로 표기된다.
-순차적으로 작성된 유도(derivation) 과정 대신에 도식적인 문법나무(syntax tree)의
+순차적으로 작성된 유도(derivation) 과정 대신에 도식적인
+\index{문법나무|see{syntax tree}}
+\index{syntax tree|see{문법나무}}
+문법나무(syntax tree)의
 형태로 표현하면 중복된 기호의 표시가 줄어들어 한눈에 알아보기 좋다.
 
+\index{문법나무!파스트리}%
+\index{문법나무!유도나무}%
+\index{문법나무!구체적 문법나무}%
+\index{syntax tree!parse tree}
+\index{syntax tree!derivation tree}
+\index{syntax tree!concrete syntax tree}
+\index{파스트리|see{parse tree}}%
+\index{parse tree|see{파스트리}}%
+\index{유도나무|see{derivation tree}}%
+\index{derivation tree|see{유도나무}}%
+\index{구체적 문법나무|see{concrete syntax tree}}
+\index{concrete syntax tree|see{구체적 문법나무}}
 참고로 프로그래밍언어에서 다루는 문법나무는 두 종류가 있다.
 지금까지 다룬 그림\;\ref{fig:OneLangTwoGrammar}에 나타난 종류의 문법나무를
 유도나무(derivation tree), 파스트리(parse tree), 또는
@@ -572,7 +636,7 @@ $L = \{\, \txtbullet\txtcircle
 (태생적으로, inherently) 모호하다고 말한다. 다음은 잘 알려진 모호한
 (문맥자유)언어의 사례이다.
 \[L_a = \{a^ib^jc^k \mid i=j ~\text{또는}~ j=k ~\text{($i,j,k$는 양의 정수) }\}\]
-참고로 $a^i$는 기호 $a$가 $i$번 반복되 나열된 문자열을 말한다.
+참고로 $a^i$는 기호 $a$가 $i$번 반복해 나열된 문자열을 말한다.
 예컨대, $a^3 = aaa$이며 $a^3b^2c^2 = aaabbcc\,$이다.
 위 언어의 모호성을 엄밀히 증명하려면 $L_a$를 표현하는 모든 가능한 문법을
 다 시도해 보아도 불가능함을 보여야 하는데, 여기서는 그런 엄밀한 증명보다는
