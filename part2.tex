@@ -225,6 +225,10 @@ ML이나 Haskell 같은 함수형 언어에서 가장 자연스럽게 지원되�
 
 \section{줄임(reduction)과 값계산(evaluation)의 맥락적 의미구조}
 \label{sec:evalSmallStep}
+\index{줄임}\index{reduction}%
+\index{비결정적 의미구조}\index{nondeterministic semantics}%
+\index{작은걸음 의미구조}\index{small-step semantics}%
+\index{맥락적 의미구조}\index{contextual semantics}%
 앞서 타입없는 람다계산법의 줄임(reduction)을 규정하는
 비결정적 작은걸음 의미구조(\ref{sec:UTLChaskell}절의 그림\;\ref{fig:UTLC})를
 소개한 바 있다. 이를 ($\eta$규칙은 제외하고) 맥락적 의미구조의 형태로 옮기면
@@ -247,7 +251,10 @@ $\mathcal{E}
 \begin{quote}
 $\mathcal{E} ~::=~ \bullet \;\mid\; \mathcal{E}~e$
 \end{quote}
-함수 적용을 우선시하는 `적용 먼저 값계산'(call-by-name evaluation)의 맥락적
+함수 적용을 우선시하는
+\index{적용 먼저 값계산|see{call-by-name evaluation}}%
+\index{call-by-name evaluation|see{적용 먼저 값계산}}%
+`적용 먼저 값계산'(call-by-name evaluation)의 맥락적
 의미구조가 된다. 맥락의 정의에서 $\lambda x.\mathcal{E}$가 제외되었으므로
 함수요약식의 함수 몸체 부분의 맥락에서는 더 이상 계산이 진행되지 않는다.
 또한, $e~\mathcal{E}$도 제외되었으므로 함수적용식에서 오른쪽에 있는
@@ -270,6 +277,8 @@ n ~::=~ x \;\mid\; n~e          &\quad\text{(neutrals)}
 \end{smallmatrix} \)
 \end{quote}
 함수에 적용되는 인자의 계산을 우선시하는
+\index{인자 먼저 값계산|see{call-by-value evaluation}}%
+\index{call-by-value evaluation|see{인자 먼저 값계산}}%
 `인자 먼저 값계산'(call-by-value evaluation)의 경우에는
 인자가 먼저 값으로 계산된 다음 $\beta$줄임이 진행되어야 하므로
 값계산 맥락뿐만 아니라 $\beta$규칙도 다음과 같이 바꿔야 한다.
@@ -297,19 +306,24 @@ n ~::=~ x \;\mid\; n~v          &\quad\text{(neutrals)}
 적용 먼저 값계산이든 인자 먼저 값계산이든 값(value)은
 함수요약식($\lambda x.e$)의 형태만 가능하다.
 
+\index{적극적 값계산}\index{eager evaluation}%
 인자 먼저 값계산을 `적극적 값계산'이라고도 한다.
 적용 먼저(call-by-name) 값계산과 대비되는 문맥에서는 
 인자 먼저(call-by-value) 값계산,
+\index{게으른 값계산}\index{lazy evaluation}%
 게으른 값계산(lazy evaluation)과 대비되는 문맥에서는
 적극적 값계산(eager evaluation)으로 부르곤 한다.
 
 \section{값계산 환경을 활용한 큰걸음 의미구조}
 \label{sec:evalBigStep}
+\index{큰걸음 의미구조}\index{big-step semantics}%
 람다계산법의 값계산(evaluation)에 대한 맥락적 작은걸음 의미구조는
 람다계산법의 줄인(reduction)에 대한 맥락적 작은걸음 의미구조와 관련해
 공통점과 차이점이 잘 드러나기 때문에 값계산과 줄임을 같은 관점에서
 연관지어 이해할 수 있다는 장점이 있다. 하지만 이렇게 매번 함수 적용을
-할 때마다 함수 몸체에서 파라메터 이름을 인자로 치환(substitution)하는
+할 때마다 함수 몸체에서 파라메터 이름을 인자로
+\index{치환}\index{substitution}
+치환(substitution)하는
 방식을 곧이곧대로 프로그래밍언어의 구현으로 옮긴다면 효율적이지 못한
 경우가 많다. 예컨대, 조건식과 산술식이 첨가된 다음과 같은 람다식의
 값계산 과정을 살펴보자.
@@ -343,7 +357,12 @@ $\{ y{\mapsto}2,\,x{\mapsto}1 \}$와 같이 정리해 두고 필요한 곳에서
 찾아보면 되므로, 앞서 살펴본 치환 기반의 작은걸음 계산 과정에서
 $y+y+y+y$를 $2+2+2+2$로 바꿔쓰는 불필요한 작업을 하지 않아도 된다. 
 이렇게 치환 기반의 의미구조에서 치환했어야 할 내용을 차곡차곡 정리해
-한데 모아 놓은 것을 `값계산 환경'(evaluation environment) 또는
+한데 모아 놓은 것을
+\index{값계산 환경|see{evaluation environment}}%
+\index{evaluation environment|see{값계산 환경}}%
+`값계산 환경'(evaluation environment) 또는
+\index{실행 환경|see{evaluation environment}}%
+\index{execution environment|see{실행 환경}}%
 `실행 환경'(execution environment)이라고도 하는데, 혼동의 여지가 없는
 경우에는 줄여서 그냥 `환경'(environment)이라고 부르기도 한다. 지금부터는
 값계산 환경을 활용한 큰걸음 의미구조에 대해 좀더 구체적으로 알아보기로 하자.
@@ -366,6 +385,7 @@ $x'\in \mathrm{fv}(\lambda x.e)$를 환경으로부터 $\rho(x')$와
 일반적으로 식($e$)에 자유변수가 나타날 수 있어 단독으로 놓고 보면 열린식이지만
 환경($\rho$)의 정의역이 이를 모두 덮는 경우 전체 순서쌍을 놓고 보면
 마치 닫힌식 같다는 의미에서 그러한 $\langle e,\rho\rangle$를
+\index{클로저|see{closure}}\index{closure|see{클로저}}%
 `클로저'(closure)라 일컫는다.
 참고로, 자바스크립트 등의 언어에서도 중첩된 함수 활용에서 발생하는 현상을
 설명하려 클로저의 개념을 동원하기도 한다.\footnote{%
@@ -449,7 +469,10 @@ v\in\texttt{Val} ~::=~& \langle\,\lambda x.e,\,\rho\,\rangle
 	\label{fig:bigStepCBN} }
 \end{figure}
 
-타입없는 람다계산법에 대한 인자 먼저 값계산과 적용 먼저 값계산의
+타입없는 람다계산법에 대한
+\index{인자 먼저 값계산}\index{call-by-value evaluation}%
+\index{적용 먼저 값계산}\index{call-by- name evaluation}%
+인자 먼저 값계산과 적용 먼저 값계산의
 큰걸음 의미구조가 그림 \ref{fig:bigStepCBV}와 \ref{fig:bigStepCBN}에
 나타나 있는데 그 차이점을 중심으로 살펴보자. 인자 먼저(call-by-value)
 값계산 환경에서는 이름에 항상 계산이 끝마친 상태의 값에 대응되므로
