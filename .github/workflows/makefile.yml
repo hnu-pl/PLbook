@@ -13,7 +13,7 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
       - name: Compile LaTeX document
-        uses: dante-ev/latex-action@latest
+        uses: dante-ev/latex-action@edge
         with:
-          extra_system_packages: make jupyter jupyter-nbconvert gawk inkscape biber
+          extra_system_packages: make jupyter-nbconvert gawk inkscape biber
           entrypoint: ./release.sh
