@@ -13,7 +13,7 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
       - name: Compile LaTeX document
-        uses: dante-ev/latex-action@2021-A
+        uses: dante-ev/latex-action@2021-12-15
         with:
           extra_system_packages: make jupyter-nbconvert biber
           entrypoint: ./release.sh
