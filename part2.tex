@@ -485,7 +485,7 @@ v\in\texttt{Val} ~::=~& \langle\,\lambda x.e,\,\rho\,\rangle
 적용 먼저든 차이점이 없다. 함수적용식에 대한 값계산 규칙($@$)에는
 각 값계산 전략의 특징이 잘 드러난다. 인자 먼저(call-by-value) 값계산
 규칙에서는 인자를 값으로 계산하는 과정($\langle e_2,\rho\rangle \stackrel{\!\!_\textrm{cbv}}{\Longmapsto} v_2$)이 나타나는 반면,
-적용 먼저(call-by-value) 값계산 규칙에서는 그런 과정 없이
+적용 먼저(call-by-name) 값계산 규칙에서는 그런 과정 없이
 함수 파라메터($x$)에 인자식($e_2$) 그대로의
 클로저($\langle e_2,\rho\rangle$)에 대응시켜
 적용하는 함수값의 환경($\rho_1$)을 확장한 환경
