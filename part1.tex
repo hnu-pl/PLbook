@@ -154,12 +154,12 @@ syntax를 처리하기 위해서이다. 즉, 자연언어에서는 grammar라고
 같은 기술로 에스페란토와 같은 인공언어를 처리한다 인공언어처리라고 부르지 않고
 그냥 똑같이 자연언어처리로 취급할 따름이다.
 
-\section{자연언어와 프로그래밍언에서 Syntax의 비중}
+\section{자연언어와 프로그래밍언어에서 Syntax의 비중}
 \label{sec:NatProgSyn}
 \index{syntax}%
 \index{구문}%
 언어학에서 음성 기반의 자연언어를 다룰 때는
-작은 단위부터 큰 맥락까지 아래와 같이 다섯 같은 단계로 나눠 설명한다고 한다.
+작은 단위부터 큰 맥락까지 아래와 같이 다섯 단계로 나눠 설명한다고 한다.
 \begin{enumerate}\tightlist
     \item 음운론(phonology):
     소리의 단위인 음운을 다루는 이론.
@@ -2636,7 +2636,7 @@ $\{\text{밥}\ge n+2\}
 유효범위를 어떤 데이터 구조의 관점에서 접근하면 개념적으로 이해하기도
 좋고 구현과 관련한 활용에도 유용한지 소개하려 한다.
 
-\subsection{이름의 유효범위(scope)와 납치(catpure)}
+\subsection{이름의 유효범위(scope)와 납치(capture)}
 \index{이름의 유효범위|see{scope}}%
 \index{scope|see{이름의 유효범위}}%
 그림\;\ref{fig:samefun}에는 C/C++ 언어로 1부터 n까지의 합을 계산하는 함수를
@@ -3084,7 +3084,7 @@ $e\Longmapsto v$일 때 $v:\tau$임을 기대한다는 말이다.
 \begin{align*}
  \llbracket\,\texttt{plus}\,\rrbracket
  =~& \{ (0,0)\mapsto 0,\,
-        (0,1)\mapsto 1,\,(1,0)\to 1,\,
+        (0,1)\mapsto 1,\,(1,0)\mapsto 1,\,
         (0,2)\mapsto 2,\,(1,1)\mapsto 2,\,
         \ldots\,
      \}
