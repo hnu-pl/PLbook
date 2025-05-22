@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@latest
       - name: Compile LaTeX document
-        uses: dante-ev/latex-action@v3
+        uses: dante-ev/latex-action@latest
         with:
           extra_system_packages: make jupyter-nbconvert biber
           entrypoint: ./release.sh
