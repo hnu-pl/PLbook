@@ -13,7 +13,7 @@ NBTEXFILES:= HelloHaskell.tex \
 	  HWsample.tex
 
 main: main.tex sample.bib ${TEXFILES}
-	latexmk -pdf main.tex
+	latexmk -f -pdf main.tex
 
 clean:
 	rm -f *.aux *.bbl *.blg *.bcf main.toc main.fls main.fdb_latexmk ${NBTEXFILES}
