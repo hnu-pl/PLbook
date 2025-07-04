@@ -296,6 +296,12 @@ $L$의 고유한 성질인 syntax를 표현하는 방식의 하나인 grammar를
     사용하는 설계/시공 방법에 비유할 수 있다.
 \end{itemize}
 
+\section*{연습문제}
+\begin{enumerate}[itemsep=0pt]
+    \item 프로그래밍에 대해 소개하는 책에서 C나 Java 언어의 `문법'이라고 하면,
+    이것은 영문에서 syntax를 옮긴 것인가, 아니면 grammar를 옮긴 것인가?
+\end{enumerate}
+
 
 \chapter{형식언어이론}
 \index{형식언어이론}
@@ -884,6 +890,21 @@ $\displaystyle
        , \mathtt{wwovvvv}
        , \mathtt{wwwovvvvvv}
        , \ldots \right\}$
+
+\item ``정규문법이 아닌 문맥자유문법''으로 정의할 수 있다면
+      항상 ``정규언어가 아닌 문맥자유언어''일까?
+      그렇다면 그 이유를 설명하고, 아니라면 반례를 들라.
+\item ``정규언어가 아닌 문맥자유언어'' 중에 정규문법으로 나타낼 수 있는 언어가 있을까?
+      있다면 그 예를 들고, 없다면 그 이유를 설명하라.
+\end{enumerate}
+
+\section*{탐구과제}
+\begin{enumerate}
+ \item C의 여러 줄 주석과 Rust의 여러 줄 주석은 대략
+      \verb|/* ... */| 이런 모양으로 비슷해 보이지만,
+      C의 경우와 달리 Rust의 여러 줄 주석은 정규문법으로는 처리할 수 없다.
+      Rust의 여러 줄 주석이 C와 어떤 점이 다르기 때문에 이런 차이가 있는지
+      조사하여 설명해 보라.
 \end{enumerate}
 
 \chapter[프로그래밍언어의 문법구조(Syntax)]{프로그래밍언어의\\문법구조(Syntax)}
@@ -1326,12 +1347,13 @@ $::=$ 기호 및 수학의 집합 관련 기호 등을 활용한 추상문법 �
 학술서적\cite{Winskel93,Mitchell96fpl}에서 통용되는 방식이다. 앞으로
 이 책에서도 요약문법을 표기할 때 이와 같은 방식으로 나타낼 것이다.
 
-참고로 그림\;\ref{sfig:GrammarAS}의 표현은 형식문법 생성규칙의
-형태만을 빌렸을 뿐 엄밀한 의미에서는 형식언어이론에서 말하는
-형식문법이라 볼 수 없다. 왜냐하면 형식언어이론에서는 문법의
-대상이 되는 언어를 기호의 일차원적 나열인 문자열의 집합으로
-정의하는데, 요약문법은 애초부터 요약문법나무(AST)만을 대상으로
+참고로 그림\;\ref{sfig:GrammarAS}나 \ref{sfig:MathAS}의 표현은
+생성규칙이나 BNF의 형태만을 빌렸을 뿐 엄밀한 의미에서는
+형식언어이론에서 말하는 형식문법이라든가 BNF로 볼 수는 없다.
+왜냐하면 형식언어이론에서는 문법의 대상이 되는 언어를 기호의 일차원적 나열인
+문자열의 집합으로 정의하는데, 요약문법은 애초부터 요약문법나무(AST)만을 대상으로
 할 뿐 일차원적 구조를 직접 처리할 수 없는 문법구조이기 때문이다.
+마찬가지로 BNF 역시 구체적 문법을 표현하기 위한 표기법이다.
 
 \section{정규식}
 \label{sec:regex}
@@ -1398,7 +1420,7 @@ r \in \mathcal{R}
 참고로, $X$의 멱집합 $2^X = \{A\mid A\subset X\}$는 $X$의 모든 부분집합의
 집합을 나타낸다. 앞서 \ref{sec:GenGrammar}절에서 형식언어를 다루면서
 $\Sigma^{*}$란 알파벳을 $\Sigma$로 삼는 가능한 모든 (유한한 길이의)
-문자열 전체의 집합을 나타낸다고 소개했다. 그렇다면 그 멱집합
+문자열 전체의 집다양하나타낸다고 소개했다. 그렇다면 그 멱집합
 $2^{\Sigma^{*}}$는 $\Sigma$를 알파벳으로 삼는 문자열로 이루어진
 가능한 모든 집합, 즉 알파벳이 $\Sigma$인 모든 형식언어의 집합을 나타낸다.
 그러므로 그림\;\ref{fig:RegexSynSem}의 지시함수(denotation function) 혹은
@@ -1467,7 +1489,7 @@ r^{*} \equiv~& r^0 \VERT r^1 \VERT r^2 \VERT r^3 \VERT \cdots
 
 몇 가지 간단한 예시로 정규식에 대한 소개를 마무리하고자 한다.
 1, 10, 11, 100, 101, \ldots 같은 이진수 양의 정수 리터럴을
-대표하는 정규식은 어떻게 작성해야 할까? 첫 글자는 1이어야 하고
+대표하는 정규식은 어떻게 작성해야 할까? 첫 글자는 1이어야차고로
 그 다음부터는 0이나 1 중 아무거나 (0번 포함) 여러 번 나타날 수
 있으므로 $1(0\VERT{}1)^{*}$라고 작성하면 된다. 그렇다면 0까지 포함한
 이진수 자연수 리터럴에 대한 정규식은 방금 작성했던 정규식에
@@ -1538,30 +1560,18 @@ JavaScript 언어의 정규식 등 여러 종류가 있다.
 
 \section*{연습문제}
 \begin{enumerate}
+ \item 일반적으로, 괄호가 나타나는 문법은 `구체적 문법'인가 `요약문법'인가?
+ \item 이항 연산자 (예컨대, 수식에서 $+$, $-$, $\times$, $/$ 등)의
+      우선순위나 결합방향(좌결합, 우결합 등)을 따지는 문법은
+      `구체적 문법'인가 `요약문법'인가?
+ \item 그렇다면 앞의 문제에서 우선순위나 결합방향을 따지지 않는
+      종류의 문법에서는 왜 그러한 정보가 필요없는지 설명해 보라.
  \item 정규식의 구체적문법을 생성규칙 형태나 BNF 표현으로 작성해 보라.
  \item 정규식의 요약문법을 Haskell 데이터 타입으로 작성해 보라.
+ \item 정규식 $\varepsilon$과 문자열 $\varepsilon$의 관계를 설명해 보라.
+ \item 클레이니 스타와 관련된 공식($r^{*} \equiv \varepsilon\VERT r\,r^{*}$)을
+       등호($=$)가 아닌 동치($\equiv$)로 본문에서 표기한 이유를 설명해 보라.
 \end{enumerate}
-
-\section*{탐구과제}
-\begin{enumerate}[itemsep=0pt]
- \item 정규식의 문법을 확장한 EBNF에 대해 알아보라.
-       참고로, 다양한 EBNF에는 표기 방식이 있으며 BNF와 약간 다른
-       표기 방식을 택하는 경우도 있는데, 그림\;\ref{fig:EBNF}는
-       BNF 표기와 최대한 가까운 방식의 EBNF 표기이다.
- \item 그림\;\ref{fig:EBNF}에는 이 장에서 예시로 다룬 다룬 사칙연산과
-       거듭제곱을 포함한 산술식에 대한 두 가지 ENBF 표현이 나타나 있다.
-       이 두 EBNF 표현이 같다면 어떤 점에서 같고 다르다면 어떤 점에서
-       다른지, 그림\;\ref{fig:BNF}의 BNF와 비교하며 설명해 보라.
- \item 4단계의 촘스키 계층에 추가로 더 상세한 성질로 구분되는 언어의
-      유형도 있다. 어떤 공통된 기준으로 재귀열거언어(recursively
-      enumerable language)의 일부를 재귀언어(recursive language)로,
-      또 문맥자유언어(context-free language, CFL)의 일부를 결정적
-      문맥자유언어(deterministic context-free language, DCFL)로 구분한다.
-      그 공통된 기준이란 어떤 내용인지 알아보라.
- \item 방금 위에서 언급한 결정적 문맥자유언어(DCFL)와 이 장에서 설명한
-       모호하지 않은 문맥자유언어(unambiguous CFL)의 관계를 알아보라.
-\end{enumerate}
-
 
 \begin{figure}[b]
 \begin{lstlisting}
@@ -1582,6 +1592,26 @@ JavaScript 언어의 정규식 등 여러 종류가 있다.
          활용한 산술식의 EBNF 표현 두 가지
          \label{fig:EBNF}}
 \end{figure}
+
+\section*{탐구과제}
+\begin{enumerate}[itemsep=0pt]
+ \item 정규식의 문법을 확장한 EBNF에 대해 알아보라.
+       참고로, EBNF에는 다양한 표기 방식이 있으며 BNF와 약간 다른
+       표기 방식을 택하는 경우도 있는데, 그림\;\ref{fig:EBNF}는
+       BNF 표기와 최대한 가까운 방식의 EBNF 표기이다.
+ \item 그림\;\ref{fig:EBNF}에는 이 장에서 예시로 다룬 다룬 사칙연산과
+       거듭제곱을 포함한 산술식에 대한 두 가지 ENBF 표현이 나타나 있다.
+       이 두 EBNF 표현이 같다면 어떤 점에서 같고 다르다면 어떤 점에서
+       다른지, 그림\;\ref{fig:BNF}의 BNF와 비교하며 설명해 보라.
+ \item 4단계의 촘스키 계층에 추가로 더 상세한 성질로 구분되는 언어의
+      유형도 있다. 어떤 공통된 기준으로 재귀열거언어(recursively
+      enumerable language)의 일부를 재귀언어(recursive language)로,
+      또 문맥자유언어(context-free language, CFL)의 일부를 결정적
+      문맥자유언어(deterministic context-free language, DCFL)로 구분한다.
+      그 공통된 기준이란 어떤 내용인지 알아보라.
+ \item 방금 위에서 언급한 결정적 문맥자유언어(DCFL)와 이 장에서 설명한
+       모호하지 않은 문맥자유언어(unambiguous CFL)의 관계를 알아보라.
+\end{enumerate}
 
 
 
@@ -3263,5 +3293,7 @@ $\llbracket\texttt{plus}(\texttt{slen}(ab),\texttt{slen}(bba))\rrbracket \subset
 \begin{enumerate}
  \item 업계에서 활용되는 점진적 타입(gradual type)에
        기반한 프로그래밍언어에 대해 조사해 보라.
+ \item C나 Java등 실제로 현업에서 널리 쓰이는 프로그래밍 언어에서
+       타입보존(type preservation)이 성립하지 않는 사례가 있는지 조사해 보라.
 \end{enumerate}
 
