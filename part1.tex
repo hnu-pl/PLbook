@@ -900,11 +900,15 @@ $\displaystyle
 
 \section*{탐구과제}
 \begin{enumerate}
- \item C의 여러 줄 주석과 Rust의 여러 줄 주석은 대략
+\item C의 여러 줄 주석과 Rust의 여러 줄 주석은 대략
       \verb|/* ... */| 이런 모양으로 비슷해 보이지만,
       C의 경우와 달리 Rust의 여러 줄 주석은 정규문법으로는 처리할 수 없다.
       Rust의 여러 줄 주석이 C와 어떤 점이 다르기 때문에 이런 차이가 있는지
       조사하여 설명해 보라.
+\item 실제 프로그래밍언어의 문법 중 대부분 요소는 문맥자유문법으로 표현하여
+      처리할 수 있지만, 그 중 일부는 문맥자유문법의 범위를 벗어난 문맥의존문법
+      혹은 다른 방법을 추가로 동원해야만 처리 가능한 것들도 있다.
+      어떤 프로그래밍 언어의 어떤 요소가 그러한지 몇 가지 사례를 조사해 보라.
 \end{enumerate}
 
 \chapter[프로그래밍언어의 문법구조(Syntax)]{프로그래밍언어의\\문법구조(Syntax)}
@@ -1597,7 +1601,7 @@ JavaScript 언어의 정규식 등 여러 종류가 있다.
 \begin{enumerate}[itemsep=0pt]
  \item 정규식의 문법을 확장한 EBNF에 대해 알아보라.
        참고로, EBNF에는 다양한 표기 방식이 있으며 BNF와 약간 다른
-       표기 방식을 택하는 경우도 있는데, 그림\;\ref{fig:EBNF}는
+타구과제   표기 방식을 택하는 경우도 있는데, 그림\;\ref{fig:EBNF}는
        BNF 표기와 최대한 가까운 방식의 EBNF 표기이다.
  \item 그림\;\ref{fig:EBNF}에는 이 장에서 예시로 다룬 다룬 사칙연산과
        거듭제곱을 포함한 산술식에 대한 두 가지 ENBF 표현이 나타나 있다.
@@ -2632,6 +2636,7 @@ $\{\text{밥}\ge n+2\}
 \end{enumerate}
 
 \chapter{유효범위(Scope)와 타입(Type)}
+\label{chap:scope-type}
 컴파일러 관련 기술을 논할 때, 구문분석(syntax analysis)을 마치고
 가운데단의 중간 코드 생성(intermediate code generation) 및
 최적화(optimization)와 뒷단의 코드 생성(code generation)을 하기 전,
