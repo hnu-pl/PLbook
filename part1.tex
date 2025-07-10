@@ -1620,7 +1620,7 @@ JavaScript 언어의 정규식 등 여러 종류가 있다.
 
 
 \chapter[프로그래밍언어의 의미구조(Semantics)]{프로그래밍언어의\\의미구조(Semantics)}
-
+\label{chap:Semantics}
 프로그래밍언어의 의미구조를 다루는 여러 가지 방식 중에 대표적인
 세 가지는 지시적 의미구조(denotational semantics),
 동작과정 의미구조(operational semantics),
@@ -2107,6 +2107,7 @@ $\overline{
 가로선이 생략된 것으로 이해해도 무방하다.
 
 \subsubsection{큰걸음과 작은걸음 의미구조 비교}
+\label{sssec:big-vs-small-Semantics}%
 큰걸음 의미구조에서는 $e\Longmapsto v$의 성립이 곧 $e$의 ``계산과정''을
 제대로 끝마친 것이다. 한편 작은걸음 의미구조에서는 ``계산과정''이 제대로
 끝났는지 확인하는 조건을 (누구나 짐작할만한 당연한 내용이 아니라면) 별도로
@@ -2281,6 +2282,7 @@ $\varsigma(\varepsilon c^{*}) = c^{*}$로 간소화되는 것이다.
 해당하는 정상종료 형태의 식에 도달할 수 있어야 한다는 말이다.
 
 \subsection{비결정적 (작은걸음) 의미구조와 합류성}
+\label{ssec:confluence}
 \index{비결정적 의미구조|see{nondeterministic semantics}}%
 \index{nondeterministic semantics|see{비결정적 의미구조}}%
 비결정적 의미구조(nondeterministic semantics)란 하나의 계산식에
